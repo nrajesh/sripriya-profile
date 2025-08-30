@@ -15,24 +15,9 @@ export const navLinks = [
 
 export const socialLinks = [
   {
-    href: "https://www.facebook.com/ashwinsanghi",
+    href: "https://www.facebook.com/sripriya.srinivasan.940309",
     label: "Facebook",
     icon: Facebook,
-  },
-  {
-    href: "https://twitter.com/ashwinsanghi",
-    label: "Twitter",
-    icon: Twitter,
-  },
-  {
-    href: "https://www.instagram.com/ashwinsanghi",
-    label: "Instagram",
-    icon: Instagram,
-  },
-  {
-    href: "https://www.youtube.com/user/ashwinsanghi",
-    label: "YouTube",
-    icon: Youtube,
   },
 ];
 
@@ -55,36 +40,36 @@ const rawBooks = [
     title: "கலாமின் இந்தியக் கனவுகள்",
     coverUrl: "/covers/kalamin-indhiya-kanavugal.jpg",
     detailsUrl: "https://www.noolulagam.com/product/?pid=34503",
-    publisher: "The Scientific Indian",
+    publisher: "கிழக்கு பதிப்பகம்",
     publicationDate: "July 01, 2017",
-    pageCount: "160",
+    pageCount: "280",
     isbn: "B07BJK8TFY (ASIN); 9788184937947 (ISBN)",
   },
   {
     title: "பகவத் கீதை தர்க்காலத் தமிழில்",
     coverUrl: "/covers/bhagavad-gitai.jpg",
     detailsUrl: "https://amzn.in/d/8E1f4BP",
-    publisher: "Notion Press",
+    publisher: "CreateSpace Independent Publishing Platform",
     publicationDate: "September 11, 2017",
-    pageCount: "200",
-    isbn: "9781976284601 (ISBN)",
+    pageCount: "340",
+    isbn: "9781976284601 (ISBN-13); 1976284600 (ISBN-10)",
   },
   {
     title: "சிவ-ராம-கிருஷ்ணன்",
     coverUrl: "/covers/siva-rama-krishnan.jpg",
-    detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=6116",
-    publisher: "Prekshaa",
+    detailsUrl: "https://amzn.in/d/3p2s24Y",
+    publisher: "Prekshaa Pratishtana",
     publicationDate: "April 21, 2021",
-    pageCount: "100",
+    pageCount: "10 part series",
     isbn: "B0936ZXLX7 (ASIN)",
   },
   {
     title: "உபநயனம் – ஒரு எளிய அறிமுகம்",
     coverUrl: "/covers/upanayanam.jpg",
     detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=7139",
-    publisher: "Prekshaa",
+    publisher: "Prekshaa Pratishtana",
     publicationDate: "March 02, 2019",
-    pageCount: "100",
+    pageCount: "15 part series",
     isbn: null,
   },
   {
@@ -102,7 +87,7 @@ const rawBooks = [
     detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-translation-of-ninaivugalukku-maranamillai.htm",
     publisher: "Prabhat Prakashan",
     publicationDate: "April 08, 2023",
-    pageCount: "208",
+    pageCount: "456",
     isbn: "9788196159078 (ISBN); B0C2YTW8SR (ASIN)",
   },
   {
@@ -120,8 +105,9 @@ const rawBooks = [
     detailsUrl: "https://sahityabooks.com/shop/rashtrotthana-sahitya/the-pallava-empire/",
     publisher: "Rashtrotthana Sahitya",
     publicationDate: "June 19, 2025",
-    pageCount: "160",
+    pageCount: null,
     isbn: "9789393991423 (ISBN)",
+    description: "Along with the Colas, Ceras, and Pandyas, the Pallavas were among the most important dynasties that ruled over the Tamil heartland. Who were the Pallavas? Where did they come from? What was their administration like? In what ways did they contribute to the heritage of Bharata?\n\nThe Pallava Empire : A Gentle Introduction offers a broad overview of the political, social, cultural, and economic landscape that prevailed during Pallava rule spanning 600 years, from 3rd to 9th century C.E. This book is written in an eminently readable style keeping in mind a general audience.",
   },
 ];
 
