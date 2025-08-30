@@ -36,7 +36,21 @@ export const socialLinks = [
   },
 ];
 
-export const books = [
+// Helper function to parse dates for sorting
+const parseDateForSorting = (dateString: string): Date => {
+  if (!dateString) return new Date(0); // Treat empty string as very old
+  // Handle "Month Day, Year" format
+  if (dateString.includes(',')) {
+    return new Date(dateString);
+  }
+  // Handle "Year" format
+  if (/^\d{4}$/.test(dateString)) {
+    return new Date(`${dateString}-01-01`); // Assume Jan 1st for year-only dates
+  }
+  return new Date(dateString); // Fallback for other formats
+};
+
+const rawBooks = [
   {
     title: "கலாமின் இந்தியக் கனவுகள்",
     coverUrl: "/covers/kalamin-indhiya-kanavugal.jpg",
@@ -44,6 +58,7 @@ export const books = [
     publisher: "The Scientific Indian",
     publicationDate: "2016",
     pageCount: "160",
+    isbn: null,
   },
   {
     title: "பகவத் கீதை தர்க்காலத் தமிழில்",
@@ -52,6 +67,7 @@ export const books = [
     publisher: "Notion Press",
     publicationDate: "January 1, 2023",
     pageCount: "200",
+    isbn: null,
   },
   {
     title: "சிவ-ராம-கிருஷ்ணன்",
@@ -60,6 +76,7 @@ export const books = [
     publisher: "Prekshaa",
     publicationDate: "2019",
     pageCount: "100",
+    isbn: null,
   },
   {
     title: "உபநயனம் – ஒரு எளிய அறிமுகம்",
@@ -68,6 +85,7 @@ export const books = [
     publisher: "Prekshaa",
     publicationDate: "2020",
     pageCount: "100",
+    isbn: null,
   },
   {
     title: "ஸ்வாமி வேதாந்த தேசிகனின் ஸ்ரீஸூக்திகள் – ஒரு அறிமுகம்",
@@ -76,6 +94,7 @@ export const books = [
     publisher: "",
     publicationDate: "",
     pageCount: "",
+    isbn: null,
   },
   {
     title: "Memories Never Die",
@@ -84,6 +103,7 @@ export const books = [
     publisher: "Prabhat Prakashan",
     publicationDate: "2022",
     pageCount: "208",
+    isbn: null,
   },
   {
     title: "Kalam’s Family Tree",
@@ -92,6 +112,7 @@ export const books = [
     publisher: "Prabhat Prakashan",
     publicationDate: "2023",
     pageCount: "160",
+    isbn: null,
   },
   {
     title: "The Pallava Empire",
@@ -100,5 +121,13 @@ export const books = [
     publisher: "Rashtrotthana Sahitya",
     publicationDate: "2023",
     pageCount: "160",
+    isbn: null,
   },
 ];
+
+// Sort books by publication date, most recent first
+export const books = rawBooks.sort((a, b) => {
+  const dateA = parseDateForSorting(a.publicationDate);
+  const dateB = parseDateForSorting(b.publicationDate);
+  return dateB.getTime() - dateA.getTime();
+});
