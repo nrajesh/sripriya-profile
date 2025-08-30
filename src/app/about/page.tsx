@@ -1,12 +1,11 @@
 import Image from "next/image";
 import { author } from "@/lib/data";
+import { GeometricBackground } from "@/components/geometric-background";
 
 export default function AboutPage() {
   return (
     <div className="relative overflow-hidden">
-      {/* Geometric Background Elements */}
-      <div className="absolute top-0 -left-24 w-72 h-72 bg-secondary rounded-full opacity-20" />
-      <div className="absolute -bottom-24 -right-12 w-96 h-96 bg-accent rounded-full opacity-10" />
+      <GeometricBackground />
 
       <div className="container mx-auto px-4 py-12 md:py-20 relative z-10">
         <div className="max-w-4xl mx-auto">

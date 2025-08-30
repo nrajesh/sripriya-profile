@@ -1,11 +1,5 @@
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -13,15 +7,15 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { author, books } from "@/lib/data";
-import Image from "next/image";
 import Link from "next/link";
+import { GeometricBackground } from "@/components/geometric-background";
+import { HeroArt } from "@/components/hero-art";
+import { BookCard } from "@/components/book-card";
 
 export default function Home() {
   return (
     <div className="relative overflow-hidden">
-      {/* Geometric Background Elements */}
-      <div className="absolute top-0 -left-24 w-72 h-72 bg-secondary rounded-full opacity-20" />
-      <div className="absolute -bottom-24 -right-12 w-96 h-96 bg-accent rounded-full opacity-10" />
+      <GeometricBackground />
 
       <div className="container mx-auto px-4 py-12 md:py-20 relative z-10">
         {/* Hero Section */}
@@ -40,11 +34,7 @@ export default function Home() {
               <Link href="/books">Explore Books</Link>
             </Button>
           </div>
-          <div className="relative h-80 hidden md:block">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-secondary" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border-4 border-foreground" />
-          </div>
+          <HeroArt />
         </section>
 
         {/* Featured Books Section */}
@@ -65,28 +55,7 @@ export default function Home() {
                   key={book.title}
                   className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                 >
-                  <div className="p-1">
-                    <Card className="border-2 flex flex-col shadow-none rounded-none h-full">
-                      <CardHeader className="p-0 border-b-2">
-                        <ConditionalLink
-                          href={book.detailsUrl}
-                          className="aspect-[2/3] relative block"
-                        >
-                          <Image
-                            src={book.coverUrl}
-                            alt={`Cover of ${book.title}`}
-                            fill
-                            className="object-cover"
-                          />
-                        </ConditionalLink>
-                      </CardHeader>
-                      <CardContent className="p-4 flex-grow flex flex-col">
-                        <CardTitle className="mb-2 text-lg">
-                          {book.title}
-                        </CardTitle>
-                      </CardContent>
-                    </Card>
-                  </div>
+                  <BookCard book={book} />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -98,22 +67,3 @@ export default function Home() {
     </div>
   );
 }
-
-const ConditionalLink = ({
-  href,
-  children,
-  className,
-}: {
-  href: string | null;
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  if (href) {
-    return (
-      <Link href={href} target="_blank" rel="noopener noreferrer" className={className}>
-        {children}
-      </Link>
-    );
-  }
-  return <div className={className}>{children}</div>;
-};
