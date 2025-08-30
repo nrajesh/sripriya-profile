@@ -11,32 +11,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { navLinks } from "@/lib/data";
-import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export function Header() {
-  const [selectedGradient, setSelectedGradient] = useState<string>("");
+  const { setTheme, theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
+  // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
-    const storedGradient = localStorage.getItem("header-gradient");
-    if (storedGradient) {
-      setSelectedGradient(storedGradient);
-    }
+    setMounted(true);
   }, []);
 
-  const gradients = [
-    { name: "Blue-Orange", class: "bg-gradient-to-r from-blue-400 to-orange-400" },
-    { name: "Purple-Pink", class: "bg-gradient-to-r from-purple-400 to-pink-400" },
-    { name: "Green-Teal", class: "bg-gradient-to-r from-green-400 to-teal-400" },
-    { name: "None", class: "" }, // Option to remove gradient
-  ];
-
-  const handleGradientChange = (gradientClass: string) => {
-    setSelectedGradient(gradientClass);
-    localStorage.setItem("header-gradient", gradientClass);
-  };
+  if (!mounted) {
+    return null;
+  }
 
   return (
-    <header className={`sticky top-0 z-50 w-full border-b bg-background ${selectedGradient}`}>
+    <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container relative flex h-14 items-center justify-end">
         {/* Desktop navigation in the center */}
         <nav className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-6 text-sm">
@@ -51,7 +43,7 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Right-aligned items: Mobile trigger and Gradient switcher */}
+        {/* Right-aligned items: Mobile trigger and Theme switcher */}
         <div className="flex items-center">
           {/* Mobile navigation trigger (only visible on mobile) */}
           <div className="md:hidden">
@@ -78,24 +70,21 @@ export function Header() {
             </Sheet>
           </div>
 
-          {/* Gradient switcher (visible on all screen sizes) */}
+          {/* Theme switcher (visible on all screen sizes) */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="ml-2">
                 <Palette className="h-5 w-5" />
-                <span className="sr-only">Choose Header Gradient</span>
+                <span className="sr-only">Toggle theme</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              {gradients.map((gradient) => (
-                <DropdownMenuItem
-                  key={gradient.name}
-                  onClick={() => handleGradientChange(gradient.class)}
-                  className={gradient.class ? gradient.class : ""}
-                >
-                  {gradient.name}
-                </DropdownMenuItem>
-              ))}
+              <DropdownMenuItem onClick={() => setTheme("light")}>
+                Light
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>
+                Dark
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
