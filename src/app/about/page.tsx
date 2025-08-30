@@ -21,7 +21,7 @@ export default function AboutPage() {
 
           {/* Section 1: About Author */}
           <section className="grid md:grid-cols-5 gap-8 lg:gap-12 items-start mb-16">
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 pt-16">
               <div className="sticky top-24">
                 <Image
                   src="/author-profile.jpeg"
