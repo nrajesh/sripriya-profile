@@ -39,22 +39,22 @@ export const socialLinks = [
 export const books = [
   {
     title: "கலாமின் இந்தியக் கனவுகள்",
-    coverUrl: "/covers/கலாமின் இந்தியக் கனவுகள்.jpg",
+    coverUrl: "/covers/kalamin-indhiya-kanavugal.jpg",
     detailsUrl: "https://www.noolulagam.com/product/?pid=34503",
   },
   {
     title: "பகவத் கீதை தர்க்காலத் தமிழில்",
-    coverUrl: "/covers/பகவத் கீதை தர்க்காலத் தமிழில்.jpg",
+    coverUrl: "/covers/bhagavad-gitai.jpg",
     detailsUrl: "https://amzn.in/d/8E1f4BP",
   },
   {
     title: "சிவ-ராம-கிருஷ்ணன்",
-    coverUrl: "/covers/சிவ-ராம-கிருஷ்ணன்.jpg",
+    coverUrl: "/covers/siva-rama-krishnan.jpg",
     detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=6116",
   },
   {
     title: "உபநயனம் – ஒரு எளிய அறிமுகம்",
-    coverUrl: "/covers/உபநயனம் – ஒரு எளிய அறிமுகம்.jpg",
+    coverUrl: "/covers/upanayanam.jpg",
     detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=7139",
   },
   {
@@ -64,17 +64,17 @@ export const books = [
   },
   {
     title: "Memories Never Die",
-    coverUrl: "/covers/MemoriesNeverDie.jpg",
+    coverUrl: "/covers/memories-never-die.jpg",
     detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-translation-of-ninaivugalukku-maranamillai.htm",
   },
   {
     title: "Kalam’s Family Tree",
-    coverUrl: "/covers/KalamsFamilyTree.jpg",
+    coverUrl: "/covers/kalams-family-tree.jpg",
     detailsUrl: "https://www.prabhatbooks.com/kalam-s-family-tree-ancestral-legacy-of-dr-a-p-j-abdul-kalam.htm",
   },
   {
     title: "The Pallava Empire",
-    coverUrl: "/covers/ThePallavaEmpire.jpg",
+    coverUrl: "/covers/the-pallava-empire.jpg",
     detailsUrl: "https://sahityabooks.com/shop/rashtrotthana-sahitya/the-pallava-empire/",
   },
 ];
