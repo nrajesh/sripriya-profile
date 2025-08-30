@@ -4,17 +4,12 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { author, navLinks } from "@/lib/data";
+import { navLinks } from "@/lib/data";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
-      <div className="container relative flex h-14 items-center justify-between">
-        {/* Logo on the left */}
-        <Link href="/" className="flex items-center space-x-2">
-          <span className="font-bold">{author.name}</span>
-        </Link>
-
+      <div className="container relative flex h-14 items-center justify-end">
         {/* Desktop navigation in the center */}
         <nav className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-6 text-sm">
           {navLinks.map((link) => (
@@ -39,9 +34,6 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="left" className="rounded-none">
               <div className="flex flex-col gap-6 pt-6">
-                <Link href="/" className="font-bold">
-                  {author.name}
-                </Link>
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
