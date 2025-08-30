@@ -65,6 +65,14 @@ export default function BooksPage() {
                       {book.pageCount}
                     </p>
                   )}
+                  {book.isbn && (
+                    <p>
+                      <span className="font-medium text-foreground">
+                        ISBN/ASIN:
+                      </span>{" "}
+                      {book.isbn}
+                    </p>
+                  )}
                 </div>
               </CardContent>
             </Card>
