@@ -56,14 +56,13 @@ export default function AboutPage() {
             <figure className="max-w-3xl mx-auto">
               <Image
                 src="/WithPresidentOfIndia.jpg"
-                alt={`Sripriya Srinivasan with the former President of India, Dr. A.P.J. Abdul Kalam.`}
+                alt={`Sripriya Srinivasan with the President of India, Smt. Draupadi Murmu`}
                 width={1200}
                 height={800}
                 className="rounded-lg object-cover w-full shadow-lg"
               />
               <figcaption className="text-center text-sm text-muted-foreground mt-4">
-                Sripriya Srinivasan with the former President of India, Dr.
-                A.P.J. Abdul Kalam.
+                Sripriya Srinivasan with the President of India, Smt. Draupadi Murmu.
               </figcaption>
             </figure>
           </section>
