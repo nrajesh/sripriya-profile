@@ -1,9 +1,9 @@
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
 export const author = {
-  name: "Ashwin Sanghi",
-  tagline: "The New York Times Bestselling Author",
-  bio: "Ashwin Sanghi is an Indian writer in the thriller genre. He is the author of several bestselling novels, including The Rozabal Line, Chanakya's Chant, and The Krishna Key. He is one of India's highest-selling English fiction authors.",
+  name: "Sripriya Srinivasan",
+  tagline: "Author & Translator",
+  bio: "An accomplished author and translator, Sripriya Srinivasan brings rich narratives and profound ideas to a wider audience through her insightful works.",
 };
 
 export const navLinks = [
@@ -38,31 +38,43 @@ export const socialLinks = [
 
 export const books = [
   {
-    title: "The Magicians of Mazda",
-    coverUrl:
-      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1665413958l/62914228.jpg",
-    description:
-      "A thrilling tale of ancient secrets, historical conspiracies, and a race against time.",
+    title: "கலாமின் இந்தியக் கனவுகள்",
+    coverUrl: "https://www.noolulagam.com/wp-content/uploads/2023/01/Kalamin-Indhiya-Kanavugal.jpg",
+    detailsUrl: "https://www.noolulagam.com/product/?pid=34503",
   },
   {
-    title: "The Vault of Vishnu",
-    coverUrl:
-      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1579792012l/50638301.jpg",
-    description:
-      "An adventure that intertwines the ancient myths of India with modern-day geopolitics.",
+    title: "பகவத் கீதை தர்க்காலத் தமிழில்",
+    coverUrl: "https://m.media-amazon.com/images/I/81b7I-gVj-L._AC_UF1000,1000_QL80_.jpg",
+    detailsUrl: "https://amzn.in/d/8E1f4BP",
   },
   {
-    title: "Keepers of the Kalachakra",
-    coverUrl:
-      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1516522929l/37942299.jpg",
-    description:
-      "A story that explores the collision of science, history, and religion.",
+    title: "சிவ-ராம-கிருஷ்ணன்",
+    coverUrl: "https://www.prekshaa.in/sites/default/files/siva-rama-krishnan-web.jpg",
+    detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=6116",
   },
   {
-    title: "The Sialkot Saga",
-    coverUrl:
-      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1460437375l/29878213.jpg",
-    description:
-      "A gripping narrative of two men whose lives are intertwined by fate and ambition.",
+    title: "உபநயனம் – ஒரு எளிய அறிமுகம்",
+    coverUrl: "https://www.prekshaa.in/sites/default/files/Upanayanam-Oru-Eliya-Arimugam-web.jpg",
+    detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=7139",
+  },
+  {
+    title: "ஸ்வாமி வேதாந்த தேசிகனின் ஸ்ரீஸூக்திகள் – ஒரு அறிமுகம்",
+    coverUrl: "https://placehold.co/400x600/222/FFF?text=Cover",
+    detailsUrl: null,
+  },
+  {
+    title: "Memories Never Die",
+    coverUrl: "https://www.prabhatbooks.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/m/e/memories_never_die_jacket.jpg",
+    detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-translation-of-ninaivugalukku-maranamillai.htm",
+  },
+  {
+    title: "Kalam’s Family Tree",
+    coverUrl: "https://www.prabhatbooks.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/k/a/kalam_s_family_tree_jacket.jpg",
+    detailsUrl: "https://www.prabhatbooks.com/kalam-s-family-tree-ancestral-legacy-of-dr-a-p-j-abdul-kalam.htm",
+  },
+  {
+    title: "The Pallava Empire",
+    coverUrl: "https://sahityabooks.com/wp-content/uploads/2023/11/The-Pallava-Empire.jpg",
+    detailsUrl: "https://sahityabooks.com/shop/rashtrotthana-sahitya/the-pallava-empire/",
   },
 ];

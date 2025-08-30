@@ -6,8 +6,30 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images-na.ssl-images-amazon.com",
-        port: "",
-        pathname: "/images/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.noolulagam.com",
+      },
+      {
+        protocol: "https",
+        hostname: "m.media-amazon.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.prekshaa.in",
+      },
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
+      {
+        protocol: "https",
+        hostname: "www.prabhatbooks.com",
+      },
+      {
+        protocol: "https",
+        hostname: "sahityabooks.com",
       },
     ],
   },

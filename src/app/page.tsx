@@ -2,10 +2,16 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { author, books } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,33 +53,67 @@ export default function Home() {
             <h2 className="text-3xl font-bold">Latest Books</h2>
             <div className="flex-grow h-px bg-border ml-4"></div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {books.map((book) => (
-              <Card
-                key={book.title}
-                className="border-2 flex flex-col shadow-none rounded-none"
-              >
-                <CardHeader className="p-0 border-b-2">
-                  <div className="aspect-[2/3] relative">
-                    <Image
-                      src={book.coverUrl}
-                      alt={`Cover of ${book.title}`}
-                      fill
-                      className="object-cover"
-                    />
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {books.map((book) => (
+                <CarouselItem
+                  key={book.title}
+                  className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+                >
+                  <div className="p-1">
+                    <Card className="border-2 flex flex-col shadow-none rounded-none h-full">
+                      <CardHeader className="p-0 border-b-2">
+                        <ConditionalLink
+                          href={book.detailsUrl}
+                          className="aspect-[2/3] relative block"
+                        >
+                          <Image
+                            src={book.coverUrl}
+                            alt={`Cover of ${book.title}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </ConditionalLink>
+                      </CardHeader>
+                      <CardContent className="p-4 flex-grow flex flex-col">
+                        <CardTitle className="mb-2 text-lg">
+                          {book.title}
+                        </CardTitle>
+                      </CardContent>
+                    </Card>
                   </div>
-                </CardHeader>
-                <CardContent className="p-4 flex-grow flex flex-col">
-                  <CardTitle className="mb-2 text-lg">{book.title}</CardTitle>
-                  <CardDescription className="flex-grow text-sm">
-                    {book.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
         </section>
       </div>
     </div>
   );
 }
+
+const ConditionalLink = ({
+  href,
+  children,
+  className,
+}: {
+  href: string | null;
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  if (href) {
+    return (
+      <Link href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {children}
+      </Link>
+    );
+  }
+  return <div className={className}>{children}</div>;
+};

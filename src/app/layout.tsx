@@ -12,8 +12,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Ashwin Sanghi | Official Website",
-  description: "The official website of the bestselling author Ashwin Sanghi.",
+  title: "Sripriya Srinivasan | Official Website",
+  description: "The official website of author and translator Sripriya Srinivasan.",
 };
 
 export default function RootLayout({
