@@ -8,7 +8,7 @@ import { author, navLinks } from "@/lib/data";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -36,7 +36,7 @@ export function Header() {
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left">
+            <SheetContent side="left" className="rounded-none">
               <div className="flex flex-col gap-6 pt-6">
                 <Link href="/" className="font-bold">
                   {author.name}
