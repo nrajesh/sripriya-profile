@@ -39,22 +39,22 @@ export const socialLinks = [
 export const books = [
   {
     title: "கலாமின் இந்தியக் கனவுகள்",
-    coverUrl: "https://www.noolulagam.com/wp-content/uploads/2023/01/Kalamin-Indhiya-Kanavugal.jpg",
+    coverUrl: "/covers/kalamin-indhiya-kanavugal.jpg",
     detailsUrl: "https://www.noolulagam.com/product/?pid=34503",
   },
   {
     title: "பகவத் கீதை தர்க்காலத் தமிழில்",
-    coverUrl: "https://m.media-amazon.com/images/I/81b7I-gVj-L._AC_UF1000,1000_QL80_.jpg",
+    coverUrl: "/covers/bhagavad-gitai.jpg",
     detailsUrl: "https://amzn.in/d/8E1f4BP",
   },
   {
     title: "சிவ-ராம-கிருஷ்ணன்",
-    coverUrl: "https://www.prekshaa.in/sites/default/files/siva-rama-krishnan-web.jpg",
+    coverUrl: "/covers/siva-rama-krishnan.jpg",
     detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=6116",
   },
   {
     title: "உபநயனம் – ஒரு எளிய அறிமுகம்",
-    coverUrl: "https://www.prekshaa.in/sites/default/files/Upanayanam-Oru-Eliya-Arimugam-web.jpg",
+    coverUrl: "/covers/upanayanam.jpg",
     detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=7139",
   },
   {
@@ -64,17 +64,17 @@ export const books = [
   },
   {
     title: "Memories Never Die",
-    coverUrl: "https://www.prabhatbooks.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/m/e/memories_never_die_jacket.jpg",
+    coverUrl: "/covers/memories-never-die.jpg",
     detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-translation-of-ninaivugalukku-maranamillai.htm",
   },
   {
     title: "Kalam’s Family Tree",
-    coverUrl: "https://www.prabhatbooks.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/k/a/kalam_s_family_tree_jacket.jpg",
+    coverUrl: "/covers/kalams-family-tree.jpg",
     detailsUrl: "https://www.prabhatbooks.com/kalam-s-family-tree-ancestral-legacy-of-dr-a-p-j-abdul-kalam.htm",
   },
   {
     title: "The Pallava Empire",
-    coverUrl: "https://sahityabooks.com/wp-content/uploads/2023/11/The-Pallava-Empire.jpg",
+    coverUrl: "/covers/the-pallava-empire.jpg",
     detailsUrl: "https://sahityabooks.com/shop/rashtrotthana-sahitya/the-pallava-empire/",
   },
 ];
