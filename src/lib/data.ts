@@ -47,7 +47,7 @@ const rawBooks = [
     description: "From enhanced nuclear capability to an unmanned Moon mission, India s scientific achievements in recent years have been spectacular. But, according to the country s best-known scientist A.P.J. Abdul Kalam and his close associate Y.S. Rajan, we ve only just begun. In a century that many experts predict may belong to India, the realization of the vision of a better future for everyone will require a keen understanding of our needs and this can only be achieved by tailoring our research and innovations to the goal of national development.\n\nIn The Scientific Indian, the authors of the path-breaking India 2020: A Vision for the New Millennium return after ten years to the core areas of scientific advancement that are crucial space exploration, satellite technology, missile development, earth and ocean resources, the biosphere, food production, energy and water harvesting, health care and communications, to name a few. For each aspect, the authors discuss Indian breakthroughs within the context of recent progress on the global platform, before outlining a pragmatic vision of technological development that will propel India to the forefront of the world in the decades to come.",
   },
   {
-    title: "பகவத் கீதை தர்க்காலத் தமிழில்",
+    title: "பகவத் கீதை தற்க்காலத் தமிழில்",
     coverUrl: "/covers/bhagavad-gitai.jpg",
     detailsUrl: "https://amzn.in/d/8E1f4BP",
     publisher: "CreateSpace Independent Publishing Platform",
@@ -102,7 +102,7 @@ const rawBooks = [
     detailsUrl: "https://sahityabooks.com/shop/rashtrotthana-sahitya/the-pallava-empire/",
     publisher: "Rashtrotthana Sahitya",
     publicationDate: "June 19, 2025",
-    pageCount: null,
+    pageCount: "xix + 166",
     isbn: "9789393991423 (ISBN)",
     description: "Along with the Colas, Ceras, and Pandyas, the Pallavas were among the most important dynasties that ruled over the Tamil heartland. Who were the Pallavas? Where did they come from? What was their administration like? In what ways did they contribute to the heritage of Bharata?\n\nThe Pallava Empire : A Gentle Introduction offers a broad overview of the political, social, cultural, and economic landscape that prevailed during Pallava rule spanning 600 years, from 3rd to 9th century C.E. This book is written in an eminently readable style keeping in mind a general audience.",
   },
