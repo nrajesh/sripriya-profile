@@ -29,9 +29,12 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
-      <div className="container relative flex h-14 items-center justify-end">
+      <div className="container relative flex h-14 items-center justify-between">
+        {/* Left placeholder for balance on desktop */}
+        <div className="hidden md:block w-10"></div>
+
         {/* Desktop navigation in the center */}
-        <nav className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-6 text-sm">
+        <nav className="hidden md:flex items-center gap-6 text-sm">
           {navLinks.map((link) => (
             <Link
               key={link.href}
