@@ -78,12 +78,13 @@ export default function AboutPage() {
                   She has translated several significant books, including biography of prominent personalities like that of the former president of India - Dr.
                   A.P.J. Abdul Kalam (&quot;Memories Never Die&quot;) from Tamil to
                   English and Koti Sreekrishna and Hari Ravikumar’s significant work on Bhagavad-Gita (&quot;பகவத்கீதை தற்காலத் தமிழில்&quot;) from English to
-                  Tamil. Her translation portfolio also includes rendering the
+                  Tamil.
+                </p>
+                <p>
+                  Her translation portfolio also includes rendering the
                   popular lecture series of the esteemed Shatavadhani Dr. R. Ganesh (&quot;சிவ-ராம-கிருஷ்ணன்&quot;)
                   to Tamil, demonstrating her ability to bridge linguistic and
                   cultural divides.
-                </p>
-                <p>
                   She has also translated books for Rashtrotthana Sahitya,
                   further cementing her reputation as a skilled and dedicated
                   translator.
