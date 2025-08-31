@@ -51,6 +51,7 @@ const rawBooks = [
     title: "பகவத்கீதை தற்காலத் தமிழில்",
     coverUrl: "/covers/bhagavad-gitai.jpg",
     detailsUrl: "https://amzn.in/d/8E1f4BP",
+    originalAuthors: "Koti Sreekrishna; ",
     publisher: "CreateSpace Independent Publishing Platform",
     publicationDate: "September 11, 2017",
     pageCount: "340",
