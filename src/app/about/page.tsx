@@ -76,7 +76,7 @@ export default function AboutPage() {
               <div className="space-y-4 text-muted-foreground text-base md:text-lg">
                 <p>
                   She has translated several significant books, including biography of prominent personalities like that of the former president of India - Dr.
-                  A.P.J. Abdul Kalam &quot;Memories Never Die&quot; from Tamil to
+                  A.P.J. Abdul Kalam (&quot;Memories Never Die&quot;) from Tamil to
                   English and Ashwin Sanghi’s bestseller &quot;The Krishna Key&quot; into
                   Tamil. Her translation portfolio also includes rendering the
                   works of the esteemed Shatavadhani Dr. R. Ganesh from Kannada
