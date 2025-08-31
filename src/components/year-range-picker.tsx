@@ -16,13 +16,13 @@ import { Calendar as CalendarIcon } from "lucide-react"; // Still useful for the
 interface YearRangePickerProps {
   onYearChange: (range: { from?: Date; to?: Date }) => void;
   initialRange?: { from?: Date; to?: Date };
-  className?: string;
+  className?: string; // Added className prop
 }
 
 export function YearRangePicker({
   onYearChange,
   initialRange,
-  className,
+  className, // Destructure className
 }: YearRangePickerProps) {
   const currentYear = new Date().getFullYear();
   // Generate years from 1900 to current year
@@ -34,6 +34,12 @@ export function YearRangePicker({
   const [toYear, setToYear] = React.useState<string | undefined>(
     initialRange?.to ? String(initialRange.to.getFullYear()) : undefined
   );
+
+  // Effect to update internal state when initialRange prop changes (for reset)
+  React.useEffect(() => {
+    setFromYear(initialRange?.from ? String(initialRange.from.getFullYear()) : undefined);
+    setToYear(initialRange?.to ? String(initialRange.to.getFullYear()) : undefined);
+  }, [initialRange]);
 
   React.useEffect(() => {
     const fromDate = fromYear ? new Date(parseInt(fromYear), 0, 1) : undefined; // Jan 1st of fromYear
@@ -55,14 +61,14 @@ export function YearRangePicker({
   }, [fromYear, toYear]);
 
   return (
-    <div className={cn("grid gap-2", className)}>
+    <div className={cn("grid gap-2", className)}> {/* Apply className here */}
       <Popover>
         <PopoverTrigger asChild>
           <Button
             id="year-range"
             variant={"outline"}
             className={cn(
-              "w-full justify-start text-left font-normal",
+              "w-full justify-start text-left font-normal", // Keep w-full for the button inside its container
               (!fromYear && !toYear) && "text-muted-foreground"
             )}
           >
@@ -73,7 +79,7 @@ export function YearRangePicker({
         <PopoverContent className="w-auto p-4" align="start">
           <div className="flex space-x-2">
             <Select value={fromYear} onValueChange={setFromYear}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-[120px]"> {/* Made select triggers smaller */}
                 <SelectValue placeholder="From Year" />
               </SelectTrigger>
               <SelectContent>
@@ -86,7 +92,7 @@ export function YearRangePicker({
             </Select>
 
             <Select value={toYear} onValueChange={setToYear}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-[120px]"> {/* Made select triggers smaller */}
                 <SelectValue placeholder="To Year" />
               </SelectTrigger>
               <SelectContent>

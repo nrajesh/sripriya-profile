@@ -15,12 +15,18 @@ import { books as allBooks } from "@/lib/data"; // Import all books for suggesti
 
 interface BookSearchProps {
   onSearch: (searchTerm: string) => void;
+  initialSearchTerm: string; // New prop
 }
 
-export function BookSearch({ onSearch }: BookSearchProps) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm); // Initialize with prop
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(initialSearchTerm);
   const [open, setOpen] = useState(false); // State to control Popover open/close
+
+  // Update internal searchTerm when initialSearchTerm prop changes (for reset)
+  useEffect(() => {
+    setSearchTerm(initialSearchTerm);
+  }, [initialSearchTerm]);
 
   // Debounce search term to avoid excessive re-renders and filtering
   useEffect(() => {
@@ -75,7 +81,7 @@ export function BookSearch({ onSearch }: BookSearchProps) {
   };
 
   return (
-    <div className="relative w-full max-w-md mx-auto">
+    <div className="relative w-full">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           {/* This is the visible input field */}

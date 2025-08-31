@@ -9,10 +9,16 @@ import { GeometricBackground } from "@/components/geometric-background";
 import { BookSearch } from "@/components/book-search";
 import React, { useState, useMemo } from "react";
 import { YearRangePicker } from "@/components/year-range-picker"; // Import the new component
+import { Button } from "@/components/ui/button"; // Import Button component
 
 export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({}); // Placeholder for date range state
+  const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({});
+
+  const handleResetFilters = () => {
+    setSearchTerm("");
+    setDateRange({});
+  };
 
   // Filter books based on search term and date range
   const filteredBooks = useMemo(() => {
@@ -29,7 +35,7 @@ export default function BooksPage() {
       });
     }
 
-    // Date range filter logic will go here when implemented
+    // Date range filter logic
     if (dateRange.from || dateRange.to) {
       currentBooks = currentBooks.filter(book => {
         const publicationDate = book.publicationDate ? new Date(book.publicationDate) : null;
@@ -74,18 +80,25 @@ export default function BooksPage() {
           </p>
         </header>
 
-        {/* Search Bar */}
-        <div className="mb-12">
-          <BookSearch onSearch={setSearchTerm} />
-          <div className="mt-4 max-w-md mx-auto">
-            <YearRangePicker onYearChange={setDateRange} />
+        {/* Search Bar and Filters */}
+        <div className="mb-12 flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto">
+          <div className="w-full md:w-1/2"> {/* BookSearch takes half width on md screens */}
+            <BookSearch onSearch={setSearchTerm} initialSearchTerm={searchTerm} />
+          </div>
+          <div className="flex items-center gap-4 w-full md:w-auto"> {/* YearPicker and Reset Button */}
+            <YearRangePicker onYearChange={setDateRange} initialRange={dateRange} className="w-[200px]" /> {/* Fixed width for year picker */}
+            <Button onClick={handleResetFilters} variant="outline">
+              Reset Search
+            </Button>
           </div>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-12"> {/* Increased space between category groups */}
-          {sortedCategories.length === 0 && searchTerm && (
+          {sortedCategories.length === 0 && (searchTerm || dateRange.from || dateRange.to) ? (
             <p className="text-center text-muted-foreground text-lg">No books found matching your search criteria.</p>
-          )}
+          ) : sortedCategories.length === 0 && !(searchTerm || dateRange.from || dateRange.to) ? (
+            <p className="text-center text-muted-foreground text-lg">No books available.</p>
+          ) : null}
           {sortedCategories.map((category) => (
             <div key={category}>
               <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center md:text-left">
