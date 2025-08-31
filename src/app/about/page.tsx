@@ -90,7 +90,7 @@ export default function AboutPage() {
                   translator.
                 </p>
                 <p>
-                  Her latest original work (&quot;The Pallava Empire&quot;) has earned plaudits from researchers and scholars in the field of 
+                  Her latest original work (&quot;The Pallava Empire&quot;) has earned plaudits from researchers and scholars in the field of Indian history. 
                 </p>
               </div>
             </section>
