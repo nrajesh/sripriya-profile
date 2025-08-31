@@ -34,7 +34,9 @@ export default function Home() {
               <Link href="/books">Explore Books</Link>
             </Button>
           </div>
-          <HeroArt />
+          <div className="max-w-lg mx-auto">
+            <HeroArt />
+          </div>
         </section>
 
         {/* Featured Books Section */}
