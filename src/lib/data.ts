@@ -94,7 +94,7 @@ const rawBooks = [
     pageCount: "456",
     isbn: "9788196159078 (ISBN); B0C2YTW8SR (ASIN)",
     category: "English Translation",
-    tags: "memories, family, science, research, space, india",
+    tags: "memories, family, science, research, space, India",
     description: "This book is an English translation of the Tamil book ‘Ninaivugalukku Maranamillai’. Written by two people closest to A.P.J. Abdul Kalam—his niece Dr. Nazema Maraikayar and the distinguished ISRO scientist Dr. Y.S. Rajan, who was a close confidante of Kalam —this book gives a holistic and honest revelation of the life of Dr. Kalam from his early childhood till he breathed his last.\n\nThis is the story of how a small-town boy from Rameswaram ascended to the highest echelons of the Indian political world. This book comprehensively covers the beautiful history of Indian rocketry, precursors to today’s Science and Technology, the workings of the Indian political and administrative",
   },
   {
@@ -107,7 +107,7 @@ const rawBooks = [
     pageCount: "160",
     isbn: "9789355628121 (ISBN); B0D1CNDBZC (ASIN)",
     category: "English Translation",
-    tags: "geneology, family, science, research, space, india",
+    tags: "geneology, family, science, research, space, India",
     description: "This book is an intimate memoir written by A.P.J. Abdul Kalam’s niece, who is closely connected to him and the family. The book offers a rare glimpse into the family life and ancestral roots of India’s beloved “Missile Man.’ The book was originally written in Tamil and later translated in English and Hindi.\n\nIt takes you to Dr. Kalam’s humble beginnings in Rameshwaram, Tamil Nadu, where the young Kalam’s curiosity and thirst of knowledge were nurtured within the embrace of a close-knit Muslim family. From the sacrifices of his parents to the wisdom imparted by his grandparents, the book celebrates the indelible impact of family on his journey to becoming the President of India.\n\nIt emphasises on the cultural and religious roots that he inherited from different generations. It mainly reflects how historical events, wars, societal changes, economic conditions, etc., had an effect on his personality. The book is a tribute to the power of heritage, perseverance and the pursuit of knowledge values that resonated deeply within the Kalam lineage.",
   },
   {
@@ -120,7 +120,7 @@ const rawBooks = [
     pageCount: "xix + 166",
     isbn: "9789393991423 (ISBN)",
     category: "Original Publication",
-    tags: "history, archeology, india, tamil, pallava, kingdom",
+    tags: "history, archeology, India, tamil, pallava, kingdom",
     description: "Along with the Colas, Ceras, and Pandyas, the Pallavas were among the most important dynasties that ruled over the Tamil heartland. Who were the Pallavas? Where did they come from? What was their administration like? In what ways did they contribute to the heritage of Bharata?\n\nThe Pallava Empire : A Gentle Introduction offers a broad overview of the political, social, cultural, and economic landscape that prevailed during Pallava rule spanning 600 years, from 3rd to 9th century C.E. This book is written in an eminently readable style keeping in mind a general audience.",
   },
 ];
