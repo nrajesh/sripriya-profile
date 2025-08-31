@@ -44,7 +44,7 @@ export default function AboutPage() {
                   understanding.
                 </p>
                 <p>
-                  With a background in Carnatic music and Sanskrit, Sripriya
+                  While she has a background in Computer Science Engineering, she was with a deep interest in literature, and Sanskrit, Sripriya
                   brings a unique, culturally rich perspective to her writing.
                 </p>
               </div>
