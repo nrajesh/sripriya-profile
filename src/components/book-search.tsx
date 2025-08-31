@@ -76,18 +76,21 @@ export function BookSearch({ onSearch, onDateFilter }: BookSearchProps) {
 
   return (
     <div className="relative w-full max-w-md mx-auto">
-      <Command shouldFilter={false}> {/* We handle filtering for suggestions manually */}
-        <CommandInput
-          placeholder="Search by tags, publisher, or authors..."
-          value={searchTerm}
-          onValueChange={(value) => {
-            setSearchTerm(value);
-            setOpen(true); // Open suggestions when typing
-          }}
-          className="h-10"
-        />
-        {open && suggestions.length > 0 && (
-          <CommandList className="absolute z-20 w-full bg-popover text-popover-foreground shadow-md rounded-md mt-1 max-h-[300px] overflow-y-auto">
+      <CommandInput
+        placeholder="Search by tags, publisher, or authors..."
+        value={searchTerm}
+        onValueChange={(value) => {
+          setSearchTerm(value);
+          setOpen(true); // Open suggestions when typing
+        }}
+        className="h-10"
+      />
+      {open && suggestions.length > 0 && (
+        <Command
+          shouldFilter={false} // We handle filtering for suggestions manually
+          className="absolute z-20 w-full bg-popover text-popover-foreground shadow-md rounded-md mt-1 max-h-[300px] overflow-y-auto"
+        >
+          <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
               {suggestions.map((suggestion) => (
@@ -101,8 +104,8 @@ export function BookSearch({ onSearch, onDateFilter }: BookSearchProps) {
               ))}
             </CommandGroup>
           </CommandList>
-        )}
-      </Command>
+        </Command>
+      )}
       {/* Calendar-based search option can be added here */}
     </div>
   );
