@@ -5,18 +5,21 @@ export function Footer() {
   return (
     <footer className="border-t border-border/40">
       <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
-        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <p className="text-center text-sm leading-loose text-muted-foreground">
-            &copy; {new Date().getFullYear()} {author.name}. All Rights
-            Reserved.
-          </p>
-          <Link
-            href="/privacy"
-            className="text-center text-sm leading-loose text-muted-foreground hover:underline"
-          >
-            Privacy Policy
-          </Link>
-        </div>
+        {/* Privacy Policy Link - Left aligned with margin on desktop */}
+        <Link
+          href="/privacy"
+          className="text-center text-sm leading-loose text-muted-foreground hover:underline md:ml-4"
+        >
+          Privacy Policy
+        </Link>
+
+        {/* Copyright Text - Centered */}
+        <p className="text-center text-sm leading-loose text-muted-foreground">
+          &copy; {new Date().getFullYear()} {author.name}. All Rights
+          Reserved.
+        </p>
+
+        {/* Social Links - Right aligned */}
         <div className="flex items-center gap-4">
           {socialLinks.map((social) => (
             <Link
