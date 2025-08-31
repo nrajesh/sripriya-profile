@@ -46,7 +46,7 @@ const rawBooks = [
     pageCount: "280",
     isbn: "B07BJK8TFY (ASIN); 9788184937947 (ISBN)",
     category: "Tamil Translation",
-    tags: "India, science, technology, space, research, isro, ",
+    tags: "India, science, technology, space, research, isro",
     description: "From enhanced nuclear capability to an unmanned Moon mission, India's scientific achievements in recent years have been spectacular. But, according to the country s best-known scientist Dr. A.P.J. Abdul Kalam and his close associate Dr. Y.S. Rajan, we've only just begun. In a century that many experts predict may belong to India, the realization of the vision of a better future for everyone will require a keen understanding of our needs and this can only be achieved by tailoring our research and innovations to the goal of national development.\n\nIn The Scientific Indian, the authors of the path-breaking India 2020: A Vision for the New Millennium return after ten years to the core areas of scientific advancement that are crucial space exploration, satellite technology, missile development, earth and ocean resources, the biosphere, food production, energy and water harvesting, health care and communications, to name a few. For each aspect, the authors discuss Indian breakthroughs within the context of recent progress on the global platform, before outlining a pragmatic vision of technological development that will propel India to the forefront of the world in the decades to come.",
   },
   {
@@ -98,7 +98,7 @@ const rawBooks = [
     pageCount: "456",
     isbn: "9788196159078 (ISBN); B0C2YTW8SR (ASIN)",
     category: "English Translation",
-    tags: "memories, family, science, research, space, India",
+    tags: "memories, family, science, research, space, India, isro",
     description: "This book is an English translation of the Tamil book ‘Ninaivugalukku Maranamillai’. Written by two people closest to A.P.J. Abdul Kalam—his niece Dr. Nazema Maraikayar and the distinguished ISRO scientist Dr. Y.S. Rajan, who was a close confidante of Kalam —this book gives a holistic and honest revelation of the life of Dr. Kalam from his early childhood till he breathed his last.\n\nThis is the story of how a small-town boy from Rameswaram ascended to the highest echelons of the Indian political world. This book comprehensively covers the beautiful history of Indian rocketry, precursors to today’s Science and Technology, the workings of the Indian political and administrative",
   },
   {
