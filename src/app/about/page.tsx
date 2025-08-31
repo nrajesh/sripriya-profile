@@ -102,13 +102,6 @@ export default function AboutPage() {
                   Prekshaa Journal, where she writes insightful articles on
                   various subjects.
                 </p>
-                <p>
-                  Despite her literary achievements, she also excels in the tech
-                  world, holding a gold medal in M.Sc (IT) from the University
-                  of Madras and working as a Senior Business Analyst in an IT
-                  firm. This blend of arts and technology highlights her
-                  multifaceted talent and dedication.
-                </p>
               </div>
             </section>
           </div>
