@@ -10,6 +10,12 @@ export function Footer() {
             &copy; {new Date().getFullYear()} {author.name}. All Rights
             Reserved.
           </p>
+          <Link
+            href="/privacy"
+            className="text-center text-sm leading-loose text-muted-foreground hover:underline"
+          >
+            Privacy Policy
+          </Link>
         </div>
         <div className="flex items-center gap-4">
           {socialLinks.map((social) => (
