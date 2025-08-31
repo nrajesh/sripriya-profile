@@ -85,6 +85,7 @@ const rawBooks = [
     coverUrl: "/covers/memories-never-die.jpg",
     detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-translation-of-ninaivugalukku-maranamillai.htm",
     publisher: "Prabhat Prakashan",
+    originalAuthors: "Dr. Y.S. Rajan; Dr. A. P. J. M. Nazema Maraikayar",
     publicationDate: "April 08, 2023",
     pageCount: "456",
     isbn: "9788196159078 (ISBN); B0C2YTW8SR (ASIN)",
