@@ -62,7 +62,7 @@ const rawBooks = [
     title: "சிவ-ராம-கிருஷ்ணன்",
     coverUrl: "/covers/siva-rama-krishnan.jpg",
     detailsUrl: "https://amzn.in/d/3p2s24Y",
-    originalAuthors: "R Ganesh Shatavadhani"
+    originalAuthors: "Shatavadhani Dr. R. Ganesh"
     publisher: "Prekshaa Pratishtana",
     publicationDate: "April 21, 2021",
     pageCount: "10 part series",
