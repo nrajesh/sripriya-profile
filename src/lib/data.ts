@@ -44,6 +44,7 @@ const rawBooks = [
     publicationDate: "July 01, 2017",
     pageCount: "280",
     isbn: "B07BJK8TFY (ASIN); 9788184937947 (ISBN)",
+    category: "Translation",
     description: "From enhanced nuclear capability to an unmanned Moon mission, India s scientific achievements in recent years have been spectacular. But, according to the country s best-known scientist A.P.J. Abdul Kalam and his close associate Y.S. Rajan, we ve only just begun. In a century that many experts predict may belong to India, the realization of the vision of a better future for everyone will require a keen understanding of our needs and this can only be achieved by tailoring our research and innovations to the goal of national development.\n\nIn The Scientific Indian, the authors of the path-breaking India 2020: A Vision for the New Millennium return after ten years to the core areas of scientific advancement that are crucial space exploration, satellite technology, missile development, earth and ocean resources, the biosphere, food production, energy and water harvesting, health care and communications, to name a few. For each aspect, the authors discuss Indian breakthroughs within the context of recent progress on the global platform, before outlining a pragmatic vision of technological development that will propel India to the forefront of the world in the decades to come.",
   },
   {
