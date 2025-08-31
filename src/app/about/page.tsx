@@ -90,7 +90,7 @@ export default function AboutPage() {
                   translator.
                 </p>
                 <p>
-                  Her latest original work (&quot;The Pallava Empire&quot;) has earned plaudits from researchers and scholars in the field of Indian history. In Jul 2025 this book was featured in &quot;Book Breakout&quot; of the FOMRRA Book club and in Aug 2025 it has been advertised in &quot;Utthana publications&quot;
+                  Her latest original work (&quot;The Pallava Empire&quot;) has earned plaudits from researchers and scholars in the field of Indian history. In Jul 2025 this book was featured in &quot;Book Breakout&quot; of the FOMRRA Book club and in Aug 2025 it has been advertised in &quot;Utthana publications&quot; (&quot;Rashtrotthana Sahitya&quot;)
                 </p>
               </div>
             </section>
