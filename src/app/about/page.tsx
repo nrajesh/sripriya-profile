@@ -89,6 +89,9 @@ export default function AboutPage() {
                   further cementing her reputation as a skilled and dedicated
                   translator.
                 </p>
+                <p>
+                  Her latest original work (&quot;&quot;)
+                </p>
               </div>
             </section>
 
