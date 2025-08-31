@@ -10,6 +10,7 @@ export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/books", label: "Books" },
+  //{ href: "/contact", label: "Contact" },
 ];
 
 export const socialLinks = [
