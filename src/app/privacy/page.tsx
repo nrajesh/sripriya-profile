@@ -17,7 +17,7 @@ export default function PrivacyPage() {
         <div className="max-w-3xl mx-auto prose dark:prose-invert">
           <p>
             This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from this site.
-          </p><p></p>
+          </p>
 
           <h2>Personal Information We Collect</h2>
           <p>
