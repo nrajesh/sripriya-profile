@@ -79,7 +79,7 @@ export default function AboutPage() {
                   A.P.J. Abdul Kalam (&quot;Memories Never Die&quot;) from Tamil to
                   English and Koti Sreekrishna and Hari Ravikumar’s significant work on Bhagavad-Gita (&quot;பகவத்கீதை தற்காலத் தமிழில்&quot;) from English to
                   Tamil. Her translation portfolio also includes rendering the
-                  works of the esteemed Shatavadhani Dr. R. Ganesh from Kannada
+                  popular lecture series of the esteemed Shatavadhani Dr. R. Ganesh 
                   to Tamil, demonstrating her ability to bridge linguistic and
                   cultural divides.
                 </p>
