@@ -10,6 +10,7 @@ import { BookSearch } from "@/components/book-search";
 import React, { useState, useMemo } from "react";
 import { YearRangePicker } from "@/components/year-range-picker"; // Import the new component
 import { Button } from "@/components/ui/button"; // Import Button component
+import { getMinPublicationYear, getMaxPublicationYear } from "@/lib/data"; // Import new functions
 
 export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,6 +20,10 @@ export default function BooksPage() {
     setSearchTerm("");
     setDateRange({});
   };
+
+  // Calculate min and max publication years from the data
+  const minPublicationYear = useMemo(() => getMinPublicationYear(), []);
+  const maxPublicationYear = useMemo(() => getMaxPublicationYear(), []);
 
   // Filter books based on search term and date range
   const filteredBooks = useMemo(() => {
@@ -86,7 +91,13 @@ export default function BooksPage() {
             <BookSearch onSearch={setSearchTerm} initialSearchTerm={searchTerm} />
           </div>
           <div className="flex items-center gap-4 w-full md:w-auto"> {/* YearPicker and Reset Button */}
-            <YearRangePicker onYearChange={setDateRange} initialRange={dateRange} className="w-[200px]" /> {/* Fixed width for year picker */}
+            <YearRangePicker
+              onYearChange={setDateRange}
+              initialRange={dateRange}
+              className="w-[200px]"
+              minYear={minPublicationYear} // Pass min year
+              maxYear={maxPublicationYear} // Pass max year
+            />
             <Button onClick={handleResetFilters} variant="outline">
               Reset Search
             </Button>

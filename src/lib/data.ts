@@ -135,3 +135,29 @@ export const books = rawBooks.sort((a, b) => {
   const dateB = parseDateForSorting(b.publicationDate);
   return dateB.getTime() - dateA.getTime();
 });
+
+// Function to get the minimum publication year from the books data
+export const getMinPublicationYear = (): number | undefined => {
+  if (books.length === 0) return undefined;
+  const dates = books
+    .map(book => book.publicationDate)
+    .filter(dateString => dateString) // Filter out null/undefined dates
+    .map(dateString => parseDateForSorting(dateString!)); // Use non-null assertion after filter
+  
+  if (dates.length === 0) return undefined;
+  const minDate = new Date(Math.min(...dates.map(date => date.getTime())));
+  return minDate.getFullYear();
+};
+
+// Function to get the maximum publication year from the books data
+export const getMaxPublicationYear = (): number | undefined => {
+  if (books.length === 0) return undefined;
+  const dates = books
+    .map(book => book.publicationDate)
+    .filter(dateString => dateString) // Filter out null/undefined dates
+    .map(dateString => parseDateForSorting(dateString!)); // Use non-null assertion after filter
+
+  if (dates.length === 0) return undefined;
+  const maxDate = new Date(Math.max(...dates.map(date => date.getTime())));
+  return maxDate.getFullYear();
+};

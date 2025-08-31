@@ -16,17 +16,24 @@ import { Calendar as CalendarIcon } from "lucide-react"; // Still useful for the
 interface YearRangePickerProps {
   onYearChange: (range: { from?: Date; to?: Date }) => void;
   initialRange?: { from?: Date; to?: Date };
-  className?: string; // Added className prop
+  className?: string;
+  minYear?: number; // New prop for minimum selectable year
+  maxYear?: number; // New prop for maximum selectable year
 }
 
 export function YearRangePicker({
   onYearChange,
   initialRange,
-  className, // Destructure className
+  className,
+  minYear, // Destructure new props
+  maxYear, // Destructure new props
 }: YearRangePickerProps) {
   const currentYear = new Date().getFullYear();
-  // Generate years from 1900 to current year
-  const years = Array.from({ length: currentYear - 1899 }, (_, i) => 1900 + i).reverse();
+  // Generate years based on minYear and maxYear props, or default to 1900 to current year
+  const startYear = minYear !== undefined ? minYear : 1900;
+  const endYear = maxYear !== undefined ? maxYear : currentYear;
+
+  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i).reverse();
 
   const [fromYear, setFromYear] = React.useState<string | undefined>(
     initialRange?.from ? String(initialRange.from.getFullYear()) : undefined
