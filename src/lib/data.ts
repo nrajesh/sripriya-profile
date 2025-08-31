@@ -82,6 +82,7 @@ const rawBooks = [
     pageCount: null,
     isbn: null,
     category: "Tamil Translation",
+    tags: "religion, hinduism, upanayanam, ritual, ceremony, India",
     description: "This is a 15 part series published at prekshaa.in. This is a Tamil translation of Upanayanam – A Gentle Introduction by Hari Ravikumar"
   },
   {
