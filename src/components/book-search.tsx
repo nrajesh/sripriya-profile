@@ -10,6 +10,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; // Import Popover components
 import { books as allBooks } from "@/lib/data"; // Import all books for suggestions
 
 interface BookSearchProps {
@@ -20,7 +21,7 @@ interface BookSearchProps {
 export function BookSearch({ onSearch, onDateFilter }: BookSearchProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // State to control Popover open/close
 
   // Debounce search term to avoid excessive re-renders and filtering
   useEffect(() => {
@@ -70,42 +71,55 @@ export function BookSearch({ onSearch, onDateFilter }: BookSearchProps) {
 
   const handleSelectSuggestion = (suggestion: string) => {
     setSearchTerm(suggestion);
-    setOpen(false);
+    setOpen(false); // Close popover on selection
     onSearch(suggestion); // Immediately apply filter when a suggestion is selected
   };
 
   return (
     <div className="relative w-full max-w-md mx-auto">
-      <CommandInput
-        placeholder="Search by tags, publisher, or authors..."
-        value={searchTerm}
-        onValueChange={(value) => {
-          setSearchTerm(value);
-          setOpen(true); // Open suggestions when typing
-        }}
-        className="h-10"
-      />
-      {open && suggestions.length > 0 && (
-        <Command
-          shouldFilter={false} // We handle filtering for suggestions manually
-          className="absolute z-20 w-full bg-popover text-popover-foreground shadow-md rounded-md mt-1 max-h-[300px] overflow-y-auto"
-        >
-          <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup>
-              {suggestions.map((suggestion) => (
-                <CommandItem
-                  key={suggestion}
-                  value={suggestion}
-                  onSelect={() => handleSelectSuggestion(suggestion)}
-                >
-                  {suggestion}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      )}
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          {/* This is the visible input field */}
+          <Input
+            placeholder="Search by tags, publisher, or authors..."
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setOpen(true); // Open popover when typing
+            }}
+            onFocus={() => setOpen(true)} // Open popover when input is focused
+            className="h-10"
+          />
+        </PopoverTrigger>
+        <PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)]">
+          {/* The Command component and its internal CommandInput */}
+          <Command shouldFilter={false}> {/* We handle filtering with `suggestions` */}
+            {/* This CommandInput is inside the Command context */}
+            <CommandInput
+              value={searchTerm} // Bind to the same searchTerm state
+              onValueChange={(value) => setSearchTerm(value)} // Update searchTerm
+              placeholder="Search..." // Placeholder for the internal CommandInput
+            />
+            <CommandList>
+              {suggestions.length === 0 && debouncedSearchTerm ? (
+                <CommandEmpty>No results found.</CommandEmpty>
+              ) : (
+                <CommandGroup>
+                  {suggestions.map((suggestion) => (
+                    <CommandItem
+                      key={suggestion}
+                      value={suggestion}
+                      onSelect={() => handleSelectSuggestion(suggestion)}
+                    >
+                      {suggestion}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
       {/* Calendar-based search option can be added here */}
     </div>
   );
