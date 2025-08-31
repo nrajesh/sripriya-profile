@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { books as allBooks } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
