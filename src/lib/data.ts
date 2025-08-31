@@ -96,6 +96,7 @@ const rawBooks = [
     coverUrl: "/covers/kalams-family-tree.jpg",
     detailsUrl: "https://www.prabhatbooks.com/kalam-s-family-tree-ancestral-legacy-of-dr-a-p-j-abdul-kalam.htm",
     publisher: "Prabhat Prakashan",
+    originalAuthors: "Dr. A. P. J. M. Nazema Maraikayar",
     publicationDate: "April 10, 2024",
     pageCount: "160",
     isbn: "9789355628121 (ISBN); B0D1CNDBZC (ASIN)",
