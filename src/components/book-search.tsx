@@ -15,10 +15,9 @@ import { books as allBooks } from "@/lib/data"; // Import all books for suggesti
 
 interface BookSearchProps {
   onSearch: (searchTerm: string) => void;
-  onDateFilter: (dateRange: { from?: Date; to?: Date }) => void; // Placeholder for future date filter
 }
 
-export function BookSearch({ onSearch, onDateFilter }: BookSearchProps) {
+export function BookSearch({ onSearch }: BookSearchProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [open, setOpen] = useState(false); // State to control Popover open/close

@@ -8,6 +8,7 @@ import { ConditionalLink } from "@/components/conditional-link";
 import { GeometricBackground } from "@/components/geometric-background";
 import { BookSearch } from "@/components/book-search";
 import React, { useState, useMemo } from "react";
+import { DateRangePicker } from "@/components/date-range-picker"; // Import the new component
 
 export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,17 +30,20 @@ export default function BooksPage() {
     }
 
     // Date range filter logic will go here when implemented
-    // if (dateRange.from || dateRange.to) {
-    //   currentBooks = currentBooks.filter(book => {
-    //     const publicationDate = book.publicationDate ? new Date(book.publicationDate) : null;
-    //     if (!publicationDate) return false;
+    if (dateRange.from || dateRange.to) {
+      currentBooks = currentBooks.filter(book => {
+        const publicationDate = book.publicationDate ? new Date(book.publicationDate) : null;
+        if (!publicationDate) return false;
 
-    //     const from = dateRange.from ? dateRange.from.getTime() : -Infinity;
-    //     const to = dateRange.to ? dateRange.to.getTime() : Infinity;
+        const from = dateRange.from ? dateRange.from.getTime() : -Infinity;
+        const to = dateRange.to ? dateRange.to.getTime() : Infinity;
 
-    //     return publicationDate.getTime() >= from && publicationDate.getTime() <= to;
-    //   });
-    // }
+        // Adjust 'to' date to include the entire day
+        const adjustedTo = dateRange.to ? new Date(dateRange.to.getFullYear(), dateRange.to.getMonth(), dateRange.to.getDate(), 23, 59, 59, 999).getTime() : Infinity;
+
+        return publicationDate.getTime() >= from && publicationDate.getTime() <= adjustedTo;
+      });
+    }
 
     return currentBooks;
   }, [searchTerm, dateRange]); // Re-calculate when searchTerm or dateRange changes
@@ -72,7 +76,10 @@ export default function BooksPage() {
 
         {/* Search Bar */}
         <div className="mb-12">
-          <BookSearch onSearch={setSearchTerm} onDateFilter={setDateRange} />
+          <BookSearch onSearch={setSearchTerm} />
+          <div className="mt-4 max-w-md mx-auto">
+            <DateRangePicker onDateChange={setDateRange} />
+          </div>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-12"> {/* Increased space between category groups */}
