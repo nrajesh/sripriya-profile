@@ -1,15 +1,51 @@
 import Image from "next/image";
-import { books } from "@/lib/data";
+import { books as allBooks } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ConditionalLink } from "@/components/conditional-link";
 import { GeometricBackground } from "@/components/geometric-background";
+import { BookSearch } from "@/components/book-search";
+import React, { useState, useMemo } from "react";
 
 export default function BooksPage() {
-  // Group books by category
-  const groupedBooks: Record<string, typeof books[0][]> = {};
-  books.forEach(book => {
-    const category = book.category || "Uncategorized"; // Default category if not specified
+  const [searchTerm, setSearchTerm] = useState("");
+  const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({}); // Placeholder for date range state
+
+  // Filter books based on search term and date range
+  const filteredBooks = useMemo(() => {
+    let currentBooks = allBooks;
+
+    // Apply text search filter
+    if (searchTerm) {
+      const lowerCaseSearchTerm = searchTerm.toLowerCase();
+      currentBooks = currentBooks.filter(book => {
+        const matchesTags = book.tags?.toLowerCase().includes(lowerCaseSearchTerm);
+        const matchesPublisher = book.publisher?.toLowerCase().includes(lowerCaseSearchTerm);
+        const matchesAuthors = book.originalAuthors?.toLowerCase().includes(lowerCaseSearchTerm);
+        return matchesTags || matchesPublisher || matchesAuthors;
+      });
+    }
+
+    // Date range filter logic will go here when implemented
+    // if (dateRange.from || dateRange.to) {
+    //   currentBooks = currentBooks.filter(book => {
+    //     const publicationDate = book.publicationDate ? new Date(book.publicationDate) : null;
+    //     if (!publicationDate) return false;
+
+    //     const from = dateRange.from ? dateRange.from.getTime() : -Infinity;
+    //     const to = dateRange.to ? dateRange.to.getTime() : Infinity;
+
+    //     return publicationDate.getTime() >= from && publicationDate.getTime() <= to;
+    //   });
+    // }
+
+    return currentBooks;
+  }, [searchTerm, dateRange]); // Re-calculate when searchTerm or dateRange changes
+
+  // Group filtered books by category
+  const groupedBooks: Record<string, typeof allBooks[0][]> = {};
+  filteredBooks.forEach(book => {
+    const category = book.category || "Uncategorized";
     if (!groupedBooks[category]) {
       groupedBooks[category] = [];
     }
@@ -32,7 +68,15 @@ export default function BooksPage() {
           </p>
         </header>
 
+        {/* Search Bar */}
+        <div className="mb-12">
+          <BookSearch onSearch={setSearchTerm} onDateFilter={setDateRange} />
+        </div>
+
         <div className="max-w-4xl mx-auto space-y-12"> {/* Increased space between category groups */}
+          {sortedCategories.length === 0 && searchTerm && (
+            <p className="text-center text-muted-foreground text-lg">No books found matching your search criteria.</p>
+          )}
           {sortedCategories.map((category) => (
             <div key={category}>
               <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center md:text-left">
