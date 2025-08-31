@@ -8,7 +8,7 @@ import { ConditionalLink } from "@/components/conditional-link";
 import { GeometricBackground } from "@/components/geometric-background";
 import { BookSearch } from "@/components/book-search";
 import React, { useState, useMemo } from "react";
-import { DateRangePicker } from "@/components/date-range-picker"; // Import the new component
+import { YearRangePicker } from "@/components/year-range-picker"; // Import the new component
 
 export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -78,7 +78,7 @@ export default function BooksPage() {
         <div className="mb-12">
           <BookSearch onSearch={setSearchTerm} />
           <div className="mt-4 max-w-md mx-auto">
-            <DateRangePicker onDateChange={setDateRange} />
+            <YearRangePicker onYearChange={setDateRange} />
           </div>
         </div>
 
