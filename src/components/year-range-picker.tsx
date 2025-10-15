@@ -11,29 +11,32 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar as CalendarIcon } from "lucide-react"; // Still useful for the icon
+import { Calendar as CalendarIcon } from "lucide-react";
 
 interface YearRangePickerProps {
   onYearChange: (range: { from?: Date; to?: Date }) => void;
   initialRange?: { from?: Date; to?: Date };
   className?: string;
-  minYear?: number; // New prop for minimum selectable year
-  maxYear?: number; // New prop for maximum selectable year
+  minYear?: number;
+  maxYear?: number;
 }
 
 export function YearRangePicker({
   onYearChange,
   initialRange,
   className,
-  minYear, // Destructure new props
-  maxYear, // Destructure new props
+  minYear,
+  maxYear,
 }: YearRangePickerProps) {
   const currentYear = new Date().getFullYear();
   // Generate years based on minYear and maxYear props, or default to 1900 to current year
   const startYear = minYear !== undefined ? minYear : 1900;
   const endYear = maxYear !== undefined ? maxYear : currentYear;
 
-  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i).reverse();
+  const years = React.useMemo(() => 
+    Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i).reverse(),
+    [startYear, endYear]
+  );
 
   const [fromYear, setFromYear] = React.useState<string | undefined>(
     initialRange?.from ? String(initialRange.from.getFullYear()) : undefined
@@ -49,11 +52,14 @@ export function YearRangePicker({
   }, [initialRange]);
 
   React.useEffect(() => {
-    const fromDate = fromYear ? new Date(parseInt(fromYear), 0, 1) : undefined; // Jan 1st of fromYear
-    const toDate = toYear ? new Date(parseInt(toYear), 11, 31, 23, 59, 59, 999) : undefined; // Dec 31st of toYear
+    // Jan 1st of fromYear
+    const fromDate = fromYear ? new Date(parseInt(fromYear), 0, 1) : undefined; 
+    
+    // Dec 31st of toYear, set to the very end of the day (23:59:59.999)
+    const toDate = toYear ? new Date(parseInt(toYear), 11, 31, 23, 59, 59, 999) : undefined; 
 
     onYearChange({ from: fromDate, to: toDate });
-  }, [fromYear, toYear, onYearChange]);
+  }, [fromYear, toYear, onYearChange]); // Removed initialRange from dependencies as it's handled by the effect above
 
   const displayValue = React.useMemo(() => {
     if (fromYear && toYear) {
@@ -68,14 +74,14 @@ export function YearRangePicker({
   }, [fromYear, toYear]);
 
   return (
-    <div className={cn("grid gap-2", className)}> {/* Apply className here */}
+    <div className={cn("grid gap-2", className)}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
             id="year-range"
             variant={"outline"}
             className={cn(
-              "w-full justify-start text-left font-normal", // Keep w-full for the button inside its container
+              "w-full justify-start text-left font-normal",
               (!fromYear && !toYear) && "text-muted-foreground"
             )}
           >
@@ -86,7 +92,7 @@ export function YearRangePicker({
         <PopoverContent className="w-auto p-4" align="start">
           <div className="flex space-x-2">
             <Select value={fromYear} onValueChange={setFromYear}>
-              <SelectTrigger className="w-[120px]"> {/* Made select triggers smaller */}
+              <SelectTrigger className="w-[120px]">
                 <SelectValue placeholder="From Year" />
               </SelectTrigger>
               <SelectContent>
@@ -99,7 +105,7 @@ export function YearRangePicker({
             </Select>
 
             <Select value={toYear} onValueChange={setToYear}>
-              <SelectTrigger className="w-[120px]"> {/* Made select triggers smaller */}
+              <SelectTrigger className="w-[120px]">
                 <SelectValue placeholder="To Year" />
               </SelectTrigger>
               <SelectContent>

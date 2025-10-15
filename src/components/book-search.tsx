@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import { Input } from "@/components/ui/input";
 import {
   Command,
   CommandEmpty,
@@ -10,29 +9,31 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; // Import Popover components
-import { books as allBooks } from "@/lib/data"; // Import all books for suggestions
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { books as allBooks } from "@/lib/data";
+import { Search } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface BookSearchProps {
   onSearch: (searchTerm: string) => void;
-  initialSearchTerm: string; // New prop
+  initialSearchTerm: string;
 }
 
 export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
-  const [searchTerm, setSearchTerm] = useState(initialSearchTerm); // Initialize with prop
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(initialSearchTerm);
-  const [open, setOpen] = useState(false); // State to control Popover open/close
+  const [open, setOpen] = useState(false);
 
   // Update internal searchTerm when initialSearchTerm prop changes (for reset)
   useEffect(() => {
     setSearchTerm(initialSearchTerm);
   }, [initialSearchTerm]);
 
-  // Debounce search term to avoid excessive re-renders and filtering
+  // Debounce search term
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
-    }, 300); // 300ms debounce delay
+    }, 300);
 
     return () => {
       clearTimeout(handler);
@@ -76,56 +77,49 @@ export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
 
   const handleSelectSuggestion = (suggestion: string) => {
     setSearchTerm(suggestion);
-    setOpen(false); // Close popover on selection
+    setOpen(false);
     onSearch(suggestion); // Immediately apply filter when a suggestion is selected
   };
 
   return (
-    <div className="relative w-full">
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          {/* This is the visible input field */}
-          <Input
-            placeholder="Search by tags, publisher, or authors..."
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setOpen(true); // Open popover when typing
-            }}
-            onFocus={() => setOpen(true)} // Open popover when input is focused
-            className="h-10"
-          />
-        </PopoverTrigger>
-        <PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)]">
-          {/* The Command component and its internal CommandInput */}
-          <Command shouldFilter={false}> {/* We handle filtering with `suggestions` */}
-            {/* This CommandInput is inside the Command context */}
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <div className="relative flex items-center w-full">
+          <Command className={cn("rounded-lg border shadow-md", open ? "ring-2 ring-ring" : "")}>
             <CommandInput
-              value={searchTerm} // Bind to the same searchTerm state
-              onValueChange={(value) => setSearchTerm(value)} // Update searchTerm
-              placeholder="Search..." // Placeholder for the internal CommandInput
+              value={searchTerm}
+              onValueChange={(value) => {
+                setSearchTerm(value);
+                setOpen(true);
+              }}
+              placeholder="Search by tags, publisher, or authors..."
+              className="h-10 border-none focus:ring-0"
             />
-            <CommandList>
-              {suggestions.length === 0 && debouncedSearchTerm ? (
-                <CommandEmpty>No results found.</CommandEmpty>
-              ) : (
-                <CommandGroup>
-                  {suggestions.map((suggestion) => (
-                    <CommandItem
-                      key={suggestion}
-                      value={suggestion}
-                      onSelect={() => handleSelectSuggestion(suggestion)}
-                    >
-                      {suggestion}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              )}
-            </CommandList>
           </Command>
-        </PopoverContent>
-      </Popover>
-      {/* Calendar-based search option can be added here */}
-    </div>
+          <Search className="absolute right-3 h-4 w-4 text-muted-foreground pointer-events-none" />
+        </div>
+      </PopoverTrigger>
+      <PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)]" align="start">
+        <Command shouldFilter={false}>
+          <CommandList>
+            {suggestions.length === 0 && debouncedSearchTerm ? (
+              <CommandEmpty>No results found.</CommandEmpty>
+            ) : (
+              <CommandGroup>
+                {suggestions.map((suggestion) => (
+                  <CommandItem
+                    key={suggestion}
+                    value={suggestion}
+                    onSelect={() => handleSelectSuggestion(suggestion)}
+                  >
+                    {suggestion}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }
