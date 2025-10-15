@@ -21,21 +21,35 @@ export const socialLinks = [
   },
 ];
 
+export interface Book {
+  title: string;
+  coverUrl: string;
+  detailsUrl: string | null;
+  originalAuthors: string | null;
+  publisher: string | null;
+  publicationDate: string | null;
+  pageCount: string | null;
+  isbn: string | null;
+  category: string;
+  tags: string | null;
+  description: string;
+}
+
 // Helper function to parse dates for sorting
-const parseDateForSorting = (dateString: string): Date => {
+export const parseDateForSorting = (dateString: string | null): Date => {
   if (!dateString) return new Date(0); // Treat empty string as very old
   // Handle "Month Day, Year" format
-  if (dateString.includes(',')) {
+  if (dateString && dateString.includes(',')) {
     return new Date(dateString);
   }
   // Handle "Year" format
-  if (/^\d{4}$/.test(dateString)) {
+  if (dateString && /^\d{4}$/.test(dateString)) {
     return new Date(`${dateString}-01-01`); // Assume Jan 1st for year-only dates
   }
-  return new Date(dateString); // Fallback for other formats
+  return new Date(dateString || 0); // Fallback for other formats or null
 };
 
-const rawBooks = [
+const rawBooks: Book[] = [
   {
     title: "கலாமின் இந்தியக் கனவுகள்",
     coverUrl: "/covers/kalamin-indhiya-kanavugal.jpg",
@@ -130,7 +144,7 @@ const rawBooks = [
 ];
 
 // Sort books by publication date, most recent first
-export const books = rawBooks.sort((a, b) => {
+export const books: Book[] = rawBooks.sort((a, b) => {
   const dateA = parseDateForSorting(a.publicationDate);
   const dateB = parseDateForSorting(b.publicationDate);
   return dateB.getTime() - dateA.getTime();
