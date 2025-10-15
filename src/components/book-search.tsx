@@ -116,21 +116,19 @@ export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
       {open && (
         <div className="absolute top-full z-50 mt-1 w-full rounded-md border bg-popover text-popover-foreground shadow-lg outline-none animate-in fade-in-0 zoom-in-95">
           <CommandList>
-            {suggestions.length > 0 ? (
-              <CommandGroup>
-                {suggestions.map((suggestion) => (
-                  <CommandItem
-                    key={suggestion}
-                    value={suggestion}
-                    onSelect={() => handleSelectSuggestion(suggestion)}
-                  >
-                    {suggestion}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            ) : debouncedSearchTerm ? (
-              <CommandEmpty>No results found.</CommandEmpty>
-            ) : null}
+            {/* This will only be displayed by cmdk if there are no CommandItems */}
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup>
+              {suggestions.map((suggestion) => (
+                <CommandItem
+                  key={suggestion}
+                  value={suggestion}
+                  onSelect={() => handleSelectSuggestion(suggestion)}
+                >
+                  {suggestion}
+                </CommandItem>
+              ))}
+            </CommandGroup>
           </CommandList>
         </div>
       )}
