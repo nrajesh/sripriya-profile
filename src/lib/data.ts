@@ -116,7 +116,7 @@ const rawBooks: Book[] = [
     description: "This is a 15 part series published at prekshaa.in. This is a Translated Work of Upanayanam – A Gentle Introduction by Hari Ravikumar"
   },
   {
-    title: "Memories Never Die",
+    title: "ஸ்வாமி வேதாந்த தேசிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
     coverUrl: "/covers/memories-never-die.jpg",
     detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-Translated Work-of-ninaivugalukku-maranamillai.htm",
     originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J.M. Nazema Maraikayar",
