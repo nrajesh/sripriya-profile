@@ -113,7 +113,7 @@ export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
         </div>
       </div>
 
-      {open && debouncedSearchTerm && (
+      {open && (
         <div className="absolute top-full z-50 mt-1 w-full rounded-md border bg-popover text-popover-foreground shadow-lg outline-none animate-in fade-in-0 zoom-in-95">
           <CommandList>
             {suggestions.length > 0 ? (
@@ -128,9 +128,9 @@ export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
                   </CommandItem>
                 ))}
               </CommandGroup>
-            ) : (
+            ) : debouncedSearchTerm ? (
               <CommandEmpty>No results found.</CommandEmpty>
-            )}
+            ) : null}
           </CommandList>
         </div>
       )}
