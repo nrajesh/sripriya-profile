@@ -109,6 +109,20 @@ const rawBooks: Book[] = [
   },
   {
     id: 5,
+    title: "Memories Never Die",
+    coverUrl: "/covers/memories-never-die.jpg",
+    detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-Translated Work-of-ninaivugalukku-maranamillai.htm",
+    originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J.M. Nazema Maraikayar",
+    publisher: "Prabhat Prakashan",
+    publicationDate: "April 08, 2023",
+    pageCount: "456",
+    isbn: "9788196159078 (ISBN); B0C2YTW8SR (ASIN)",
+    category: "Translated Work",
+    tags: "memories, family, science, research, space, India, isro",
+    description: "This book is an Translated Work of the Tamil book ‘Ninaivugalukku Maranamillai’. Written by two people closest to A.P.J. Abdul Kalam—his niece Dr. Nazema Maraikayar and the distinguished ISRO scientist Dr. Y.S. Rajan, who was a close confidante of Kalam —this book gives a holistic and honest revelation of the life of Dr. Kalam from his early childhood till he breathed his last.\n\nThis is the story of how a small-town boy from Rameswaram ascended to the highest echelons of the Indian political world. This book comprehensively covers the beautiful history of Indian rocketry, precursors to today’s Science and Technology, the workings of the Indian political and administrative",
+  },
+  {
+    id: 6,
     title: "ஸ்வாமி வேதாந்த தேஶிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
     coverUrl: "/covers/sri-sukthikal.jpg",
     detailsUrl: null,
@@ -122,7 +136,7 @@ const rawBooks: Book[] = [
     description: "Launched in Rishikesh by His Holiness Srimad Andavan Sri Varaha Maha Desikan, the current and the twelfth pontiff of the Srirangam Srimad Andavan Ashramam.\n\nPlease note that this book is NOT available to purchase online",
   },
   {
-    id: 6,
+    id: 7,
     title: "Kalam’s Family Tree",
     coverUrl: "/covers/kalams-family-tree.jpg",
     detailsUrl: "https://www.prabhatbooks.com/kalam-s-family-tree-ancestral-legacy-of-dr-a-p-j-abdul-kalam.htm",
@@ -136,7 +150,7 @@ const rawBooks: Book[] = [
     description: "This book is an intimate memoir written by A.P.J. Abdul Kalam’s niece, who is closely connected to him and the family. The book offers a rare glimpse into the family life and ancestral roots of India’s beloved “Missile Man.’ The book was originally written in Tamil and later translated in English and Hindi.\n\nIt takes you to Dr. Kalam’s humble beginnings in Rameshwaram, Tamil Nadu, where the young Kalam’s curiosity and thirst of knowledge were nurtured within the embrace of a close-knit Muslim family. From the sacrifices of his parents to the wisdom imparted by his grandparents, the book celebrates the indelible impact of family on his journey to becoming the President of India.\n\nIt emphasises on the cultural and religious roots that he inherited from different generations. It mainly reflects how historical events, wars, societal changes, economic conditions, etc., had an effect on his personality. The book is a tribute to the power of heritage, perseverance and the pursuit of knowledge values that resonated deeply within the Kalam lineage.",
   },
   {
-    id: 7,
+    id: 8,
     title: "The Pallava Empire",
     coverUrl: "/covers/the-pallava-empire.jpg",
     detailsUrl: "https://sahityabooks.com/shop/rashtrotthana-sahitya/the-pallava-empire/",
