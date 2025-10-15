@@ -14,6 +14,9 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Sripriya Srinivasan | Official Website",
   description: "The official website of author and translator Sripriya Srinivasan.",
+  icons: {
+    icon: "/author-profile.jpeg", // Using the author profile image as the favicon
+  },
 };
 
 export default function RootLayout({
