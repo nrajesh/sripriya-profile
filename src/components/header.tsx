@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 export function Header() {
   const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false); // State to control mobile sheet
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
@@ -50,7 +51,7 @@ export function Header() {
         <div className="flex items-center">
           {/* Mobile navigation trigger (only visible on mobile) */}
           <div className="md:hidden">
-            <Sheet>
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu className="h-5 w-5" />
@@ -64,6 +65,7 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       className="text-sm font-medium text-foreground"
+                      onClick={() => setIsSheetOpen(false)} // Close sheet on link click
                     >
                       {link.label}
                     </Link>
