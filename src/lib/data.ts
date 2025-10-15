@@ -124,7 +124,7 @@ const rawBooks: Book[] = [
     pageCount: "456",
     isbn: "9788196159078 (ISBN); B0C2YTW8SR (ASIN)",
     category: "Original Work",
-    tags: "religion, hinduism, India, scholar, guru, vedanta desikan, swamy",
+    tags: "religion, hinduism, India, scholar, guru, vedanta desikan, swamy, polymath",
     description: "சுவாமி தேஸிகனின் 755 ஆவது திருநக்ஷத்ர மஹோத்ஸவத்தில் ஸ்ரீமத் ஆண்டவன் ஸ்ரீவராஹ மஹா தேசிகன் திருக்கரங்களால் ரிஷிகேஷ் ஆச்ரமத்தில் வெளியிடப்பட்டது.",
   },
   {
