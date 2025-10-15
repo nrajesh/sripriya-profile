@@ -109,7 +109,7 @@ const rawBooks: Book[] = [
   },
   {
     id: 5,
-    title: "ஸ்வாமி வேதாந்த தேஸிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
+    title: "ஸ்வாமி வேதாந்த தேஶிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
     coverUrl: "/covers/sri-sukthikal.jpg",
     detailsUrl: null,
     originalAuthors: null,
