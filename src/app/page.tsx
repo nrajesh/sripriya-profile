@@ -50,12 +50,12 @@ export default function Home() {
             className="w-full"
           >
             <CarouselContent>
-              {books.map((book) => (
+              {books.map((book, index) => (
                 <CarouselItem
                   key={book.title}
                   className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                 >
-                  <BookCard book={book} />
+                  <BookCard book={book} priority={index === 0} />
                 </CarouselItem>
               ))}
             </CarouselContent>

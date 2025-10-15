@@ -10,9 +10,10 @@ type Book = {
 
 interface BookCardProps {
   book: Book;
+  priority?: boolean; // Added priority prop
 }
 
-export function BookCard({ book }: BookCardProps) {
+export function BookCard({ book, priority = false }: BookCardProps) {
   // The BookCard is used inside a CarouselItem with the following classes:
   // sm:basis-1/2 (50vw)
   // md:basis-1/3 (33.3vw)
@@ -33,6 +34,7 @@ export function BookCard({ book }: BookCardProps) {
               fill
               className="object-cover"
               sizes={imageSizes}
+              priority={priority} // Pass priority here
             />
           </ConditionalLink>
         </CardHeader>
