@@ -103,6 +103,19 @@ const rawBooks: Book[] = [
     description: "This is a 15 part series published at prekshaa.in. This is a Translated Work of Upanayanam – A Gentle Introduction by Hari Ravikumar"
   },
   {
+    title: "உபநயனம் – ஒரு எளிய அறிமுகம்",
+    coverUrl: "/covers/upanayanam.jpg",
+    detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=7139",
+    originalAuthors: "Hari Ravikumar",
+    publisher: "Prekshaa Pratishtana",
+    publicationDate: "March 02, 2019",
+    pageCount: null,
+    isbn: null,
+    category: "Translated Work",
+    tags: "religion, hinduism, upanayanam, ritual, ceremony, India",
+    description: "This is a 15 part series published at prekshaa.in. This is a Translated Work of Upanayanam – A Gentle Introduction by Hari Ravikumar"
+  },
+  {
     title: "Memories Never Die",
     coverUrl: "/covers/memories-never-die.jpg",
     detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-Translated Work-of-ninaivugalukku-maranamillai.htm",
