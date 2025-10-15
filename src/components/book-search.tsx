@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Command,
   CommandEmpty,
@@ -9,7 +9,8 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { booksData as allBooks } from "@/lib/books";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { books as allBooks } from "@/lib/data";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -22,7 +23,6 @@ export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(initialSearchTerm);
   const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   // Update internal searchTerm when initialSearchTerm prop changes (for reset)
   useEffect(() => {
@@ -44,20 +44,6 @@ export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
   useEffect(() => {
     onSearch(debouncedSearchTerm);
   }, [debouncedSearchTerm, onSearch]);
-
-  // Close suggestions when clicking outside
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
 
   // Generate suggestions based on the debounced search term
   const suggestions = useMemo(() => {
@@ -96,42 +82,44 @@ export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
   };
 
   return (
-    <Command ref={containerRef} className="relative overflow-visible">
-      <div className={cn("rounded-lg border shadow-md", open ? "ring-2 ring-ring" : "")}>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
         <div className="relative flex items-center w-full">
-          <CommandInput
-            value={searchTerm}
-            onValueChange={(value) => {
-              setSearchTerm(value);
-              setOpen(true);
-            }}
-            onFocus={() => setOpen(true)}
-            placeholder="Search by tags, publisher, or authors..."
-            className="h-10 w-full border-none focus:ring-0"
-          />
+          <Command className={cn("rounded-lg border shadow-md", open ? "ring-2 ring-ring" : "")}>
+            <CommandInput
+              value={searchTerm}
+              onValueChange={(value) => {
+                setSearchTerm(value);
+                setOpen(true);
+              }}
+              placeholder="Search by tags, publisher, or authors..."
+              className="h-10 border-none focus:ring-0"
+            />
+          </Command>
           <Search className="absolute right-3 h-4 w-4 text-muted-foreground pointer-events-none" />
         </div>
-      </div>
-
-      {open && (
-        <div className="absolute top-full z-50 mt-1 w-full rounded-md border bg-popover text-popover-foreground shadow-lg outline-none animate-in fade-in-0 zoom-in-95">
+      </PopoverTrigger>
+      <PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)]" align="start">
+        <Command shouldFilter={false}>
           <CommandList>
-            {/* This will only be displayed by cmdk if there are no CommandItems */}
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup>
-              {suggestions.map((suggestion) => (
-                <CommandItem
-                  key={suggestion}
-                  value={suggestion}
-                  onSelect={() => handleSelectSuggestion(suggestion)}
-                >
-                  {suggestion}
-                </CommandItem>
-              ))}
-            </CommandGroup>
+            {suggestions.length === 0 && debouncedSearchTerm ? (
+              <CommandEmpty>No results found.</CommandEmpty>
+            ) : (
+              <CommandGroup>
+                {suggestions.map((suggestion) => (
+                  <CommandItem
+                    key={suggestion}
+                    value={suggestion}
+                    onSelect={() => handleSelectSuggestion(suggestion)}
+                  >
+                    {suggestion}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
           </CommandList>
-        </div>
-      )}
-    </Command>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }
