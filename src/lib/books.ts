@@ -15,7 +15,6 @@ export interface Book {
 
 export const booksData: Book[] = [
   {
-  {
     id: 1,
     title: "கலாமின் இந்தியக் கனவுகள்",
     coverUrl: "/covers/kalamin-indhiya-kanavugal.jpg",
