@@ -31,7 +31,7 @@ export const books: Book[] = [
     category: "Original Works",
     tags: "Tamil, Poetry, Spirituality",
     description: "Sri Sukthikal is a collection of spiritual poems that explore the divine essence of life. The poems are written in a simple yet profound manner, making them accessible to readers of all ages and backgrounds.",
-    coverUrl: "/covers/sri-sukthikal.jpg",
+    coverUrl: "/covers/sri-sukthikal.jpeg",
     detailsUrl: "/books/sri-sukthikal",
   },
   // ... other books with IDs
