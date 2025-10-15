@@ -9,14 +9,8 @@ import { BookSearch } from "@/components/book-search";
 import React, { useMemo } from "react";
 import { YearRangePicker } from "@/components/year-range-picker";
 import { Button } from "@/components/ui/button";
-import { getMinPublicationYear, getMaxPublicationYear } from "@/lib/data";
-import { Book } from "@/types/book";
+import { getMinPublicationYear, getMaxPublicationYear, Book } from "@/lib/data";
 import { useBookFilters } from "@/hooks/use-book-filters";
-
-interface DateRange {
-  from?: number;
-  to?: number;
-}
 
 export default function BooksPage() {
   const {
@@ -50,23 +44,6 @@ export default function BooksPage() {
 
   const isFilteringActive = searchTerm || dateRange.from || dateRange.to;
 
-  // Define image sizes based on the layout (100vw on mobile, 33vw on desktop)
-  const imageSizes = "(max-width: 768px) 100vw, 33vw";
-
-  // Convert date range to Date objects for the YearRangePicker
-  const currentDateRange = {
-    from: dateRange.from ? new Date(dateRange.from) : undefined,
-    to: dateRange.to ? new Date(dateRange.to) : undefined,
-  };
-
-  // Handle year range changes from the YearRangePicker
-  const handleYearChange = (range: { from?: Date; to?: Date }) => {
-    setDateRange({
-      from: range.from ? range.from.getTime() : undefined,
-      to: range.to ? range.to.getTime() : undefined,
-    });
-  };
-
   return (
     <div className="relative overflow-hidden">
       <GeometricBackground />
@@ -87,8 +64,8 @@ export default function BooksPage() {
           </div>
           <div className="flex items-center gap-4 w-full md:w-auto"> {/* YearPicker and Reset Button */}
             <YearRangePicker
-              onYearChange={handleYearChange}
-              initialRange={currentDateRange}
+              onYearChange={setDateRange}
+              initialRange={dateRange}
               className="w-[200px]"
               minYear={minPublicationYear}
               maxYear={maxPublicationYear}
@@ -113,7 +90,7 @@ export default function BooksPage() {
               <div className="space-y-8">
                 {groupedBooks[category].map((book) => (
                   <Card
-                    key={book.id}
+                    key={book.title}
                     className="flex flex-col md:flex-row overflow-hidden border-2 shadow-none rounded-none"
                   >
                     <div className="md:w-1/3 flex-shrink-0">
@@ -124,7 +101,7 @@ export default function BooksPage() {
                             alt={`Cover of ${book.title}`}
                             fill
                             className="object-cover"
-                            sizes={imageSizes}
+                            sizes="(max-width: 768px) 100vw, 33vw"
                           />
                         </AspectRatio>
                       </ConditionalLink>
@@ -187,7 +164,7 @@ export default function BooksPage() {
                             </span>{" "}
                             {book.tags
                               .split(",")
-                              .map((tag: string) => tag.trim())
+                              .map((tag) => tag.trim())
                               .sort()
                               .join(", ")}
                           </p>
