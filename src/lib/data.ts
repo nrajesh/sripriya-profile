@@ -116,7 +116,7 @@ const rawBooks: Book[] = [
     description: "This is a 15 part series published at prekshaa.in. This is a Translated Work of Upanayanam – A Gentle Introduction by Hari Ravikumar"
   },
   {
-    title: "ஸ்வாமி வேதாந்த தேசிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
+    title: "ஸ்வாமி வேதாந்த தேஸிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
     coverUrl: "/covers/sri-sukthikal.jpg",
     originalAuthors: "Sripriya Srinivasan",
     publisher: "V.K.N. Enterprises, Mylapore",
