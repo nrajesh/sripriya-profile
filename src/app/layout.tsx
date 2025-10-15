@@ -12,7 +12,7 @@ const montserrat = Montserrat({
 });
 
 const BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://sripriyasrinivasan.com' // Replace with your actual domain
+  ? 'https://sripriya.in' // Updated domain
   : 'http://localhost:3000';
 
 export const metadata: Metadata = {
