@@ -44,7 +44,7 @@ export default function AboutPage() {
                   understanding.
                 </p>
                 <p>
-                  While she has a background in Computer Science Engineering, Sripriya has a deep interest in literature, philosophy, science, translation, and Sanskrit. Sripriya
+                  Sripriya has a background in Computer Science Engineering, and holds a masters degree in Sanskrit. She has a deep interest in literature, philosophy, science, translation, and Sanskrit. Sripriya
                   brings a unique, culturally rich perspective to her writing.
                 </p>
               </div>

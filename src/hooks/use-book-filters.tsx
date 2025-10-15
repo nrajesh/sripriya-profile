@@ -47,14 +47,14 @@ export function useBookFilters(): UseBookFiltersResult {
         if (!publicationDate) return false;
 
         const publicationTime = publicationDate.getTime();
+        
+        // dateRange.from is already Jan 1st of the selected year
         const fromTime = dateRange.from ? dateRange.from.getTime() : -Infinity;
         
-        // Adjust 'to' date to include the entire day (Dec 31st of the selected year)
-        const adjustedToTime = dateRange.to 
-          ? new Date(dateRange.to.getFullYear(), 11, 31, 23, 59, 59, 999).getTime() 
-          : Infinity;
+        // dateRange.to is already Dec 31st of the selected year (set in YearRangePicker)
+        const toTime = dateRange.to ? dateRange.to.getTime() : Infinity;
 
-        return publicationTime >= fromTime && publicationTime <= adjustedToTime;
+        return publicationTime >= fromTime && publicationTime <= toTime;
       });
     }
 
