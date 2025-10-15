@@ -119,7 +119,7 @@ const rawBooks: Book[] = [
     isbn: null,
     category: "Original Publication",
     tags: "religion, hinduism, India, scholar, guru, vedanta desikan, swamy, sri vaishnavism, ramanuja",
-    description: "சுவாமி தேஸிகனின் 755 ஆவது திருநக்ஷத்ர மஹோத்ஸவத்தில் ஸ்ரீமத் ஆண்டவன் ஸ்ரீவராஹ மஹா தேசிகன் திருக்கரங்களால் ரிஷிகேஷ் ஆச்ரமத்தில் வெளியிடப்பட்டது. This book is not available to purchase online",
+    description: "Launched in Rishikesh by His Holiness Srimad Andavan Sri Varaha Maha Desikan, the current and the twelfth pontiff of the Srirangam Srimad Andavan Ashramam. Please note that this book is not available to purchase online",
   },
   {
     id: 6,
