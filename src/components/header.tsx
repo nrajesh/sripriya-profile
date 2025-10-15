@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Menu, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 export function Header() {
   const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false); // State to control mobile sheet
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
@@ -50,7 +51,7 @@ export function Header() {
         <div className="flex items-center">
           {/* Mobile navigation trigger (only visible on mobile) */}
           <div className="md:hidden">
-            <Sheet>
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu className="h-5 w-5" />
@@ -58,12 +59,19 @@ export function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="rounded-none">
+                <SheetHeader className="sr-only">
+                  <SheetTitle>Mobile Navigation Menu</SheetTitle>
+                  <SheetDescription>
+                    Navigation links for the Sripriya Srinivasan website.
+                  </SheetDescription>
+                </SheetHeader>
                 <div className="flex flex-col gap-6 pt-6">
                   {navLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       className="text-sm font-medium text-foreground"
+                      onClick={() => setIsSheetOpen(false)} // Close sheet on link click
                     >
                       {link.label}
                     </Link>

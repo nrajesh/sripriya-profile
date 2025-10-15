@@ -11,7 +11,12 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
+const BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://sripriya.in' // Updated domain
+  : 'http://localhost:3000';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
   title: "Sripriya Srinivasan | Official Website",
   description: "The official website of author and translator Sripriya Srinivasan.",
   icons: {
