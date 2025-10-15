@@ -73,8 +73,8 @@ export const booksData: Book[] = [
   {
     id: 5,
     title: "ஸ்வாமி வேதாந்த தேஸிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
-    coverUrl: "/covers/sri-sukthikal.png",
-    detailsUrl: "https://sripriya.in",
+    coverUrl: "/covers/sri-sukthikal.jpg",
+    detailsUrl: null,
     originalAuthors: null,
     publisher: "V.K.N. Enterprises, Mylapore",
     publicationDate: "September 25, 2023",
