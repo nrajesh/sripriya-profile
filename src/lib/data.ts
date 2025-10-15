@@ -112,7 +112,7 @@ const rawBooks: Book[] = [
     title: "ஸ்வாமி வேதாந்த தேஸிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
     coverUrl: "/covers/sri-sukthikal.jpg",
     detailsUrl: "https://sripriya.in",
-    originalAuthors: "Sripriya Srinivasan",
+    originalAuthors: null,
     publisher: "V.K.N. Enterprises, Mylapore",
     publicationDate: "September 25, 2023",
     pageCount: null,
