@@ -1,62 +1,53 @@
-# Welcome to Sripriya Srinivasan's Official Website!
+# Sripriya Srinivasan | Official Website
 
-This website serves as the official digital home for author and translator Sripriya Srinivasan, showcasing her published works, translations, and biographical information. Built with Next.js, it is designed to be fast, responsive, and an engaging platform for her readers.
+This is the official personal website for author and translator Sripriya Srinivasan. The site is designed to showcase her published works, provide information about her, and serve as a central point of contact.
 
-## About the Author
+## ✨ Features
 
-Sripriya Srinivasan is an accomplished author and translator, bringing rich narratives and profound ideas to a wider audience through her insightful works. This site provides a comprehensive overview of her literary contributions.
+-   **Book Showcase**: Displays a curated list of Sripriya Srinivasan's books, including original publications and translations.
+-   **Dynamic Theming**: Includes a theme switcher for light and dark modes to ensure a comfortable viewing experience for all users.
+-   **Responsive Design**: The layout is fully responsive and optimized for viewing on desktops, tablets, and mobile devices.
+-   **SEO and Social Sharing**: Optimized with metadata for search engines and rich previews when shared on social media platforms.
+-   **Built with Modern Technologies**: Leverages a modern, performant, and maintainable tech stack.
 
-## Website Contents
+## 🛠️ Tech Stack
 
-*   **Home:** An introduction to the author and a showcase of her latest published books.
-*   **About:** Detailed biographical information, including her background, interests, and notable achievements (like meeting the President of India).
-*   **Books:** A complete, filterable, and searchable catalog of all her original publications and translations. Users can search by tags, publisher, or original authors, and filter by publication year range.
-*   **Privacy Policy:** Information regarding data handling and privacy practices.
+-   **Framework**: [Next.js](https://nextjs.org/) (App Router)
+-   **Language**: [TypeScript](https://www.typescriptlang.org/)
+-   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+-   **UI Components**: [Shadcn/UI](https://ui.shadcn.com/)
+-   **Icons**: [Lucide React](https://lucide.dev/)
+-   **Fonts**: [Google Fonts](https://fonts.google.com/) (Montserrat)
 
-## Getting Started (for Developers)
+## 🚀 Getting Started
 
-If you're interested in running this project locally, here's how:
+To run this project locally, follow these steps:
 
-First, clone the repository:
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
 
-```bash
-git clone [Your Repository URL Here]
-cd [Your Project Folder Name]
-```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-Then, install the dependencies and run the development server:
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-# or
-bun install
-```
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📂 Project Structure
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   `src/app/`: Contains the core application pages and layouts, following the Next.js App Router structure.
+-   `src/components/`: Reusable React components used throughout the application (e.g., Header, Footer, UI elements).
+-   `src/lib/`: Utility functions and data definitions, such as the `books.ts` data file.
+-   `public/`: Static assets, including images (like book covers) and fonts.
 
-This project uses [Next.js](https://nextjs.org) and leverages [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Montserrat](https://fonts.google.com/specimen/Montserrat).
+## 📚 Managing Content
 
-## Learn More
-
-To learn more about Next.js, you can refer to the official documentation:
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Learn Next.js](https://nextjs.org/learn)
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+Book information is managed in the `src/lib/books.ts` file. To add, update, or remove a book, you can edit the `booksData` array in this file. Make sure to add any new cover images to the `public/covers/` directory.
