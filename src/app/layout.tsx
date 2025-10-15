@@ -17,6 +17,24 @@ export const metadata: Metadata = {
   icons: {
     icon: "/author-profile.jpeg", // Using the author profile image as the favicon
   },
+  openGraph: {
+    title: "Sripriya Srinivasan | Official Website",
+    description: "The official website of author and translator Sripriya Srinivasan.",
+    images: [
+      {
+        url: "/author-profile.jpeg",
+        width: 400,
+        height: 400,
+        alt: "Sripriya Srinivasan Profile",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sripriya Srinivasan | Official Website",
+    description: "The official website of author and translator Sripriya Srinivasan.",
+    images: ["/author-profile.jpeg"],
+  },
 };
 
 export default function RootLayout({
