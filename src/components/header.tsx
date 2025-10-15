@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Menu, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -61,6 +61,9 @@ export function Header() {
               <SheetContent side="left" className="rounded-none">
                 <SheetHeader className="sr-only">
                   <SheetTitle>Mobile Navigation Menu</SheetTitle>
+                  <SheetDescription>
+                    Navigation links for the Sripriya Srinivasan website.
+                  </SheetDescription>
                 </SheetHeader>
                 <div className="flex flex-col gap-6 pt-6">
                   {navLinks.map((link) => (
