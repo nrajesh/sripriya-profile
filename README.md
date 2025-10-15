@@ -1,17 +1,17 @@
-# Welcome to My Personal Website!
+# Welcome to Sripriya Srinivasan's Official Website!
 
-This website serves as a digital portfolio and blog, showcasing my projects, thoughts, and expertise in web development. Built with Next.js, it's designed to be fast, responsive, and a reflection of my passion for creating engaging web experiences.
+This website serves as the official digital home for author and translator Sripriya Srinivasan, showcasing her published works, translations, and biographical information. Built with Next.js, it is designed to be fast, responsive, and an engaging platform for her readers.
 
 ## About the Author
 
-[Your Name/Alias Here] is a passionate web developer with a focus on [mention your key skills, e.g., front-end development, full-stack, UI/UX, specific technologies like React, Node.js, etc.]. I love building intuitive and performant applications that solve real-world problems. This space is where I share my journey, document my learnings, and present the work I'm proud of.
+Sripriya Srinivasan is an accomplished author and translator, bringing rich narratives and profound ideas to a wider audience through her insightful works. This site provides a comprehensive overview of her literary contributions.
 
 ## Website Contents
 
-*   **Projects:** A curated collection of my personal and professional projects, complete with descriptions, technologies used, and links to live demos or repositories.
-*   **Blog:** Articles and insights on web development, coding best practices, new technologies, and personal reflections.
-*   **About Me:** More details about my background, skills, and professional experience.
-*   **Contact:** Ways to get in touch with me for collaborations, opportunities, or just a chat!
+*   **Home:** An introduction to the author and a showcase of her latest published books.
+*   **About:** Detailed biographical information, including her background, interests, and notable achievements (like meeting the President of India).
+*   **Books:** A complete, filterable, and searchable catalog of all her original publications and translations. Users can search by tags, publisher, or original authors, and filter by publication year range.
+*   **Privacy Policy:** Information regarding data handling and privacy practices.
 
 ## Getting Started (for Developers)
 
@@ -48,7 +48,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-This project uses [Next.js](https://nextjs.org) and leverages [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font).
+This project uses [Next.js](https://nextjs.org) and leverages [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Montserrat](https://fonts.google.com/specimen/Montserrat).
 
 ## Learn More
 
