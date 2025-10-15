@@ -44,6 +44,9 @@ export default function BooksPage() {
 
   const isFilteringActive = searchTerm || dateRange.from || dateRange.to;
 
+  // Define image sizes based on the layout (100vw on mobile, 33vw on desktop)
+  const imageSizes = "(max-width: 768px) 100vw, 33vw";
+
   return (
     <div className="relative overflow-hidden">
       <GeometricBackground />
@@ -101,7 +104,7 @@ export default function BooksPage() {
                             alt={`Cover of ${book.title}`}
                             fill
                             className="object-cover"
-                            sizes="(max-width: 768px) 100vw, 33vw"
+                            sizes={imageSizes} // Added sizes prop
                           />
                         </AspectRatio>
                       </ConditionalLink>
