@@ -95,13 +95,13 @@ export default function BooksPage() {
           ) : sortedCategories.length === 0 && !isFilteringActive ? (
             <p className="text-center text-muted-foreground text-lg">No books available.</p>
           ) : null}
-          {sortedCategories.map((category) => (
+          {sortedCategories.map((category, categoryIndex) => (
             <div key={category}>
               <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center md:text-left">
                 {category}
               </h2>
               <div className="space-y-8">
-                {groupedBooks[category].map((book) => (
+                {groupedBooks[category].map((book, bookIndex) => (
                   <div key={book.id}>
                     <Card
                       className="flex flex-col md:flex-row overflow-hidden border-2 shadow-none rounded-none cursor-pointer hover:bg-muted/50 transition-colors"
@@ -115,6 +115,7 @@ export default function BooksPage() {
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, 33vw"
+                            priority={categoryIndex === 0 && bookIndex === 0}
                           />
                         </AspectRatio>
                       </div>
