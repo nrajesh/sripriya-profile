@@ -61,10 +61,10 @@ export function BookCard({ book, priority = false }: BookCardProps) {
         </Card>
       </div>
 
-      <DialogContent className="sm:max-w-[425px] md:max-w-lg p-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto"> {/* Added max-h and overflow-y for scrollable content */}
+      <DialogContent className="sm:max-w-[425px] md:max-w-2xl p-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto">
           {/* Left side: Cover Image */}
-          <div className="aspect-[2/3] relative">
+          <div className="aspect-[2/3] relative shadow-xl">
             <Image
               src={book.coverUrl}
               alt={`Cover of ${book.title}`}
@@ -80,7 +80,8 @@ export function BookCard({ book, priority = false }: BookCardProps) {
               <DialogTitle className="text-2xl">{book.title}</DialogTitle>
             </DialogHeader>
 
-            <div className="space-y-3 text-muted-foreground text-sm flex-grow"> {/* Added flex-grow to push links to bottom */}
+            {/* Scrollable Content Area */}
+            <div className="space-y-3 text-muted-foreground text-sm flex-grow overflow-y-auto pr-2">
               {book.originalAuthors && (
                 <p>
                   <span className="font-medium text-foreground">
@@ -153,7 +154,7 @@ export function BookCard({ book, priority = false }: BookCardProps) {
               )}
             </div>
 
-            <div className="space-y-3 mt-6"> {/* Added mt-6 for spacing from details */}
+            <div className="space-y-3 mt-6 flex-shrink-0">
               {book.detailsUrl && (
                 <PurchaseLink href={book.detailsUrl} label="Buy from Publisher" />
               )}
