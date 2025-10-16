@@ -34,8 +34,6 @@ export interface Book {
   category: string;
   tags: string | null;
   description: string;
-  amazonUrl?: string | null; // Added optional property
-  flipkartUrl?: string | null; // Added optional property
 }
 
 // Helper function to parse dates for sorting
@@ -76,7 +74,7 @@ const rawBooks: Book[] = [
     publisher: "CreateSpace Independent Publishing Platform",
     publicationDate: "September 11, 2017",
     pageCount: "340",
-    isbn: "9781976284601 (ISBN-13); 1976284601 (ISBN-10)",
+    isbn: "9781976284601 (ISBN-13); 1976284600 (ISBN-10)",
     category: "Translated Work",
     tags: "religion, hinduism, sermon, gita, krishna, war, holy, tradition, India",
     description: "A modern Translated Work of the Bhagavad-Gita, one of the most important works in the Hindu tradition. Two friends have a conversation at the outset of an epic war. One of them, Arjuna, is sad and confused in the face of imminent doom; the other, Krishna, decides to cheer him up and clear his doubts.\n\nThrough the course of their dialogue, while inspiring Arjuna to do his work, Krishna assumes the role of a mentor and imparts the timeless wisdom that is called the Bhagavad-Gita. For someone who wants to know about Indias grand heritage, religious traditions, philosophy, and spirituality, the Bhagavad-Gita is a good place to start. The present work includes the text of the Bhagavad-Gita in the Grantha script.",
@@ -93,7 +91,7 @@ const rawBooks: Book[] = [
     isbn: "B0936ZXLX7 (ASIN)",
     category: "Translated Work",
     tags: "religion, hinduism, gods, society, philosophy, India",
-    description: "சிவன். ராமன். கிருஷ்ணன். இந்திய பாரம்பரியத்தின் முப்பெரும் கதாநாயகர்கள்.\n\nஉயர் இந்தியாவில் தலைமுறைகள் பல கடந்தும் கடவுளர்களாக போற்றப்பட்டு வழிகாட்டிகளாக விளங்குபவர்கள். மனித ஒற்றுமை நூற்றாண்டுகால பரிணாம வளர்ச்சியின் பரிமாணம். தனிநபர்களாகவும், குடும்ப உறுப்பினர்களாகவும், சமுதாய பிரஜர்களாகவும் நாம் அனைவரும் பரிமளிக்கிறோம்.\n\nசிவன் தனிமனித அடையாளமாக அமைகிறான். ராமன் குடும்ப வாழ்க்கைக்கு வழிவகுக்கிறான். கிருஷ்ணன் சமுதாயப் பங்காற்றுவதை போதிக்கிறான்.\n\nஇக்கதாநாயகர்களை மையப்படுத்தி நல்வாக்கு, நற்பண்பு, நல்வாழ்க்கை குறித்து ஷதாவதானி Dr. R. கணேஷ் முன்வைக்கும் ஒரு மாறுபட்ட கண்ணோட்டம்."
+    description: "சிவன். ராமன். கிருஷ்ணன். இந்திய பாரம்பரியத்தின் முப்பெரும் கதாநாயகர்கள்.\n\nஉயர் இந்தியாவில் தலைமுறைகள் பல கடந்தும் கடவுளர்களாக போற்றப்பட்டு வழிகாட்டிகளாக விளங்குபவர்கள். மனித ஒற்றுமை நூற்றாண்டுகால பரிணாம வளர்ச்சியின் பரிமாணம். தனிநபர்களாகவும், குடும்ப உறுப்பினர்களாகவும், சமுதாய பிரஜைகளாகவும் நாம் அனைவரும் பரிமளிக்கிறோம்.\n\nசிவன் தனிமனித அடையாளமாக அமைகிறான். ராமன் குடும்ப வாழ்க்கைக்கு வழிவகுக்கிறான். கிருஷ்ணன் சமுதாயப் பங்காற்றுவதை போதிக்கிறான்.\n\nஇக்கதாநாயகர்களை மையப்படுத்தி நல்வாக்கு, நற்பண்பு, நல்வாழ்க்கை குறித்து ஷதாவதானி Dr. R. கணேஷ் முன்வைக்கும் ஒரு மாறுபட்ட கண்ணோட்டம்."
   },
   {
     id: 4,
@@ -181,7 +179,7 @@ export const getMinPublicationYear = (): number | undefined => {
     .map(book => book.publicationDate)
     .filter(dateString => dateString) // Filter out null/undefined dates
     .map(dateString => parseDateForSorting(dateString!)); // Use non-null assertion after filter
-
+  
   if (dates.length === 0) return undefined;
   const minDate = new Date(Math.min(...dates.map(date => date.getTime())));
   return minDate.getFullYear();
