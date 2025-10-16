@@ -39,7 +39,7 @@ export type Book = {
   tags?: string | null;
   publisher?: string | null;
   originalAuthors?: string | null; // Used for translations
-  pageCount?: number | null;
+  pageCount?: string | null;
 };
 
 // --- Data ---
