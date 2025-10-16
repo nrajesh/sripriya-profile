@@ -17,9 +17,7 @@ export const useBookFilters = (initialBooks: Book[]) => {
       currentBooks = currentBooks.filter(book => {
         const matchesTitle = book.title.toLowerCase().includes(lowerCaseSearchTerm);
         const matchesDescription = book.description.toLowerCase().includes(lowerCaseSearchTerm);
-        
-        // Safely check book.author
-        const matchesAuthor = book.author && book.author.toLowerCase().includes(lowerCaseSearchTerm);
+        const matchesAuthor = book.author.toLowerCase().includes(lowerCaseSearchTerm);
         
         // Check optional fields
         const matchesTags = book.tags?.toLowerCase().includes(lowerCaseSearchTerm);
