@@ -81,10 +81,11 @@ export function BookDetailDialog({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto">
+        {/* Added min-h-[50vh] to ensure consistent vertical space for centering */}
+        <div className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] min-h-[50vh] overflow-y-auto">
           
           {/* Left side: Cover Image and Links (Vertically Centered) */}
-          <div className="p-6 md:p-8 flex flex-col items-center justify-center border-r">
+          <div className="p-6 md:p-8 flex flex-col items-center justify-center border-r h-full">
             {/* Image Container with Shadow */}
             <div className="aspect-[2/3] relative shadow-xl w-full max-w-xs">
               <Image
@@ -116,7 +117,7 @@ export function BookDetailDialog({
           </div>
 
           {/* Right side: Details (Scrollable) */}
-          <div className="p-6 flex flex-col">
+          <div className="p-6 flex flex-col h-full">
             <DialogHeader className="mb-4">
               <DialogTitle className="text-2xl">{book.title}</DialogTitle>
             </DialogHeader>
