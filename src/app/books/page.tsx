@@ -202,18 +202,40 @@ export default function BooksPage() {
 
                     <DialogContent className="sm:max-w-[425px] md:max-w-2xl p-0">
                       <div className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto">
-                        {/* Left side: Cover Image */}
-                        <div className="aspect-[2/3] relative shadow-xl">
-                          <Image
-                            src={book.coverUrl}
-                            alt={`Cover of ${book.title}`}
-                            fill
-                            className="object-cover rounded-t-lg md:rounded-t-none md:rounded-l-lg"
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                          />
+                        
+                        {/* Left side: Cover Image and Links (Vertically Centered) */}
+                        <div className="p-6 md:p-8 flex flex-col items-center justify-center border-r">
+                          {/* Image Container with Shadow */}
+                          <div className="aspect-[2/3] relative shadow-xl w-full max-w-xs">
+                            <Image
+                              src={book.coverUrl}
+                              alt={`Cover of ${book.title}`}
+                              fill
+                              className="object-cover rounded-lg"
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                            />
+                          </div>
+
+                          {/* Purchase Links (Moved here) */}
+                          <div className="space-y-3 mt-6 w-full max-w-xs">
+                            {book.detailsUrl && (
+                              <PurchaseLink href={book.detailsUrl} label="Buy from Publisher" />
+                            )}
+                            {book.amazonUrl && (
+                              <PurchaseLink href={book.amazonUrl} label="Buy on Amazon" />
+                            )}
+                            {book.flipkartUrl && (
+                              <PurchaseLink href={book.flipkartUrl} label="Buy on Flipkart" />
+                            )}
+                            
+                            {/* Fallback if no links are provided */}
+                            {!book.detailsUrl && !book.amazonUrl && !book.flipkartUrl && (
+                              <p className="text-sm text-muted-foreground text-center">Purchase links not available.</p>
+                            )}
+                          </div>
                         </div>
 
-                        {/* Right side: Details and Links */}
+                        {/* Right side: Details (Scrollable) */}
                         <div className="p-6 flex flex-col">
                           <DialogHeader className="mb-4">
                             <DialogTitle className="text-2xl">{book.title}</DialogTitle>
@@ -290,22 +312,6 @@ export default function BooksPage() {
                                   {book.description}
                                 </p>
                               </div>
-                            )}
-                          </div>
-
-                          <div className="space-y-3 mt-6 flex-shrink-0">
-                            {book.detailsUrl && (
-                              <PurchaseLink href={book.detailsUrl} label="Buy from Publisher" />
-                            )}
-                            {book.amazonUrl && (
-                              <PurchaseLink href={book.amazonUrl} label="Buy on Amazon" />
-                            )}
-                            {book.flipkartUrl && (
-                              <PurchaseLink href={book.flipkartUrl} label="Buy on Flipkart" />
-                            )}
-                            
-                            {!book.detailsUrl && !book.amazonUrl && !book.flipkartUrl && (
-                              <p className="text-sm text-muted-foreground">Purchase links not available.</p>
                             )}
                           </div>
                         </div>
