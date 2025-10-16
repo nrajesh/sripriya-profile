@@ -147,6 +147,8 @@ const rawBooks: Book[] = [
     title: "Kalam’s Family Tree",
     coverUrl: "/covers/kalams-family-tree.jpg",
     detailsUrl: "https://www.prabhatbooks.com/kalam-s-family-tree-ancestral-legacy-of-dr-a-p-j-abdul-kalam.htm",
+    amazonUrl: "",
+    flipkartUrl: "https://www.flipkart.com/kalams-family-tree-ancestral-legacy-abdul-kalam/p/itmf5fa0bd544a2c?pid=9789355628121&lid=LSTBOK9789355628121FPAUC6",
     originalAuthors: "Dr. A.P.J.M. Nazema Maraikayar",
     publisher: "Prabhat Prakashan",
     publicationDate: "April 10, 2024",
