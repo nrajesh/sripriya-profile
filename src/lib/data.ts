@@ -1,160 +1,199 @@
-import { BookOpen, Home, PenTool, Rss, Users } from "lucide-react";
+import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
-// --- Core Types ---
-
-export type NavLink = {
-  href: string;
-  label: string;
-  icon: React.ElementType;
+export const author = {
+  name: "Sripriya Srinivasan",
+  tagline: "Author & Translator",
+  bio: "An accomplished author and translator, Sripriya Srinivasan brings rich narratives and profound ideas to a wider audience through her insightful works.",
 };
 
-export type SocialLink = {
-  href: string;
-  icon: React.ElementType;
-  label: string;
-};
+export const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/books", label: "Books" },
+  //{ href: "/contact", label: "Contact" },
+];
 
-export type Author = {
-  name: string;
-  bio: string;
-  profileImage: string;
-};
+export const socialLinks = [
+  {
+    href: "https://www.facebook.com/sripriya.srinivasan.940309",
+    label: "Facebook",
+    icon: Facebook,
+  },
+];
 
-export type Book = {
+export interface Book {
+  id: number;
   title: string;
   coverUrl: string;
   detailsUrl: string | null;
-  amazonUrl?: string | null;
-  flipkartUrl?: string | null;
-  author: string; // Author of the book (could be Sripriya or original author if translation)
+  originalAuthors: string | null;
+  publisher: string | null;
+  publicationDate: string | null;
+  pageCount: string | null;
+  isbn: string | null;
+  category: string;
+  tags: string | null;
   description: string;
-  isbn?: string | null;
-  publicationDate?: string | null;
-  
-  // Fields required by book-search and books/page
-  category?: string | null;
-  tags?: string | null;
-  publisher?: string | null;
-  originalAuthors?: string | null; // Used for translations
-  pageCount?: number | null;
-};
+}
 
-// --- Data ---
-
-export const author: Author = {
-  name: "Sripriya Srinivasan",
-  bio: "Sripriya Srinivasan is an acclaimed author and translator, known for her insightful narratives and elegant translations.",
-  profileImage: "/author-profile.jpeg",
-};
-
-export const navLinks: NavLink[] = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/books", label: "Books & Translations", icon: BookOpen },
-  { href: "/blog", label: "Blog", icon: Rss },
-  { href: "/about", label: "About", icon: Users },
-  { href: "/contact", label: "Contact", icon: PenTool },
-];
-
-export const socialLinks: SocialLink[] = [
-  { href: "https://twitter.com/sripriya", icon: Home, label: "Twitter" },
-  { href: "https://linkedin.com/in/sripriya", icon: Home, label: "LinkedIn" },
-];
-
-export const books: Book[] = [
-  {
-    title: "The First Book",
-    coverUrl: "/book-cover-1.jpg",
-    detailsUrl: "https://publisher.com/book1",
-    amazonUrl: "https://amazon.in/book1",
-    author: "Sripriya Srinivasan",
-    description: "A compelling narrative about life and translation.",
-    publicationDate: "2023-01-15",
-    category: "Fiction",
-    tags: "novel, contemporary",
-    publisher: "Penguin India",
-    pageCount: 320,
-  },
-  {
-    title: "A Translated Work",
-    coverUrl: "/book-cover-2.jpg",
-    detailsUrl: null,
-    flipkartUrl: "https://flipkart.com/translated",
-    author: "Sripriya Srinivasan (Translator)",
-    description: "An elegant translation of a classic text.",
-    isbn: "978-1234567890",
-    publicationDate: "2021-11-01",
-    category: "Translation",
-    tags: "classic, literature",
-    publisher: "HarperCollins",
-    originalAuthors: "Original Author A",
-    pageCount: 450,
-  },
-  {
-    title: "Short Stories Collection",
-    coverUrl: "/book-cover-3.jpg",
-    detailsUrl: "https://publisher.com/stories",
-    author: "Sripriya Srinivasan",
-    description: "A collection of insightful short stories.",
-    publicationDate: "2024-05-10",
-    category: "Short Stories",
-    tags: "fiction, collection",
-    publisher: "Rupa Publications",
-    pageCount: 200,
-  },
-];
-
-export const translations: Book[] = [
-  {
-    title: "The Translated Classic",
-    coverUrl: "/translation-cover-1.jpg",
-    detailsUrl: "https://publisher.com/classic",
-    author: "Sripriya Srinivasan (Translator)",
-    description: "A masterful translation by Sripriya Srinivasan.",
-    publicationDate: "2022-05-20",
-    category: "Translation",
-    tags: "classic, poetry",
-    publisher: "Oxford University Press",
-    originalAuthors: "Original Author B",
-    pageCount: 180,
+// Helper function to parse dates for sorting
+export const parseDateForSorting = (dateString: string | null): Date => {
+  if (!dateString) return new Date(0); // Treat empty string as very old
+  // Handle "Month Day, Year" format
+  if (dateString && dateString.includes(',')) {
+    return new Date(dateString);
   }
+  // Handle "Year" format
+  if (dateString && /^\d{4}$/.test(dateString)) {
+    return new Date(`${dateString}-01-01`); // Assume Jan 1st for year-only dates
+  }
+  return new Date(dateString || 0); // Fallback for other formats or null
+};
+
+const rawBooks: Book[] = [
+  {
+    id: 1,
+    title: "கலாமின் இந்தியக் கனவுகள்",
+    coverUrl: "/covers/kalamin-indhiya-kanavugal.jpg",
+    detailsUrl: "https://www.noolulagam.com/product/?pid=34503",
+    originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J. Abdul Kalam",
+    publisher: "கிழக்கு பதிப்பகம்",
+    publicationDate: "July 01, 2017",
+    pageCount: "280",
+    isbn: "B07BJK8TFY (ASIN); 9788184937947 (ISBN)",
+    category: "Translated Work",
+    tags: "India, science, technology, space, research, isro",
+    description: "From enhanced nuclear capability to an unmanned Moon mission, India's scientific achievements in recent years have been spectacular. But, according to the country s best-known scientist Dr. A.P.J. Abdul Kalam and his close associate Dr. Y.S. Rajan, we've only just begun. In a century that many experts predict may belong to India, the realization of the vision of a better future for everyone will require a keen understanding of our needs and this can only be achieved by tailoring our research and innovations to the goal of national development.\n\nIn The Scientific Indian, the authors of the path-breaking India 2020: A Vision for the New Millennium return after ten years to the core areas of scientific advancement that are crucial space exploration, satellite technology, missile development, earth and ocean resources, the biosphere, food production, energy and water harvesting, health care and communications, to name a few. For each aspect, the authors discuss Indian breakthroughs within the context of recent progress on the global platform, before outlining a pragmatic vision of technological development that will propel India to the forefront of the world in the decades to come.",
+  },
+  {
+    id: 2,
+    title: "பகவத்கீதை தற்காலத் தமிழில்",
+    coverUrl: "/covers/bhagavad-gitai.jpg",
+    detailsUrl: "https://amzn.in/d/8E1f4BP",
+    originalAuthors: "Koti Sreekrishna; Hari Ravikumar",
+    publisher: "CreateSpace Independent Publishing Platform",
+    publicationDate: "September 11, 2017",
+    pageCount: "340",
+    isbn: "9781976284601 (ISBN-13); 1976284600 (ISBN-10)",
+    category: "Translated Work",
+    tags: "religion, hinduism, sermon, gita, krishna, war, holy, tradition, India",
+    description: "A modern Translated Work of the Bhagavad-Gita, one of the most important works in the Hindu tradition. Two friends have a conversation at the outset of an epic war. One of them, Arjuna, is sad and confused in the face of imminent doom; the other, Krishna, decides to cheer him up and clear his doubts.\n\nThrough the course of their dialogue, while inspiring Arjuna to do his work, Krishna assumes the role of a mentor and imparts the timeless wisdom that is called the Bhagavad-Gita. For someone who wants to know about Indias grand heritage, religious traditions, philosophy, and spirituality, the Bhagavad-Gita is a good place to start. The present work includes the text of the Bhagavad-Gita in the Grantha script.",
+  },
+  {
+    id: 3,
+    title: "சிவ-ராம-கிருஷ்ணன்",
+    coverUrl: "/covers/siva-rama-krishnan.jpg",
+    detailsUrl: "https://amzn.in/d/3p2s24Y",
+    originalAuthors: "Shatavadhani Dr. R. Ganesh",
+    publisher: "Prekshaa Pratishtana",
+    publicationDate: "April 21, 2021",
+    pageCount: "10 part series",
+    isbn: "B0936ZXLX7 (ASIN)",
+    category: "Translated Work",
+    tags: "religion, hinduism, gods, society, philosophy, India",
+    description: "சிவன். ராமன். கிருஷ்ணன். இந்திய பாரம்பரியத்தின் முப்பெரும் கதாநாயகர்கள்.\n\nஉயர் இந்தியாவில் தலைமுறைகள் பல கடந்தும் கடவுளர்களாக போற்றப்பட்டு வழிகாட்டிகளாக விளங்குபவர்கள். மனித ஒற்றுமை நூற்றாண்டுகால பரிணாம வளர்ச்சியின் பரிமாணம். தனிநபர்களாகவும், குடும்ப உறுப்பினர்களாகவும், சமுதாய பிரஜைகளாகவும் நாம் அனைவரும் பரிமளிக்கிறோம்.\n\nசிவன் தனிமனித அடையாளமாக அமைகிறான். ராமன் குடும்ப வாழ்க்கைக்கு வழிவகுக்கிறான். கிருஷ்ணன் சமுதாயப் பங்காற்றுவதை போதிக்கிறான்.\n\nஇக்கதாநாயகர்களை மையப்படுத்தி நல்வாக்கு, நற்பண்பு, நல்வாழ்க்கை குறித்து ஷதாவதானி Dr. R. கணேஷ் முன்வைக்கும் ஒரு மாறுபட்ட கண்ணோட்டம்."
+  },
+  {
+    id: 4,
+    title: "உபநயனம் – ஒரு எளிய அறிமுகம்",
+    coverUrl: "/covers/upanayanam.jpg",
+    detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=7139",
+    originalAuthors: "Hari Ravikumar",
+    publisher: "Prekshaa Pratishtana",
+    publicationDate: "March 02, 2019",
+    pageCount: null,
+    isbn: null,
+    category: "Translated Work",
+    tags: "religion, hinduism, upanayanam, ritual, ceremony, India",
+    description: "This is a 15 part series published at prekshaa.in. This is a Translated Work of Upanayanam – A Gentle Introduction by Hari Ravikumar"
+  },
+  {
+    id: 5,
+    title: "Memories Never Die",
+    coverUrl: "/covers/memories-never-die.jpg",
+    detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-Translated Work-of-ninaivugalukku-maranamillai.htm",
+    originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J.M. Nazema Maraikayar",
+    publisher: "Prabhat Prakashan",
+    publicationDate: "April 08, 2023",
+    pageCount: "456",
+    isbn: "9788196159078 (ISBN); B0C2YTW8SR (ASIN)",
+    category: "Translated Work",
+    tags: "memories, family, science, research, space, India, isro",
+    description: "This book is an Translated Work of the Tamil book ‘Ninaivugalukku Maranamillai’. Written by two people closest to A.P.J. Abdul Kalam—his niece Dr. Nazema Maraikayar and the distinguished ISRO scientist Dr. Y.S. Rajan, who was a close confidante of Kalam —this book gives a holistic and honest revelation of the life of Dr. Kalam from his early childhood till he breathed his last.\n\nThis is the story of how a small-town boy from Rameswaram ascended to the highest echelons of the Indian political world. This book comprehensively covers the beautiful history of Indian rocketry, precursors to today’s Science and Technology, the workings of the Indian political and administrative",
+  },
+  {
+    id: 6,
+    title: "ஸ்வாமி வேதாந்த தேஶிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
+    coverUrl: "/covers/sri-sukthikal.jpg",
+    detailsUrl: null,
+    originalAuthors: null,
+    publisher: "V.K.N. Enterprises, Mylapore",
+    publicationDate: "September 25, 2023",
+    pageCount: null,
+    isbn: null,
+    category: "Original Publication",
+    tags: "religion, hinduism, India, scholar, guru, Vedantha Desikan, swamy, sri vaishnavism, Ramanuja",
+    description: "Launched in Rishikesh by His Holiness Srimad Andavan Sri Varaha Maha Desikan, the current and the twelfth pontiff of the Srirangam Srimad Andavan Ashramam.\n\nPlease note that this book is NOT available to purchase online",
+  },
+  {
+    id: 7,
+    title: "Kalam’s Family Tree",
+    coverUrl: "/covers/kalams-family-tree.jpg",
+    detailsUrl: "https://www.prabhatbooks.com/kalam-s-family-tree-ancestral-legacy-of-dr-a-p-j-abdul-kalam.htm",
+    originalAuthors: "Dr. A.P.J.M. Nazema Maraikayar",
+    publisher: "Prabhat Prakashan",
+    publicationDate: "April 10, 2024",
+    pageCount: "160",
+    isbn: "9789355628121 (ISBN); B0D1CNDBZC (ASIN)",
+    category: "Translated Work",
+    tags: "geneology, family, science, research, space, India",
+    description: "This book is an intimate memoir written by A.P.J. Abdul Kalam’s niece, who is closely connected to him and the family. The book offers a rare glimpse into the family life and ancestral roots of India’s beloved “Missile Man.’ The book was originally written in Tamil and later translated in English and Hindi.\n\nIt takes you to Dr. Kalam’s humble beginnings in Rameshwaram, Tamil Nadu, where the young Kalam’s curiosity and thirst of knowledge were nurtured within the embrace of a close-knit Muslim family. From the sacrifices of his parents to the wisdom imparted by his grandparents, the book celebrates the indelible impact of family on his journey to becoming the President of India.\n\nIt emphasises on the cultural and religious roots that he inherited from different generations. It mainly reflects how historical events, wars, societal changes, economic conditions, etc., had an effect on his personality. The book is a tribute to the power of heritage, perseverance and the pursuit of knowledge values that resonated deeply within the Kalam lineage.",
+  },
+  {
+    id: 8,
+    title: "The Pallava Empire",
+    coverUrl: "/covers/the-pallava-empire.jpg",
+    detailsUrl: "https://sahityabooks.com/shop/rashtrotthana-sahitya/the-pallava-empire/",
+    originalAuthors: null,
+    publisher: "Rashtrotthana Sahitya",
+    publicationDate: "June 19, 2025",
+    pageCount: "xix + 166",
+    isbn: "9789393991423 (ISBN)",
+    category: "Original Publication",
+    tags: "history, archeology, India, tamil, pallava, kingdom",
+    description: "Along with the Colas, Ceras, and Pandyas, the Pallavas were among the most important dynasties that ruled over the Tamil heartland. Who were the Pallavas? Where did they come from? What was their administration like? In what ways did they contribute to the heritage of Bharata?\n\nThe Pallava Empire : A Gentle Introduction offers a broad overview of the political, social, cultural, and economic landscape that prevailed during Pallava rule spanning 600 years, from 3rd to 9th century C.E. This book is written in an eminently readable style keeping in mind a general audience.",
+  },
 ];
 
-// --- Utility Functions ---
+// Sort books by publication date, most recent first
+export const books: Book[] = rawBooks.sort((a, b) => {
+  const dateA = parseDateForSorting(a.publicationDate);
+  const dateB = parseDateForSorting(b.publicationDate);
+  return dateB.getTime() - dateA.getTime();
+});
 
-/**
- * Parses a date string (YYYY-MM-DD) into a sortable format (e.g., YYYYMMDD).
- * Returns 0 if the date is invalid or missing.
- */
-export const parseDateForSorting = (dateString?: string | null): number => {
-  if (!dateString) return 0;
-  const date = new Date(dateString);
-  if (isNaN(date.getTime())) return 0;
+// Function to get the minimum publication year from the books data
+export const getMinPublicationYear = (): number | undefined => {
+  if (books.length === 0) return undefined;
+  const dates = books
+    .map(book => book.publicationDate)
+    .filter(dateString => dateString) // Filter out null/undefined dates
+    .map(dateString => parseDateForSorting(dateString!)); // Use non-null assertion after filter
   
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  
-  return parseInt(`${year}${month}${day}`, 10);
+  if (dates.length === 0) return undefined;
+  const minDate = new Date(Math.min(...dates.map(date => date.getTime())));
+  return minDate.getFullYear();
 };
 
-/**
- * Gets the minimum publication year from the list of books.
- */
-export const getMinPublicationYear = (bookList: Book[]): number => {
-  const years = bookList
-    .map(book => book.publicationDate ? new Date(book.publicationDate).getFullYear() : null)
-    .filter((year): year is number => year !== null);
-  
-  return years.length > 0 ? Math.min(...years) : new Date().getFullYear();
-};
+// Function to get the maximum publication year from the books data
+export const getMaxPublicationYear = (): number | undefined => {
+  if (books.length === 0) return undefined;
+  const dates = books
+    .map(book => book.publicationDate)
+    .filter(dateString => dateString) // Filter out null/undefined dates
+    .map(dateString => parseDateForSorting(dateString!)); // Use non-null assertion after filter
 
-/**
- * Gets the maximum publication year from the list of books.
- */
-export const getMaxPublicationYear = (bookList: Book[]): number => {
-  const years = bookList
-    .map(book => book.publicationDate ? new Date(book.publicationDate).getFullYear() : null)
-    .filter((year): year is number => year !== null);
-  
-  return years.length > 0 ? Math.max(...years) : new Date().getFullYear();
+  if (dates.length === 0) return undefined;
+  const maxDate = new Date(Math.max(...dates.map(date => date.getTime())));
+  return maxDate.getFullYear();
 };

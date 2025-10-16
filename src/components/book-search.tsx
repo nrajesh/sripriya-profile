@@ -1,9 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { Search, X } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Command,
   CommandEmpty,
@@ -12,148 +9,117 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Book } from "@/lib/data";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { books as allBooks } from "@/lib/data";
+import { Search } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface BookSearchProps {
-  books: Book[];
-  onSearch: (term: string) => void;
-  currentSearchTerm: string;
+  onSearch: (searchTerm: string) => void;
+  initialSearchTerm: string;
 }
 
-export function BookSearch({ books, onSearch, currentSearchTerm }: BookSearchProps) {
-  const [inputValue, setInputValue] = useState(currentSearchTerm);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(initialSearchTerm);
+  const [open, setOpen] = useState(false);
 
+  // Update internal searchTerm when initialSearchTerm prop changes (for reset)
   useEffect(() => {
-    setInputValue(currentSearchTerm);
-  }, [currentSearchTerm]);
+    setSearchTerm(initialSearchTerm);
+  }, [initialSearchTerm]);
 
+  // Debounce search term
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
     };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  }, [searchTerm]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setInputValue(value);
-    onSearch(value);
-    setIsOpen(value.length > 0);
-  };
+  // Notify parent component of the debounced search term
+  useEffect(() => {
+    onSearch(debouncedSearchTerm);
+  }, [debouncedSearchTerm, onSearch]);
 
-  const handleClear = () => {
-    setInputValue("");
-    onSearch("");
-    setIsOpen(false);
-  };
+  // Generate suggestions based on the debounced search term
+  const suggestions = useMemo(() => {
+    if (!debouncedSearchTerm) return [];
 
-  const handleSelectSuggestion = (suggestion: string) => {
-    setInputValue(suggestion);
-    onSearch(suggestion);
-    setIsOpen(false);
-  };
-
-  const uniqueSuggestions = useMemo(() => {
-    if (inputValue.length < 2) return [];
-
-    const lowerCaseSearchTerm = inputValue.toLowerCase().trim();
+    const lowerCaseSearchTerm = debouncedSearchTerm.toLowerCase();
     const uniqueSuggestions = new Set<string>();
 
-    books.forEach((book) => {
-      // Check title
-      if (book.title.toLowerCase().includes(lowerCaseSearchTerm)) {
-        uniqueSuggestions.add(book.title);
-      }
-
+    allBooks.forEach((book) => {
       // Check tags
       if (book.tags) {
-        book.tags.split(",").forEach((tag: string) => {
+        book.tags.split(",").forEach((tag) => {
           const trimmedTag = tag.trim();
           if (trimmedTag.toLowerCase().includes(lowerCaseSearchTerm)) {
             uniqueSuggestions.add(trimmedTag);
           }
         });
       }
-
       // Check publisher
       if (book.publisher && book.publisher.toLowerCase().includes(lowerCaseSearchTerm)) {
         uniqueSuggestions.add(book.publisher);
       }
-
       // Check original authors
       if (book.originalAuthors && book.originalAuthors.toLowerCase().includes(lowerCaseSearchTerm)) {
         uniqueSuggestions.add(book.originalAuthors);
       }
     });
 
-    return Array.from(uniqueSuggestions).slice(0, 5);
-  }, [books, inputValue]);
+    return Array.from(uniqueSuggestions).sort();
+  }, [debouncedSearchTerm]);
 
-  const showSuggestions = isOpen && uniqueSuggestions.length > 0;
+  const handleSelectSuggestion = (suggestion: string) => {
+    setSearchTerm(suggestion);
+    setOpen(false);
+    onSearch(suggestion); // Immediately apply filter when a suggestion is selected
+  };
 
   return (
-    <div className="relative w-full max-w-md">
-      <Command shouldFilter={false} className="overflow-visible bg-transparent">
-        <div className="relative flex items-center">
-          <Search className="absolute left-3 h-4 w-4 text-muted-foreground" />
-          <CommandInput
-            value={inputValue}
-            onValueChange={setInputValue} // Keep CommandInput happy, but use custom handler for full control
-            onChange={handleInputChange}
-            placeholder="Search by title, tag, or publisher..."
-            className="pl-10 pr-10 h-10"
-            onFocus={() => setIsOpen(inputValue.length > 0)}
-            onBlur={() => {
-              // Delay closing to allow click on suggestion
-              setTimeout(() => setIsOpen(false), 150);
-            }}
-          />
-          {inputValue && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleClear}
-              className="absolute right-1 h-8 w-8"
-              aria-label="Clear search"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          )}
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <div className="relative flex items-center w-full">
+          <Command className={cn("rounded-lg border shadow-md", open ? "ring-2 ring-ring" : "")}>
+            <CommandInput
+              value={searchTerm}
+              onValueChange={(value) => {
+                setSearchTerm(value);
+                setOpen(true);
+              }}
+              placeholder="Search by tags, publisher, or authors..."
+              className="h-10 border-none focus:ring-0"
+            />
+          </Command>
+          <Search className="absolute right-3 h-4 w-4 text-muted-foreground pointer-events-none" />
         </div>
-
-        {/* Suggestions Dropdown */}
-        {(showSuggestions || isMobile) && (
-          <div
-            className={`absolute z-50 w-full mt-1 rounded-md border bg-popover text-popover-foreground shadow-md transition-opacity duration-100 ${
-              showSuggestions ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
-            }`}
-          >
-            <CommandList>
-              {showSuggestions ? (
-                <CommandGroup heading="Suggestions">
-                  {uniqueSuggestions.map((suggestion) => (
-                    <CommandItem
-                      key={suggestion}
-                      value={suggestion}
-                      onSelect={() => handleSelectSuggestion(suggestion)}
-                      className="cursor-pointer"
-                    >
-                      {suggestion}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              ) : (
-                // Render empty state to stabilize DOM structure on mobile
-                <CommandEmpty>No suggestions found.</CommandEmpty>
-              )}
-            </CommandList>
-          </div>
-        )}
-      </Command>
-    </div>
+      </PopoverTrigger>
+      <PopoverContent className="p-0 w-[var(--radix-popover-trigger-width)]" align="start">
+        <Command shouldFilter={false}>
+          <CommandList>
+            {suggestions.length === 0 && debouncedSearchTerm ? (
+              <CommandEmpty>No results found.</CommandEmpty>
+            ) : (
+              <CommandGroup>
+                {suggestions.map((suggestion) => (
+                  <CommandItem
+                    key={suggestion}
+                    value={suggestion}
+                    onSelect={() => handleSelectSuggestion(suggestion)}
+                  >
+                    {suggestion}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }

@@ -1,73 +1,72 @@
+"use client";
+
 import React, { useState, useMemo, useCallback } from "react";
 import { books as allBooks, parseDateForSorting, Book } from "@/lib/data";
 
-export type SortOption = "date-desc" | "date-asc" | "title-asc" | "title-desc";
+interface DateRange {
+  from?: Date;
+  to?: Date;
+}
 
-export const useBookFilters = (initialBooks: Book[]) => {
+interface UseBookFiltersResult {
+  searchTerm: string;
+  dateRange: DateRange;
+  filteredBooks: Book[];
+  setSearchTerm: (term: string) => void;
+  setDateRange: (range: DateRange) => void;
+  handleResetFilters: () => void;
+}
+
+export function useBookFilters(): UseBookFiltersResult {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOption, setSortOption] = useState<SortOption>("date-desc");
-  const [yearRange, setYearRange] = useState<[number, number] | null>(null);
+  const [dateRange, setDateRange] = useState<DateRange>({});
 
-  const filteredAndSortedBooks = useMemo(() => {
-    let currentBooks = initialBooks;
-    const lowerCaseSearchTerm = searchTerm.toLowerCase().trim();
+  const handleResetFilters = useCallback(() => {
+    setSearchTerm("");
+    setDateRange({});
+  }, []);
 
-    // 1. Filtering
-    if (lowerCaseSearchTerm) {
+  const filteredBooks = useMemo(() => {
+    let currentBooks = allBooks;
+
+    // 1. Apply text search filter
+    if (searchTerm) {
+      const lowerCaseSearchTerm = searchTerm.toLowerCase();
       currentBooks = currentBooks.filter(book => {
-        const matchesTitle = book.title.toLowerCase().includes(lowerCaseSearchTerm);
-        const matchesDescription = book.description.toLowerCase().includes(lowerCaseSearchTerm);
-        const matchesAuthor = book.author.toLowerCase().includes(lowerCaseSearchTerm);
-        
-        // Check optional fields
         const matchesTags = book.tags?.toLowerCase().includes(lowerCaseSearchTerm);
         const matchesPublisher = book.publisher?.toLowerCase().includes(lowerCaseSearchTerm);
         const matchesAuthors = book.originalAuthors?.toLowerCase().includes(lowerCaseSearchTerm);
-
-        return matchesTitle || matchesDescription || matchesAuthor || matchesTags || matchesPublisher || matchesAuthors;
+        return matchesTags || matchesPublisher || matchesAuthors;
       });
     }
 
-    if (yearRange) {
-      const [minYear, maxYear] = yearRange;
+    // 2. Apply date range filter
+    if (dateRange.from || dateRange.to) {
       currentBooks = currentBooks.filter(book => {
-        if (!book.publicationDate) return false;
-        const year = new Date(book.publicationDate).getFullYear();
-        return year >= minYear && year <= maxYear;
+        const publicationDate = book.publicationDate ? parseDateForSorting(book.publicationDate) : null;
+        if (!publicationDate) return false;
+
+        const publicationTime = publicationDate.getTime();
+        
+        // dateRange.from is already Jan 1st of the selected year
+        const fromTime = dateRange.from ? dateRange.from.getTime() : -Infinity;
+        
+        // dateRange.to is already Dec 31st of the selected year (set in YearRangePicker)
+        const toTime = dateRange.to ? dateRange.to.getTime() : Infinity;
+
+        return publicationTime >= fromTime && publicationTime <= toTime;
       });
     }
 
-    // 2. Sorting
-    return currentBooks.sort((a, b) => {
-      switch (sortOption) {
-        case "date-desc":
-          return parseDateForSorting(b.publicationDate) - parseDateForSorting(a.publicationDate);
-        case "date-asc":
-          return parseDateForSorting(a.publicationDate) - parseDateForSorting(b.publicationDate);
-        case "title-asc":
-          return a.title.localeCompare(b.title);
-        case "title-desc":
-          return b.title.localeCompare(a.title);
-        default:
-          return 0;
-      }
-    });
-  }, [initialBooks, searchTerm, sortOption, yearRange]);
-
-  const resetFilters = useCallback(() => {
-    setSearchTerm("");
-    setSortOption("date-desc");
-    setYearRange(null);
-  }, []);
+    return currentBooks;
+  }, [searchTerm, dateRange]);
 
   return {
-    filteredAndSortedBooks,
     searchTerm,
+    dateRange,
+    filteredBooks,
     setSearchTerm,
-    sortOption,
-    setSortOption,
-    yearRange,
-    setYearRange,
-    resetFilters,
+    setDateRange,
+    handleResetFilters,
   };
-};
+}
