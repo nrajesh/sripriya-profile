@@ -72,7 +72,7 @@ const rawBooks: Book[] = [
     id: 2,
     title: "பகவத்கீதை தற்காலத் தமிழில்",
     coverUrl: "/covers/bhagavad-gitai.jpg",
-    detailsUrl: null,
+    detailsUrl: "https://store.pothi.com/book/%E0%AE%B8%E0%AF%8D%E0%AE%B0%E0%AF%80%E0%AE%AA%E0%AF%8D%E0%AE%B0%E0%AE%BF%E0%AE%AF%E0%AE%BE-%E0%AE%B8%E0%AF%8D%E0%AE%B0%E0%AF%80%E0%AE%A8%E0%AE%BF%E0%AE%B5%E0%AE%BE%E0%AE%9A%E0%AE%A9%E0%AF%8D-%E0%AE%AA%E0%AE%95%E0%AE%B5%E0%AE%A4%E0%AF%8D%E0%AE%95%E0%AF%80%E0%AE%A4%E0%AF%88-%E0%AE%A4%E0%AE%B1%E0%AF%8D%E0%AE%95%E0%AE%BE%E0%AE%B2%E0%AE%A4%E0%AF%8D-%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AE%BF%E0%AE%B2%E0%AF%8D/",
     amazonUrl: "https://amzn.in/d/8E1f4BP",
     originalAuthors: "Koti Sreekrishna; Hari Ravikumar",
     publisher: "CreateSpace Independent Publishing Platform",
