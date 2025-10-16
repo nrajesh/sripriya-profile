@@ -126,7 +126,7 @@ const rawBooks: Book[] = [
     isbn: "9788196159078 (ISBN); B0C2YTW8SR (ASIN)",
     category: "Translated Work",
     tags: "memories, family, science, research, space, India, isro",
-    description: "This book is an Translated Work of the Tamil book ‘Ninaivugalukku Maranamillai’. Written by two people closest to A.P.J. Abdul Kalam—his niece Dr. Nazema Maraikayar and the distinguished ISRO scientist Dr. Y.S. Rajan, who was a close confidante of Kalam —this book gives a holistic and honest revelation of the life of Dr. Kalam from his early childhood till he breathed his last.\n\nThis is the story of how a small-town boy from Rameswaram ascended to the highest echelons of the Indian political world. This book comprehensively covers the beautiful history of Indian rocketry, precursors to today’s Science and Technology, the workings of the Indian political and administrative",
+    description: "This book was released by Union Home Minister and Minister of cooperation Shri Amit Shah during the 8th Remembrance Day of Dr. APJ Abdul Kalam in Rameswaram. It is a translated work of the Tamil book ‘Ninaivugalukku Maranamillai’. Written by two people closest to A.P.J. Abdul Kalam—his niece Dr. Nazema Maraikayar and the distinguished ISRO scientist Dr. Y.S. Rajan, who was a close confidante of Kalam —this book gives a holistic and honest revelation of the life of Dr. Kalam from his early childhood till he breathed his last.\n\nThis is the story of how a small-town boy from Rameswaram ascended to the highest echelons of the Indian political world. This book comprehensively covers the beautiful history of Indian rocketry, precursors to today’s Science and Technology, the workings of the Indian political and administrative",
   },
   {
     id: 6,
