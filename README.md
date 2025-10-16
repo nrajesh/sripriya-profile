@@ -4,7 +4,10 @@ This is the official personal website for author and translator Sripriya Sriniva
 
 ## ✨ Features
 
--   **Book Showcase**: Displays a curated list of Sripriya Srinivasan's books, including original publications and translations.
+-   **Book Showcase**: Displays a curated list of Sripriya Srinivasan's books, including original publications and translations, on both the home page and a dedicated books page.
+-   **Advanced Search & Filtering**: The "Books" page allows users to search for books by tags, publisher, or original authors, and filter by a range of publication years.
+-   **Interactive Book Overlay**: Clicking a book opens a detailed view in an overlay, preventing page reloads and providing a seamless browsing experience.
+-   **Seamless Navigation**: Users can navigate between books directly from the overlay using arrow keys, on-screen buttons, or touch gestures (swipe left/right) on mobile devices.
 -   **Dynamic Theming**: Includes a theme switcher for light and dark modes to ensure a comfortable viewing experience for all users.
 -   **Responsive Design**: The layout is fully responsive and optimized for viewing on desktops, tablets, and mobile devices.
 -   **SEO and Social Sharing**: Optimized with metadata for search engines and rich previews when shared on social media platforms.
@@ -50,4 +53,4 @@ To run this project locally, follow these steps:
 
 ## 📚 Managing Content
 
-Book information is managed in the `src/lib/books.ts` file. To add, update, or remove a book, you can edit the `booksData` array in this file. Make sure to add any new cover images to the `public/covers/` directory.
+Book information is managed in the `src/lib/data.ts` file. To add, update, or remove a book, you can edit the `rawBooks` array in this file. Make sure to add any new cover images to the `public/covers/` directory.
