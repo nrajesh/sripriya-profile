@@ -26,6 +26,8 @@ export interface Book {
   title: string;
   coverUrl: string;
   detailsUrl: string | null;
+  amazonUrl?: string | null;
+  flipkartUrl?: string | null;
   originalAuthors: string | null;
   publisher: string | null;
   publicationDate: string | null;
@@ -56,6 +58,7 @@ const rawBooks: Book[] = [
     title: "கலாமின் இந்தியக் கனவுகள்",
     coverUrl: "/covers/kalamin-indhiya-kanavugal.jpg",
     detailsUrl: "https://www.noolulagam.com/product/?pid=34503",
+    amazonUrl: "https://amzn.in/d/2BgWsi3",
     originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J. Abdul Kalam",
     publisher: "கிழக்கு பதிப்பகம்",
     publicationDate: "July 01, 2017",
@@ -69,7 +72,8 @@ const rawBooks: Book[] = [
     id: 2,
     title: "பகவத்கீதை தற்காலத் தமிழில்",
     coverUrl: "/covers/bhagavad-gitai.jpg",
-    detailsUrl: "https://amzn.in/d/8E1f4BP",
+    detailsUrl: null,
+    amazonUrl: "https://amzn.in/d/8E1f4BP",
     originalAuthors: "Koti Sreekrishna; Hari Ravikumar",
     publisher: "CreateSpace Independent Publishing Platform",
     publicationDate: "September 11, 2017",
@@ -83,7 +87,8 @@ const rawBooks: Book[] = [
     id: 3,
     title: "சிவ-ராம-கிருஷ்ணன்",
     coverUrl: "/covers/siva-rama-krishnan.jpg",
-    detailsUrl: "https://amzn.in/d/3p2s24Y",
+    detailsUrl: null,
+    amazonUrl: "https://amzn.in/d/9WCGxn2",
     originalAuthors: "Shatavadhani Dr. R. Ganesh",
     publisher: "Prekshaa Pratishtana",
     publicationDate: "April 21, 2021",
@@ -112,6 +117,8 @@ const rawBooks: Book[] = [
     title: "Memories Never Die",
     coverUrl: "/covers/memories-never-die.jpg",
     detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-translation-of-ninaivugalukku-maranamillai.htm",
+    amazonUrl: "https://amzn.in/d/2aHCtVL",
+    flipkartUrl: "https://www.flipkart.com/dr-a-p-j-abdul-kalam-memories-never-die-english-translation-ninaivugalukku-maranamillai-missile-man-president-scientific-contributions-life-lessons-india-vision-complete-biography/p/itm02581ecd27611?pid=9788196159078&lid=LSTBOK9788196159078KBCIO5",
     originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J.M. Nazema Maraikayar",
     publisher: "Prabhat Prakashan",
     publicationDate: "April 08, 2023",
@@ -119,14 +126,14 @@ const rawBooks: Book[] = [
     isbn: "9788196159078 (ISBN); B0C2YTW8SR (ASIN)",
     category: "Translated Work",
     tags: "memories, family, science, research, space, India, isro",
-    description: "This book is an Translated Work of the Tamil book ‘Ninaivugalukku Maranamillai’. Written by two people closest to A.P.J. Abdul Kalam—his niece Dr. Nazema Maraikayar and the distinguished ISRO scientist Dr. Y.S. Rajan, who was a close confidante of Kalam —this book gives a holistic and honest revelation of the life of Dr. Kalam from his early childhood till he breathed his last.\n\nThis is the story of how a small-town boy from Rameswaram ascended to the highest echelons of the Indian political world. This book comprehensively covers the beautiful history of Indian rocketry, precursors to today’s Science and Technology, the workings of the Indian political and administrative",
+    description: "This book was released by Union Home Minister and Minister of cooperation Shri Amit Shah during the 8th Remembrance Day of Dr. APJ Abdul Kalam in Rameswaram. It is a translated work of the Tamil book 'நினைவுகளுக்கு மரணமில்லை' (‘Ninaivugalukku Maranamillai’). Written by two people closest to A.P.J. Abdul Kalam—his niece Dr. Nazema Maraikayar and the distinguished ISRO scientist Dr. Y.S. Rajan, who was a close confidante of Kalam —this book gives a holistic and honest revelation of the life of Dr. Kalam from his early childhood till he breathed his last.\n\nThis is the story of how a small-town boy from Rameswaram ascended to the highest echelons of the Indian political world. This book comprehensively covers the beautiful history of Indian rocketry, precursors to today’s Science and Technology, the workings of the Indian political and administrative",
   },
   {
     id: 6,
     title: "ஸ்வாமி வேதாந்த தேஶிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
     coverUrl: "/covers/sri-sukthikal.jpg",
     detailsUrl: null,
-    originalAuthors: null,
+    originalAuthors: "Sripriya Srinivasan",
     publisher: "V.K.N. Enterprises, Mylapore",
     publicationDate: "September 25, 2023",
     pageCount: null,
@@ -140,6 +147,8 @@ const rawBooks: Book[] = [
     title: "Kalam’s Family Tree",
     coverUrl: "/covers/kalams-family-tree.jpg",
     detailsUrl: "https://www.prabhatbooks.com/kalam-s-family-tree-ancestral-legacy-of-dr-a-p-j-abdul-kalam.htm",
+    amazonUrl: "https://amzn.in/d/5zBwZ9i",
+    flipkartUrl: "https://www.flipkart.com/kalams-family-tree-ancestral-legacy-abdul-kalam/p/itmf5fa0bd544a2c?pid=9789355628121&lid=LSTBOK9789355628121FPAUC6",
     originalAuthors: "Dr. A.P.J.M. Nazema Maraikayar",
     publisher: "Prabhat Prakashan",
     publicationDate: "April 10, 2024",
@@ -154,7 +163,7 @@ const rawBooks: Book[] = [
     title: "The Pallava Empire",
     coverUrl: "/covers/the-pallava-empire.jpg",
     detailsUrl: "https://sahityabooks.com/shop/rashtrotthana-sahitya/the-pallava-empire/",
-    originalAuthors: null,
+    originalAuthors: "Sripriya Srinivasan",
     publisher: "Rashtrotthana Sahitya",
     publicationDate: "June 19, 2025",
     pageCount: "xix + 166",
