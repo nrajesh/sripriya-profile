@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -13,28 +11,8 @@ import Link from "next/link";
 import { GeometricBackground } from "@/components/geometric-background";
 import { HeroArt } from "@/components/hero-art";
 import { BookCard } from "@/components/book-card";
-import { useBookNavigation } from "@/hooks/use-book-navigation";
-import { BookDetailDialog } from "@/components/book-detail-dialog";
-import React from "react";
 
 export default function Home() {
-  const {
-    currentBook,
-    hasNext,
-    hasPrevious,
-    goToNext,
-    goToPrevious,
-    setCurrentBookId,
-  } = useBookNavigation({ books: books });
-
-  const isDialogOpen = currentBook !== null;
-
-  const handleOpenChange = (open: boolean) => {
-    if (!open) {
-      setCurrentBookId(null);
-    }
-  };
-
   return (
     <div className="relative overflow-hidden">
       <GeometricBackground />
@@ -77,11 +55,7 @@ export default function Home() {
                   key={book.title}
                   className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                 >
-                  <BookCard 
-                    book={book} 
-                    priority={index === 0} 
-                    onSelectBook={setCurrentBookId}
-                  />
+                  <BookCard book={book} priority={index === 0} />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -90,16 +64,6 @@ export default function Home() {
           </Carousel>
         </section>
       </div>
-
-      <BookDetailDialog
-        book={currentBook}
-        isOpen={isDialogOpen}
-        onOpenChange={handleOpenChange}
-        hasNext={hasNext}
-        hasPrevious={hasPrevious}
-        goToNext={goToNext}
-        goToPrevious={goToPrevious}
-      />
     </div>
   );
 }

@@ -26,8 +26,6 @@ export interface Book {
   title: string;
   coverUrl: string;
   detailsUrl: string | null;
-  amazonUrl?: string | null; // Added optional Amazon URL
-  flipkartUrl?: string | null; // Added optional Flipkart URL
   originalAuthors: string | null;
   publisher: string | null;
   publicationDate: string | null;
@@ -58,8 +56,6 @@ const rawBooks: Book[] = [
     title: "கலாமின் இந்தியக் கனவுகள்",
     coverUrl: "/covers/kalamin-indhiya-kanavugal.jpg",
     detailsUrl: "https://www.noolulagam.com/product/?pid=34503",
-    amazonUrl: "https://amzn.in/d/8E1f4BP", // Example Amazon link
-    flipkartUrl: null,
     originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J. Abdul Kalam",
     publisher: "கிழக்கு பதிப்பகம்",
     publicationDate: "July 01, 2017",
@@ -74,8 +70,6 @@ const rawBooks: Book[] = [
     title: "பகவத்கீதை தற்காலத் தமிழில்",
     coverUrl: "/covers/bhagavad-gitai.jpg",
     detailsUrl: "https://amzn.in/d/8E1f4BP",
-    amazonUrl: "https://amzn.in/d/8E1f4BP", // Example Amazon link
-    flipkartUrl: null,
     originalAuthors: "Koti Sreekrishna; Hari Ravikumar",
     publisher: "CreateSpace Independent Publishing Platform",
     publicationDate: "September 11, 2017",
@@ -90,8 +84,6 @@ const rawBooks: Book[] = [
     title: "சிவ-ராம-கிருஷ்ணன்",
     coverUrl: "/covers/siva-rama-krishnan.jpg",
     detailsUrl: "https://amzn.in/d/3p2s24Y",
-    amazonUrl: "https://amzn.in/d/3p2s24Y", // Example Amazon link
-    flipkartUrl: null,
     originalAuthors: "Shatavadhani Dr. R. Ganesh",
     publisher: "Prekshaa Pratishtana",
     publicationDate: "April 21, 2021",
@@ -106,8 +98,6 @@ const rawBooks: Book[] = [
     title: "உபநயனம் – ஒரு எளிய அறிமுகம்",
     coverUrl: "/covers/upanayanam.jpg",
     detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=7139",
-    amazonUrl: null,
-    flipkartUrl: null,
     originalAuthors: "Hari Ravikumar",
     publisher: "Prekshaa Pratishtana",
     publicationDate: "March 02, 2019",
@@ -122,8 +112,6 @@ const rawBooks: Book[] = [
     title: "Memories Never Die",
     coverUrl: "/covers/memories-never-die.jpg",
     detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-Translated Work-of-ninaivugalukku-maranamillai.htm",
-    amazonUrl: "https://amzn.in/d/8E1f4BP", // Example Amazon link
-    flipkartUrl: null,
     originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J.M. Nazema Maraikayar",
     publisher: "Prabhat Prakashan",
     publicationDate: "April 08, 2023",
@@ -138,8 +126,6 @@ const rawBooks: Book[] = [
     title: "ஸ்வாமி வேதாந்த தேஶிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
     coverUrl: "/covers/sri-sukthikal.jpg",
     detailsUrl: null,
-    amazonUrl: null,
-    flipkartUrl: null,
     originalAuthors: null,
     publisher: "V.K.N. Enterprises, Mylapore",
     publicationDate: "September 25, 2023",
@@ -154,8 +140,6 @@ const rawBooks: Book[] = [
     title: "Kalam’s Family Tree",
     coverUrl: "/covers/kalams-family-tree.jpg",
     detailsUrl: "https://www.prabhatbooks.com/kalam-s-family-tree-ancestral-legacy-of-dr-a-p-j-abdul-kalam.htm",
-    amazonUrl: "https://amzn.in/d/8E1f4BP", // Example Amazon link
-    flipkartUrl: null,
     originalAuthors: "Dr. A.P.J.M. Nazema Maraikayar",
     publisher: "Prabhat Prakashan",
     publicationDate: "April 10, 2024",
@@ -170,8 +154,6 @@ const rawBooks: Book[] = [
     title: "The Pallava Empire",
     coverUrl: "/covers/the-pallava-empire.jpg",
     detailsUrl: "https://sahityabooks.com/shop/rashtrotthana-sahitya/the-pallava-empire/",
-    amazonUrl: "https://amzn.in/d/8E1f4BP", // Example Amazon link
-    flipkartUrl: null,
     originalAuthors: null,
     publisher: "Rashtrotthana Sahitya",
     publicationDate: "June 19, 2025",
