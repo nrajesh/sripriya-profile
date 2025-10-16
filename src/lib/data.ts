@@ -72,6 +72,7 @@ const rawBooks: Book[] = [
     id: 2,
     title: "பகவத்கீதை தற்காலத் தமிழில்",
     coverUrl: "/covers/bhagavad-gitai.jpg",
+    detailsUrl: null,
     amazonUrl: "https://amzn.in/d/8E1f4BP",
     originalAuthors: "Koti Sreekrishna; Hari Ravikumar",
     publisher: "CreateSpace Independent Publishing Platform",
