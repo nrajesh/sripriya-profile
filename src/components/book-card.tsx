@@ -12,13 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 
-type Book = {
-  title: string;
-  coverUrl: string;
-  detailsUrl: string | null; // Publisher URL
-  amazonUrl?: string | null; // New optional field
-  flipkartUrl?: string | null; // New optional field
-};
+// Re-import the full Book type from data.ts to ensure all fields are available
+import { Book } from "@/lib/data";
 
 interface BookCardProps {
   book: Book;
@@ -67,7 +62,7 @@ export function BookCard({ book, priority = false }: BookCardProps) {
       </div>
 
       <DialogContent className="sm:max-w-[425px] md:max-w-lg p-0">
-        <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto"> {/* Added max-h and overflow-y for scrollable content */}
           {/* Left side: Cover Image */}
           <div className="aspect-[2/3] relative">
             <Image
@@ -80,12 +75,85 @@ export function BookCard({ book, priority = false }: BookCardProps) {
           </div>
 
           {/* Right side: Details and Links */}
-          <div className="p-6 flex flex-col justify-between">
+          <div className="p-6 flex flex-col">
             <DialogHeader className="mb-4">
               <DialogTitle className="text-2xl">{book.title}</DialogTitle>
             </DialogHeader>
 
-            <div className="space-y-3 mt-auto">
+            <div className="space-y-3 text-muted-foreground text-sm flex-grow"> {/* Added flex-grow to push links to bottom */}
+              {book.originalAuthors && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Original Authors:
+                  </span>{" "}
+                  {book.originalAuthors}
+                </p>
+              )}
+              {book.publisher && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Publisher:
+                  </span>{" "}
+                  {book.publisher}
+                </p>
+              )}
+              {book.publicationDate && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Published:
+                  </span>{" "}
+                  {book.publicationDate}
+                </p>
+              )}
+              {book.pageCount && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Pages:
+                  </span>{" "}
+                  {book.pageCount}
+                </p>
+              )}
+              {book.isbn && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    ISBN/ASIN:
+                  </span>{" "}
+                  {book.isbn}
+                </p>
+              )}
+              {book.category && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Category:
+                  </span>{" "}
+                  {book.category}
+                </p>
+              )}
+              {book.tags && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Tags:
+                  </span>{" "}
+                  {book.tags
+                    .split(",")
+                    .map((tag) => tag.trim())
+                    .sort()
+                    .join(", ")}
+                </p>
+              )}
+              {book.description && (
+                <div className="mt-4">
+                  <h3 className="font-medium text-foreground mb-1">
+                    Description
+                  </h3>
+                  <p className="text-muted-foreground whitespace-pre-line">
+                    {book.description}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-3 mt-6"> {/* Added mt-6 for spacing from details */}
               {book.detailsUrl && (
                 <PurchaseLink href={book.detailsUrl} label="Buy from Publisher" />
               )}
