@@ -6,9 +6,9 @@ import { BookCard } from "@/components/book-card";
 import { ArrowRight } from "lucide-react";
 
 export default function Home() {
-  // Display the top 3 books and top 3 translations
+  // Display the top 3 books and top 4 translations
   const latestBooks = books.slice(0, 3);
-  const latestTranslations = translations.slice(0, 3);
+  const latestTranslations = translations.slice(0, 4);
 
   return (
     <div className="container mx-auto px-4 py-12 md:py-20">
@@ -66,7 +66,7 @@ export default function Home() {
       {latestTranslations.length > 0 && (
         <section className="py-12 border-t mt-12">
           <h2 className="text-3xl font-bold mb-8 text-center">Latest Translations</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {latestTranslations.map((book, index) => (
               <BookCard key={index} book={book} />
             ))}
