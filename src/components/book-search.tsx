@@ -13,6 +13,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { books as allBooks } from "@/lib/data";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface BookSearchProps {
   onSearch: (searchTerm: string) => void;
@@ -23,6 +24,7 @@ export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(initialSearchTerm);
   const [open, setOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   // Update internal searchTerm when initialSearchTerm prop changes (for reset)
   useEffect(() => {
@@ -81,16 +83,22 @@ export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
     onSearch(suggestion); // Immediately apply filter when a suggestion is selected
   };
 
+  // Conditionally open the popover only on non-mobile devices
+  const shouldShowPopover = open && !isMobile;
+
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={shouldShowPopover} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <div className="relative flex items-center w-full">
-          <Command className={cn("rounded-lg border shadow-md", open ? "ring-2 ring-ring" : "")}>
+          <Command className={cn("rounded-lg border shadow-md", shouldShowPopover ? "ring-2 ring-ring" : "")}>
             <CommandInput
               value={searchTerm}
               onValueChange={(value) => {
                 setSearchTerm(value);
-                setOpen(true);
+                // Only open the popover on desktop
+                if (!isMobile) {
+                  setOpen(true);
+                }
               }}
               placeholder="Search by tags, publisher, or authors..."
               className="h-10 border-none focus:ring-0"
