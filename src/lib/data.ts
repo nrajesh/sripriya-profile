@@ -18,6 +18,7 @@ export type Author = {
   name: string;
   bio: string;
   profileImage: string;
+  tagline: string; // Added tagline
 };
 
 export type Book = {
@@ -45,6 +46,7 @@ export const author: Author = {
   name: "Sripriya Srinivasan",
   bio: "Sripriya Srinivasan is an acclaimed author and translator, known for her insightful narratives and elegant translations.",
   profileImage: "/author-profile.jpeg",
+  tagline: "Author, Translator, and Literary Enthusiast.", // Added placeholder tagline
 };
 
 export const navLinks: NavLink[] = [

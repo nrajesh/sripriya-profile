@@ -38,8 +38,7 @@ export function BookSearch({ books, onSearch, currentSearchTerm }: BookSearchPro
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handleValueChange = (value: string) => {
     setInputValue(value);
     onSearch(value);
     setIsOpen(value.length > 0);
@@ -102,8 +101,7 @@ export function BookSearch({ books, onSearch, currentSearchTerm }: BookSearchPro
           <Search className="absolute left-3 h-4 w-4 text-muted-foreground" />
           <CommandInput
             value={inputValue}
-            onValueChange={setInputValue} // Keep CommandInput happy, but use custom handler for full control
-            onChange={handleInputChange}
+            onValueChange={handleValueChange}
             placeholder="Search by title, tag, or publisher..."
             className="pl-10 pr-10 h-10"
             onFocus={() => setIsOpen(inputValue.length > 0)}
