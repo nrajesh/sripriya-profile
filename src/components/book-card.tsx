@@ -62,45 +62,25 @@ export function BookCard({ book, priority = false }: BookCardProps) {
       </div>
 
       <DialogContent className="sm:max-w-[425px] md:max-w-lg p-0">
-        <div className="flex flex-col max-h-[90vh]"> {/* Main container for vertical layout */}
-          {/* Cover Image Section - now at the top */}
-          <div className="aspect-[2/3] relative w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto"> {/* Added max-h and overflow-y for scrollable content */}
+          {/* Left side: Cover Image */}
+          <div className="aspect-[2/3] relative">
             <Image
               src={book.coverUrl}
               alt={`Cover of ${book.title}`}
               fill
-              className="object-cover rounded-t-lg" // Rounded top corners
+              className="object-cover rounded-t-lg md:rounded-t-none md:rounded-l-lg"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
 
-          {/* Purchase Links Section - directly below the image */}
-          <div className="p-6 border-b border-border">
-            <div className="space-y-3">
-              {book.detailsUrl && (
-                <PurchaseLink href={book.detailsUrl} label="Buy from Publisher" />
-              )}
-              {book.amazonUrl && (
-                <PurchaseLink href={book.amazonUrl} label="Buy on Amazon" />
-              )}
-              {book.flipkartUrl && (
-                <PurchaseLink href={book.flipkartUrl} label="Buy on Flipkart" />
-              )}
-              
-              {/* Fallback if no links are provided */}
-              {!book.detailsUrl && !book.amazonUrl && !book.flipkartUrl && (
-                <p className="text-sm text-muted-foreground text-center">Purchase links not available.</p>
-              )}
-            </div>
-          </div>
-
-          {/* Scrollable Details Section */}
-          <div className="p-6 flex-grow overflow-y-auto"> {/* flex-grow and overflow-y-auto for scrollable content */}
+          {/* Right side: Details and Links */}
+          <div className="p-6 flex flex-col">
             <DialogHeader className="mb-4">
               <DialogTitle className="text-2xl">{book.title}</DialogTitle>
             </DialogHeader>
 
-            <div className="space-y-3 text-muted-foreground text-sm">
+            <div className="space-y-3 text-muted-foreground text-sm flex-grow"> {/* Added flex-grow to push links to bottom */}
               {book.originalAuthors && (
                 <p>
                   <span className="font-medium text-foreground">
@@ -170,6 +150,23 @@ export function BookCard({ book, priority = false }: BookCardProps) {
                     {book.description}
                   </p>
                 </div>
+              )}
+            </div>
+
+            <div className="space-y-3 mt-6"> {/* Added mt-6 for spacing from details */}
+              {book.detailsUrl && (
+                <PurchaseLink href={book.detailsUrl} label="Buy from Publisher" />
+              )}
+              {book.amazonUrl && (
+                <PurchaseLink href={book.amazonUrl} label="Buy on Amazon" />
+              )}
+              {book.flipkartUrl && (
+                <PurchaseLink href={book.flipkartUrl} label="Buy on Flipkart" />
+              )}
+              
+              {/* Fallback if no links are provided */}
+              {!book.detailsUrl && !book.amazonUrl && !book.flipkartUrl && (
+                <p className="text-sm text-muted-foreground">Purchase links not available.</p>
               )}
             </div>
           </div>
