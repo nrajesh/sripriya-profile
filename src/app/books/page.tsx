@@ -1,160 +1,210 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import { useSearchParams } from "next/navigation";
-import { Book, books, translations, getMinPublicationYear, getMaxPublicationYear } from "@/lib/data";
+import React, { useMemo, useState } from "react";
 import { BookCard } from "@/components/book-card";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { BookSearch } from "@/components/book-search";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 import { Separator } from "@/components/ui/separator";
-import { Search, Filter, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { getMinPublicationYear, getMaxPublicationYear, Book } from "@/lib/data";
+import { useBookFilters } from "@/hooks/use-book-filters";
+import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ArrowDown, ArrowUp, Filter, RotateCcw } from "lucide-react";
 
-// Combine all books and sort by publication date (newest first)
-const ALL_BOOKS: Book[] = [...books, ...translations].sort((a, b) => 
-  new Date(b.publicationDate).getTime() - new Date(a.publicationDate).getTime()
-);
-
-const ALL_CATEGORIES = Array.from(new Set(ALL_BOOKS.map(b => b.category).filter(Boolean) as string[]));
-const MIN_YEAR = getMinPublicationYear(ALL_BOOKS);
-const MAX_YEAR = getMaxPublicationYear(ALL_BOOKS);
+// Assuming allBooks is passed down or fetched here. For now, we use the hook's internal data.
+// Since this is a client component, we rely on the hook to manage the data source.
 
 export default function BooksPage() {
-  const searchParams = useSearchParams();
-  const initialCategory = searchParams.get('category') || 'All';
+  const {
+    filteredAndSortedBooks,
+    searchTerm,
+    setSearchTerm,
+    sortOption,
+    setSortOption,
+    yearRange,
+    setYearRange,
+    resetFilters,
+  } = useBookFilters([]); // Initial books are handled inside the hook for simplicity
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  const [yearRange, setYearRange] = useState<[number, number]>([MIN_YEAR, MAX_YEAR]);
+  const allBooks = useBookFilters([]).filteredAndSortedBooks; // Temporary access to all books for year calculation
+  const minYear = useMemo(() => getMinPublicationYear(allBooks), [allBooks]);
+  const maxYear = useMemo(() => getMaxPublicationYear(allBooks), [allBooks]);
+  const initialYearRange: [number, number] = [minYear, maxYear];
 
-  const filteredBooks = useMemo(() => {
-    let filtered = ALL_BOOKS;
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-    // 1. Filter by Category
-    if (selectedCategory !== 'All') {
-      filtered = filtered.filter(book => book.category === selectedCategory);
-    }
-
-    // 2. Filter by Search Term
-    if (searchTerm) {
-      const lowerCaseSearch = searchTerm.toLowerCase();
-      filtered = filtered.filter(book => 
-        book.title.toLowerCase().includes(lowerCaseSearch) ||
-        book.description.toLowerCase().includes(lowerCaseSearch) ||
-        book.originalAuthors?.toLowerCase().includes(lowerCaseSearch)
-      );
-    }
-
-    // 3. Filter by Year Range
-    filtered = filtered.filter(book => {
-      const year = book.publicationDate ? new Date(book.publicationDate).getFullYear() : MAX_YEAR;
-      return year >= yearRange[0] && year <= yearRange[1];
+  const groupedBooks = useMemo(() => {
+    const groups: { [key: string]: Book[] } = {};
+    filteredAndSortedBooks.forEach(book => {
+      const category = book.category || "Uncategorized";
+      if (!groups[category]) {
+        groups[category] = [];
+      }
+      groups[category].push(book);
     });
+    return groups;
+  }, [filteredAndSortedBooks]);
 
-    return filtered;
-  }, [selectedCategory, searchTerm, yearRange]);
-
-  const handleResetFilters = () => {
-    setSearchTerm('');
-    setSelectedCategory('All');
-    setYearRange([MIN_YEAR, MAX_YEAR]);
-  };
+  const sortOptions = [
+    { value: "date-desc", label: "Newest First", icon: ArrowDown },
+    { value: "date-asc", label: "Oldest First", icon: ArrowUp },
+    { value: "title-asc", label: "Title (A-Z)", icon: ArrowUp },
+    { value: "title-desc", label: "Title (Z-A)", icon: ArrowDown },
+  ];
 
   return (
-    <div className="container mx-auto px-4 py-12 md:py-16">
-      <h1 className="text-4xl font-bold mb-4 text-center">All Works</h1>
-      <p className="text-lg text-muted-foreground mb-10 text-center">Explore the complete collection of books and translations.</p>
+    <div className="container py-12">
+      <h1 className="text-4xl font-bold mb-8">Books & Translations</h1>
 
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Sidebar Filters */}
-        <aside className="lg:w-1/4 p-4 border rounded-lg sticky top-20 h-fit">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold flex items-center">
-              <Filter className="w-5 h-5 mr-2" /> Filters
-            </h2>
-            <Button variant="ghost" size="sm" onClick={handleResetFilters}>
-              <X className="w-4 h-4 mr-1" /> Reset
-            </Button>
-          </div>
+      {/* Search and Filter Controls */}
+      <div className="flex flex-col md:flex-row gap-4 mb-8">
+        <BookSearch
+          books={allBooks}
+          onSearch={setSearchTerm}
+          currentSearchTerm={searchTerm}
+        />
+        <Button
+          variant="outline"
+          onClick={() => setIsFilterOpen(!isFilterOpen)}
+          className="md:hidden"
+        >
+          <Filter className="h-4 w-4 mr-2" />
+          {isFilterOpen ? "Hide Filters" : "Show Filters"}
+        </Button>
+      </div>
 
-          {/* Search Filter */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium mb-2">Search Title/Author</label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-          </div>
-
-          {/* Category Filter */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium mb-2">Category</label>
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+      {/* Filters Panel */}
+      <div
+        className={`transition-all duration-300 ease-in-out overflow-hidden ${
+          isFilterOpen ? "max-h-96 opacity-100 mb-8" : "max-h-0 opacity-0 md:max-h-96 md:opacity-100 md:mb-8"
+        }`}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 border rounded-lg bg-muted/20">
+          {/* Sort By */}
+          <div>
+            <label className="block text-sm font-medium mb-2">Sort By</label>
+            <Select
+              value={sortOption}
+              onValueChange={(value) => setSortOption(value as any)}
+            >
               <SelectTrigger>
-                <SelectValue placeholder="Select Category" />
+                <SelectValue placeholder="Select sort order" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="All">All Categories</SelectItem>
-                <Separator />
-                {ALL_CATEGORIES.map(category => (
-                  <SelectItem key={category} value={category}>
-                    {category}
+                {sortOptions.map(option => (
+                  <SelectItem key={option.value} value={option.value}>
+                    <div className="flex items-center">
+                      <option.icon className="h-4 w-4 mr-2" />
+                      {option.label}
+                    </div>
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
 
-          {/* Year Filter */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium mb-4">
-              Publication Year: {yearRange[0]} - {yearRange[1]}
+          {/* Year Range Filter */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-2">
+              Publication Year: {yearRange ? `${yearRange[0]} - ${yearRange[1]}` : `${minYear} - ${maxYear}`}
             </label>
             <Slider
-              min={MIN_YEAR}
-              max={MAX_YEAR}
+              min={minYear}
+              max={maxYear}
               step={1}
-              value={yearRange}
+              value={yearRange || initialYearRange}
               onValueChange={(value) => setYearRange(value as [number, number])}
-              className="w-[90%] mx-auto"
+              className="w-full"
             />
           </div>
-        </aside>
 
-        {/* Book Grid */}
-        <main className="lg:w-3/4">
-          <div className="mb-6 flex flex-wrap gap-2 items-center">
-            <span className="text-sm text-muted-foreground">{filteredBooks.length} results found</span>
-            {selectedCategory !== 'All' && <Badge variant="secondary">{selectedCategory} <X className="w-3 h-3 ml-1 cursor-pointer" onClick={() => setSelectedCategory('All')} /></Badge>}
-            {searchTerm && <Badge variant="secondary">Search: {searchTerm} <X className="w-3 h-3 ml-1 cursor-pointer" onClick={() => setSearchTerm('')} /></Badge>}
-            {(yearRange[0] !== MIN_YEAR || yearRange[1] !== MAX_YEAR) && <Badge variant="secondary">Year: {yearRange[0]}-{yearRange[1]} <X className="w-3 h-3 ml-1 cursor-pointer" onClick={() => setYearRange([MIN_YEAR, MAX_YEAR])} /></Badge>}
+          {/* Reset Button */}
+          <div className="md:col-start-3 flex justify-end">
+            <Button variant="ghost" onClick={resetFilters}>
+              <RotateCcw className="h-4 w-4 mr-2" />
+              Reset Filters
+            </Button>
           </div>
+        </div>
+      </div>
 
-          {filteredBooks.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-              {filteredBooks.map((book) => (
-                <div key={book.id} className="relative group">
-                  <BookCard book={book} bookList={filteredBooks} /> 
+      {/* Book Listings */}
+      {Object.keys(groupedBooks).length === 0 ? (
+        <p className="text-center text-lg text-muted-foreground mt-12">
+          No books found matching your criteria.
+        </p>
+      ) : (
+        Object.entries(groupedBooks).map(([category, books]) => (
+          <section key={category} className="mb-12">
+            <h2 className="text-3xl font-semibold mb-6">{category}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {books.map((book) => (
+                <div key={book.title} className="relative group">
+                  <BookCard book={book} />
+                  
+                  {/* Hover Overlay for Quick Details */}
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4 text-white cursor-pointer"
+                       onClick={() => { /* Dialog is handled by BookCard trigger */ }}>
+                    <div className="text-center">
+                      <h3 className="text-xl font-bold mb-2">{book.title}</h3>
+                      <p className="text-sm mb-4">{book.author}</p>
+                      
+                      <div className="space-y-1 text-muted-foreground">
+                        {book.originalAuthors && (
+                          <p>
+                            <span className="font-semibold text-white">Original Author:</span>{" "}
+                            {book.originalAuthors}
+                          </p>
+                        )}
+                        {book.publisher && (
+                          <p>
+                            <span className="font-semibold text-white">Publisher:</span>{" "}
+                            {book.publisher}
+                          </p>
+                        )}
+                        {book.publicationDate && (
+                          <p>
+                            <span className="font-semibold text-white">Published:</span>{" "}
+                            {book.publicationDate}
+                          </p>
+                        )}
+                        {book.pageCount && (
+                          <p>
+                            <span className="font-semibold text-white">Pages:</span>{" "}
+                            {book.pageCount}
+                          </p>
+                        )}
+                        {book.category && (
+                          <p>
+                            <span className="font-semibold text-white">Category:</span>{" "}
+                            {book.category}
+                          </p>
+                        )}
+                        {book.tags && (
+                          <p>
+                            <span className="font-semibold text-white">Tags:</span>{" "}
+                            {book.tags
+                              .split(",")
+                              .map((tag: string) => tag.trim())
+                              .sort()
+                              .join(", ")}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
-          ) : (
-            <div className="text-center py-20 border rounded-lg bg-muted/50">
-              <p className="text-xl text-muted-foreground">No books match your current filters.</p>
-              <Button variant="link" onClick={handleResetFilters} className="mt-4">
-                Clear Filters
-              </Button>
-            </div>
-          )}
-        </main>
-      </div>
+            <Separator className="mt-12" />
+          </section>
+        ))
+      )}
     </div>
   );
 }

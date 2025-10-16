@@ -2,21 +2,36 @@
 
 import React from "react";
 import Image from "next/image";
-import { Book } from "@/lib/data";
+import { Book, books, translations } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useBookView } from "../context/book-view-context";
 
 interface BookCardProps {
   book: Book;
-  bookList: Book[]; // New required prop
 }
 
-export function BookCard({ book, bookList }: BookCardProps) {
+export function BookCard({ book }: BookCardProps) {
   const { openOverlay } = useBookView();
 
   const handleCardClick = () => {
-    // Pass the specific list provided by the parent component (Home page section)
-    openOverlay(book, bookList);
+    // Determine the correct list based on the book's category or presence in global lists
+    let listToUse: Book[] = [];
+    
+    // Simple heuristic: if the book is a translation, use the translations list. Otherwise, use the main books list.
+    // This is a simplification; a more robust solution would pass the list from the parent component.
+    // Since the home page uses separate lists, we check which list contains the book.
+    if (translations.some(t => t.id === book.id)) {
+        listToUse = translations;
+    } else if (books.some(b => b.id === book.id)) {
+        listToUse = books;
+    }
+    
+    // Fallback to the main books list if context is unclear
+    if (listToUse.length === 0) {
+        listToUse = books;
+    }
+
+    openOverlay(book, listToUse);
   };
 
   return (

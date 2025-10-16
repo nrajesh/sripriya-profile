@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, BookOpen } from "lucide-react";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useBookView } from "../context/book-view-context";
 import { Badge } from "@/components/ui/badge";
@@ -62,9 +62,6 @@ export function BookOverlay() {
         className="max-w-4xl p-0 overflow-hidden flex flex-col md:flex-row h-[90vh] md:h-[70vh]"
         ref={dialogRef}
       >
-        {/* Accessibility Title */}
-        <DialogTitle className="sr-only">{`Details for book: ${title}`}</DialogTitle>
-
         {/* Navigation Buttons (Visible on desktop) */}
         <Button 
           variant="ghost" 

@@ -51,7 +51,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-8 text-center">Latest Books</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {latestBooks.map((book, index) => (
-              <BookCard key={index} book={book} bookList={latestBooks} />
+              <BookCard key={index} book={book} />
             ))}
           </div>
           <div className="text-center mt-10">
@@ -62,13 +62,13 @@ export default function Home() {
         </section>
       )}
 
-      {/* Latest Translations Section */}
+      {/* Latest Translations Section (NEW) */}
       {latestTranslations.length > 0 && (
         <section className="py-12 border-t mt-12">
           <h2 className="text-3xl font-bold mb-8 text-center">Latest Translations</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {latestTranslations.map((book, index) => (
-              <BookCard key={index} book={book} bookList={latestTranslations} />
+              <BookCard key={index} book={book} />
             ))}
           </div>
           <div className="text-center mt-10">
