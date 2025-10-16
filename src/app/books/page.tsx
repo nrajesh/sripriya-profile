@@ -1,35 +1,46 @@
 "use client";
 
-import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { ConditionalLink } from "@/components/conditional-link";
-import { GeometricBackground } from "@/components/geometric-background";
+import React, { useMemo, useState } from "react";
+import { BookCard } from "@/components/book-card";
 import { BookSearch } from "@/components/book-search";
-import React, { useMemo } from "react";
-import { YearRangePicker } from "@/components/year-range-picker";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { getMinPublicationYear, getMaxPublicationYear, Book } from "@/lib/data";
 import { useBookFilters } from "@/hooks/use-book-filters";
+import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ArrowDown, ArrowUp, Filter, RotateCcw } from "lucide-react";
+
+// Assuming allBooks is passed down or fetched here. For now, we use the hook's internal data.
+// Since this is a client component, we rely on the hook to manage the data source.
 
 export default function BooksPage() {
   const {
+    filteredAndSortedBooks,
     searchTerm,
-    dateRange,
-    filteredBooks,
     setSearchTerm,
-    setDateRange,
-    handleResetFilters,
-  } = useBookFilters();
+    sortOption,
+    setSortOption,
+    yearRange,
+    setYearRange,
+    resetFilters,
+  } = useBookFilters([]); // Initial books are handled inside the hook for simplicity
 
-  // Calculate min and max publication years from the data (still memoized)
-  const minPublicationYear = useMemo(() => getMinPublicationYear(), []);
-  const maxPublicationYear = useMemo(() => getMaxPublicationYear(), []);
+  const allBooks = useBookFilters([]).filteredAndSortedBooks; // Temporary access to all books for year calculation
+  const minYear = useMemo(() => getMinPublicationYear(allBooks), [allBooks]);
+  const maxYear = useMemo(() => getMaxPublicationYear(allBooks), [allBooks]);
+  const initialYearRange: [number, number] = [minYear, maxYear];
 
-  // Group filtered books by category
-  const groupedBooks: Record<string, Book[]> = useMemo(() => {
-    const groups: Record<string, Book[]> = {};
-    filteredBooks.forEach(book => {
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  const groupedBooks = useMemo(() => {
+    const groups: { [key: string]: Book[] } = {};
+    filteredAndSortedBooks.forEach(book => {
       const category = book.category || "Uncategorized";
       if (!groups[category]) {
         groups[category] = [];
@@ -37,157 +48,163 @@ export default function BooksPage() {
       groups[category].push(book);
     });
     return groups;
-  }, [filteredBooks]);
+  }, [filteredAndSortedBooks]);
 
-  // Sort categories alphabetically for consistent display
-  const sortedCategories = useMemo(() => Object.keys(groupedBooks).sort(), [groupedBooks]);
-
-  const isFilteringActive = searchTerm || dateRange.from || dateRange.to;
+  const sortOptions = [
+    { value: "date-desc", label: "Newest First", icon: ArrowDown },
+    { value: "date-asc", label: "Oldest First", icon: ArrowUp },
+    { value: "title-asc", label: "Title (A-Z)", icon: ArrowUp },
+    { value: "title-desc", label: "Title (Z-A)", icon: ArrowDown },
+  ];
 
   return (
-    <div className="relative overflow-hidden">
-      <GeometricBackground />
-      <div className="container mx-auto px-4 py-12 md:py-20 relative z-10">
-        <header className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter">
-            Published Works
-          </h1>
-          <p className="text-lg text-muted-foreground mt-2">
-            A collection of original writings and translations.
-          </p>
-        </header>
+    <div className="container py-12">
+      <h1 className="text-4xl font-bold mb-8">Books & Translations</h1>
 
-        {/* Search Bar and Filters */}
-        <div className="mb-12 flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto">
-          <div className="w-full md:w-1/2"> {/* BookSearch takes half width on md screens */}
-            <BookSearch onSearch={setSearchTerm} initialSearchTerm={searchTerm} />
+      {/* Search and Filter Controls */}
+      <div className="flex flex-col md:flex-row gap-4 mb-8">
+        <BookSearch
+          books={allBooks}
+          onSearch={setSearchTerm}
+          currentSearchTerm={searchTerm}
+        />
+        <Button
+          variant="outline"
+          onClick={() => setIsFilterOpen(!isFilterOpen)}
+          className="md:hidden"
+        >
+          <Filter className="h-4 w-4 mr-2" />
+          {isFilterOpen ? "Hide Filters" : "Show Filters"}
+        </Button>
+      </div>
+
+      {/* Filters Panel */}
+      <div
+        className={`transition-all duration-300 ease-in-out overflow-hidden ${
+          isFilterOpen ? "max-h-96 opacity-100 mb-8" : "max-h-0 opacity-0 md:max-h-96 md:opacity-100 md:mb-8"
+        }`}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 border rounded-lg bg-muted/20">
+          {/* Sort By */}
+          <div>
+            <label className="block text-sm font-medium mb-2">Sort By</label>
+            <Select
+              value={sortOption}
+              onValueChange={(value) => setSortOption(value as any)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select sort order" />
+              </SelectTrigger>
+              <SelectContent>
+                {sortOptions.map(option => (
+                  <SelectItem key={option.value} value={option.value}>
+                    <div className="flex items-center">
+                      <option.icon className="h-4 w-4 mr-2" />
+                      {option.label}
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
-          <div className="flex items-center gap-4 w-full md:w-auto"> {/* YearPicker and Reset Button */}
-            <YearRangePicker
-              onYearChange={setDateRange}
-              initialRange={dateRange}
-              className="w-[200px]"
-              minYear={minPublicationYear}
-              maxYear={maxPublicationYear}
+
+          {/* Year Range Filter */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-2">
+              Publication Year: {yearRange ? `${yearRange[0]} - ${yearRange[1]}` : `${minYear} - ${maxYear}`}
+            </label>
+            <Slider
+              min={minYear}
+              max={maxYear}
+              step={1}
+              value={yearRange || initialYearRange}
+              onValueChange={(value) => setYearRange(value as [number, number])}
+              className="w-full"
             />
-            <Button onClick={handleResetFilters} variant="outline">
-              Reset Search
+          </div>
+
+          {/* Reset Button */}
+          <div className="md:col-start-3 flex justify-end">
+            <Button variant="ghost" onClick={resetFilters}>
+              <RotateCcw className="h-4 w-4 mr-2" />
+              Reset Filters
             </Button>
           </div>
         </div>
+      </div>
 
-        <div className="max-w-4xl mx-auto space-y-12"> {/* Increased space between category groups */}
-          {sortedCategories.length === 0 && isFilteringActive ? (
-            <p className="text-center text-muted-foreground text-lg">No books found matching your search criteria.</p>
-          ) : sortedCategories.length === 0 && !isFilteringActive ? (
-            <p className="text-center text-muted-foreground text-lg">No books available.</p>
-          ) : null}
-          {sortedCategories.map((category) => (
-            <div key={category}>
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center md:text-left">
-                {category}
-              </h2>
-              <div className="space-y-8">
-                {groupedBooks[category].map((book) => (
-                  <Card
-                    key={book.title}
-                    className="flex flex-col md:flex-row overflow-hidden border-2 shadow-none rounded-none"
-                  >
-                    <div className="md:w-1/3 flex-shrink-0">
-                      <ConditionalLink href={book.detailsUrl}>
-                        <AspectRatio ratio={2 / 3} className="bg-muted">
-                          <Image
-                            src={book.coverUrl}
-                            alt={`Cover of ${book.title}`}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 100vw, 33vw"
-                          />
-                        </AspectRatio>
-                      </ConditionalLink>
-                    </div>
-                    <CardContent className="p-6 flex flex-col justify-center md:w-2/3">
-                      <h2 className="text-2xl font-bold mb-3">{book.title}</h2>
+      {/* Book Listings */}
+      {Object.keys(groupedBooks).length === 0 ? (
+        <p className="text-center text-lg text-muted-foreground mt-12">
+          No books found matching your criteria.
+        </p>
+      ) : (
+        Object.entries(groupedBooks).map(([category, books]) => (
+          <section key={category} className="mb-12">
+            <h2 className="text-3xl font-semibold mb-6">{category}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {books.map((book) => (
+                <div key={book.title} className="relative group">
+                  <BookCard book={book} />
+                  
+                  {/* Hover Overlay for Quick Details */}
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4 text-white cursor-pointer"
+                       onClick={() => { /* Dialog is handled by BookCard trigger */ }}>
+                    <div className="text-center">
+                      <h3 className="text-xl font-bold mb-2">{book.title}</h3>
+                      <p className="text-sm mb-4">{book.author}</p>
+                      
                       <div className="space-y-1 text-muted-foreground">
                         {book.originalAuthors && (
                           <p>
-                            <span className="font-medium text-foreground">
-                              Original Authors:
-                            </span>{" "}
+                            <span className="font-semibold text-white">Original Author:</span>{" "}
                             {book.originalAuthors}
                           </p>
                         )}
                         {book.publisher && (
                           <p>
-                            <span className="font-medium text-foreground">
-                              Publisher:
-                            </span>{" "}
+                            <span className="font-semibold text-white">Publisher:</span>{" "}
                             {book.publisher}
                           </p>
                         )}
                         {book.publicationDate && (
                           <p>
-                            <span className="font-medium text-foreground">
-                              Published:
-                            </span>{" "}
+                            <span className="font-semibold text-white">Published:</span>{" "}
                             {book.publicationDate}
                           </p>
                         )}
                         {book.pageCount && (
                           <p>
-                            <span className="font-medium text-foreground">
-                              Pages:
-                            </span>{" "}
+                            <span className="font-semibold text-white">Pages:</span>{" "}
                             {book.pageCount}
-                          </p>
-                        )}
-                        {book.isbn && (
-                          <p>
-                            <span className="font-medium text-foreground">
-                              ISBN/ASIN:
-                            </span>{" "}
-                            {book.isbn}
                           </p>
                         )}
                         {book.category && (
                           <p>
-                            <span className="font-medium text-foreground">
-                              Category:
-                            </span>{" "}
+                            <span className="font-semibold text-white">Category:</span>{" "}
                             {book.category}
                           </p>
                         )}
                         {book.tags && (
                           <p>
-                            <span className="font-medium text-foreground">
-                              Tags:
-                            </span>{" "}
+                            <span className="font-semibold text-white">Tags:</span>{" "}
                             {book.tags
                               .split(",")
-                              .map((tag) => tag.trim())
+                              .map((tag: string) => tag.trim())
                               .sort()
                               .join(", ")}
                           </p>
                         )}
                       </div>
-                      {book.description && (
-                        <div className="mt-4">
-                          <h3 className="font-medium text-foreground mb-1">
-                            Description
-                          </h3>
-                          <p className="text-muted-foreground whitespace-pre-line">
-                            {book.description}
-                          </p>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+            <Separator className="mt-12" />
+          </section>
+        ))
+      )}
     </div>
   );
 }
