@@ -117,7 +117,7 @@ const rawBooks: Book[] = [
     coverUrl: "/covers/memories-never-die.jpg",
     detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-Translated Work-of-ninaivugalukku-maranamillai.htm",
     amazonUrl: "https://amzn.in/d/2aHCtVL",
-    flipkartUrl: "",
+    flipkartUrl: "https://www.flipkart.com/dr-a-p-j-abdul-kalam-memories-never-die-english-translation-ninaivugalukku-maranamillai-missile-man-president-scientific-contributions-life-lessons-india-vision-complete-biography/p/itm02581ecd27611?pid=9788196159078&lid=LSTBOK9788196159078KBCIO5",
     originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J.M. Nazema Maraikayar",
     publisher: "Prabhat Prakashan",
     publicationDate: "April 08, 2023",
