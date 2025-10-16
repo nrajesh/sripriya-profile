@@ -102,6 +102,7 @@ export const translations: Book[] = [
   {
     id: 1,
     title: "கலாமின் இந்தியக் கனவுகள்",
+    author: null,
     coverUrl: "/covers/kalamin-indhiya-kanavugal.jpg",
     detailsUrl: "https://www.noolulagam.com/product/?pid=34503",
     originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J. Abdul Kalam",
@@ -116,6 +117,7 @@ export const translations: Book[] = [
   {
     id: 2,
     title: "பகவத்கீதை தற்காலத் தமிழில்",
+    author: null,
     coverUrl: "/covers/bhagavad-gitai.jpg",
     detailsUrl: "https://amzn.in/d/8E1f4BP",
     originalAuthors: "Koti Sreekrishna; Hari Ravikumar",
@@ -130,6 +132,7 @@ export const translations: Book[] = [
   {
     id: 3,
     title: "சிவ-ராம-கிருஷ்ணன்",
+    author: null,
     coverUrl: "/covers/siva-rama-krishnan.jpg",
     detailsUrl: "https://amzn.in/d/3p2s24Y",
     originalAuthors: "Shatavadhani Dr. R. Ganesh",
@@ -144,6 +147,7 @@ export const translations: Book[] = [
   {
     id: 4,
     title: "உபநயனம் – ஒரு எளிய அறிமுகம்",
+    author: null,
     coverUrl: "/covers/upanayanam.jpg",
     detailsUrl: "https://www.prekshaa.in/archive?field_preksha_series_tid=7139",
     originalAuthors: "Hari Ravikumar",
@@ -158,6 +162,7 @@ export const translations: Book[] = [
   {
     id: 5,
     title: "Memories Never Die",
+    author: null,
     coverUrl: "/covers/memories-never-die.jpg",
     detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-translation-of-ninaivugalukku-maranamillai.htm",
     originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J.M. Nazema Maraikayar",
@@ -172,6 +177,7 @@ export const translations: Book[] = [
   {
     id: 7,
     title: "Kalam’s Family Tree",
+    author: null,
     coverUrl: "/covers/kalams-family-tree.jpg",
     detailsUrl: "https://www.prabhatbooks.com/kalam-s-family-tree-ancestral-legacy-of-dr-a-p-j-abdul-kalam.htm",
     originalAuthors: "Dr. A.P.J.M. Nazema Maraikayar",
