@@ -58,6 +58,8 @@ const rawBooks: Book[] = [
     title: "கலாமின் இந்தியக் கனவுகள்",
     coverUrl: "/covers/kalamin-indhiya-kanavugal.jpg",
     detailsUrl: "https://www.noolulagam.com/product/?pid=34503",
+    amazonUrl: "https://amzn.in/d/2BgWsi3",
+    flipkartUrl: "https://amzn.in/d/2BgWsi3",
     originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J. Abdul Kalam",
     publisher: "கிழக்கு பதிப்பகம்",
     publicationDate: "July 01, 2017",
