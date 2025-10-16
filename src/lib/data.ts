@@ -86,7 +86,7 @@ const rawBooks: Book[] = [
     id: 3,
     title: "சிவ-ராம-கிருஷ்ணன்",
     coverUrl: "/covers/siva-rama-krishnan.jpg",
-    detailsUrl: "https://amzn.in/d/3p2s24Y",
+    detailsUrl: null,
     amazonUrl: "https://amzn.in/d/9WCGxn2",
     originalAuthors: "Shatavadhani Dr. R. Ganesh",
     publisher: "Prekshaa Pratishtana",
