@@ -200,10 +200,10 @@ export default function BooksPage() {
                       </Card>
                     </DialogTrigger>
 
-                    <DialogContent className="sm:max-w-[425px] md:max-w-lg p-0">
-                      <div className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto">
+                    <DialogContent className="sm:max-w-[425px] md:max-w-md p-0 max-h-[90vh]">
+                      <div className="grid grid-cols-1 md:grid-cols-2 h-full">
                         {/* Left side: Cover Image */}
-                        <div className="aspect-[2/3] relative">
+                        <div className="aspect-[2/3] relative shadow-md">
                           <Image
                             src={book.coverUrl}
                             alt={`Cover of ${book.title}`}
@@ -214,7 +214,7 @@ export default function BooksPage() {
                         </div>
 
                         {/* Right side: Details and Links */}
-                        <div className="p-6 flex flex-col">
+                        <div className="p-6 flex flex-col h-full overflow-y-auto">
                           <DialogHeader className="mb-4">
                             <DialogTitle className="text-2xl">{book.title}</DialogTitle>
                           </DialogHeader>

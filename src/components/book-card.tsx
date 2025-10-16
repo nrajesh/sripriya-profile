@@ -61,10 +61,10 @@ export function BookCard({ book, priority = false }: BookCardProps) {
         </Card>
       </div>
 
-      <DialogContent className="sm:max-w-[425px] md:max-w-lg p-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto"> {/* Added max-h and overflow-y for scrollable content */}
+      <DialogContent className="sm:max-w-[425px] md:max-w-md p-0 max-h-[90vh]"> {/* Reduced max-width, added max-h */}
+        <div className="grid grid-cols-1 md:grid-cols-2 h-full"> {/* Added h-full */}
           {/* Left side: Cover Image */}
-          <div className="aspect-[2/3] relative">
+          <div className="aspect-[2/3] relative shadow-md"> {/* Added shadow-md */}
             <Image
               src={book.coverUrl}
               alt={`Cover of ${book.title}`}
@@ -75,12 +75,12 @@ export function BookCard({ book, priority = false }: BookCardProps) {
           </div>
 
           {/* Right side: Details and Links */}
-          <div className="p-6 flex flex-col">
+          <div className="p-6 flex flex-col h-full overflow-y-auto"> {/* Added h-full and overflow-y-auto */}
             <DialogHeader className="mb-4">
               <DialogTitle className="text-2xl">{book.title}</DialogTitle>
             </DialogHeader>
 
-            <div className="space-y-3 text-muted-foreground text-sm flex-grow"> {/* Added flex-grow to push links to bottom */}
+            <div className="space-y-3 text-muted-foreground text-sm flex-grow">
               {book.originalAuthors && (
                 <p>
                   <span className="font-medium text-foreground">
@@ -153,7 +153,7 @@ export function BookCard({ book, priority = false }: BookCardProps) {
               )}
             </div>
 
-            <div className="space-y-3 mt-6"> {/* Added mt-6 for spacing from details */}
+            <div className="space-y-3 mt-6 flex-shrink-0"> {/* Added flex-shrink-0 */}
               {book.detailsUrl && (
                 <PurchaseLink href={book.detailsUrl} label="Buy from Publisher" />
               )}
