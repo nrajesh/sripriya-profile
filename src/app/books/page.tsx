@@ -10,13 +10,9 @@ import { YearRangePicker } from "@/components/year-range-picker";
 import { Button } from "@/components/ui/button";
 import { getMinPublicationYear, getMaxPublicationYear, Book } from "@/lib/data";
 import { useBookFilters } from "@/hooks/use-book-filters";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { DialogTrigger } from "@/components/ui/dialog"; // Keep DialogTrigger for visual click area
+import { useBookNavigation } from "@/hooks/use-book-navigation";
+import { BookDetailDialog } from "@/components/book-detail-dialog";
 import { ExternalLink } from "lucide-react";
 
 // Helper component for rendering purchase links (replicated from BookCard)
@@ -38,6 +34,23 @@ export default function BooksPage() {
     setDateRange,
     handleResetFilters,
   } = useBookFilters();
+
+  const {
+    currentBook,
+    hasNext,
+    hasPrevious,
+    goToNext,
+    goToPrevious,
+    setCurrentBookId,
+  } = useBookNavigation({ books: filteredBooks });
+
+  const isDialogOpen = currentBook !== null;
+
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      setCurrentBookId(null);
+    }
+  };
 
   // Calculate min and max publication years from the data (still memoized)
   const minPublicationYear = useMemo(() => getMinPublicationYear(), []);
@@ -106,10 +119,11 @@ export default function BooksPage() {
               </h2>
               <div className="space-y-8">
                 {groupedBooks[category].map((book) => (
-                  <Dialog key={book.id}> {/* Each book gets its own dialog */}
+                  <div key={book.id}>
                     <DialogTrigger asChild>
                       <Card
                         className="flex flex-col md:flex-row overflow-hidden border-2 shadow-none rounded-none cursor-pointer hover:bg-muted/50 transition-colors"
+                        onClick={() => setCurrentBookId(book.id)} // Set current book ID on click
                       >
                         <div className="md:w-1/3 flex-shrink-0">
                           <AspectRatio ratio={2 / 3} className="bg-muted">
@@ -199,131 +213,23 @@ export default function BooksPage() {
                         </CardContent>
                       </Card>
                     </DialogTrigger>
-
-                    <DialogContent className="sm:max-w-[425px] md:max-w-2xl p-0">
-                      <div className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto">
-                        
-                        {/* Left side: Cover Image and Links (Vertically Centered) */}
-                        <div className="p-6 md:p-8 flex flex-col items-center justify-center border-r">
-                          {/* Image Container with Shadow */}
-                          <div className="aspect-[2/3] relative shadow-xl w-full max-w-xs">
-                            <Image
-                              src={book.coverUrl}
-                              alt={`Cover of ${book.title}`}
-                              fill
-                              className="object-cover rounded-lg"
-                              sizes="(max-width: 768px) 100vw, 50vw"
-                            />
-                          </div>
-
-                          {/* Purchase Links (Moved here) */}
-                          <div className="space-y-3 mt-6 w-full max-w-xs">
-                            {book.detailsUrl && (
-                              <PurchaseLink href={book.detailsUrl} label="Buy from Publisher" />
-                            )}
-                            {book.amazonUrl && (
-                              <PurchaseLink href={book.amazonUrl} label="Buy on Amazon" />
-                            )}
-                            {book.flipkartUrl && (
-                              <PurchaseLink href={book.flipkartUrl} label="Buy on Flipkart" />
-                            )}
-                            
-                            {/* Fallback if no links are provided */}
-                            {!book.detailsUrl && !book.amazonUrl && !book.flipkartUrl && (
-                              <p className="text-sm text-muted-foreground text-center">Purchase links not available.</p>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Right side: Details (Scrollable) */}
-                        <div className="p-6 flex flex-col">
-                          <DialogHeader className="mb-4">
-                            <DialogTitle className="text-2xl">{book.title}</DialogTitle>
-                          </DialogHeader>
-
-                          {/* Scrollable Content Area */}
-                          <div className="space-y-3 text-muted-foreground text-sm flex-grow overflow-y-auto pr-2">
-                            {book.originalAuthors && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Original Authors:
-                                </span>{" "}
-                                {book.originalAuthors}
-                              </p>
-                            )}
-                            {book.publisher && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Publisher:
-                                </span>{" "}
-                                {book.publisher}
-                              </p>
-                            )}
-                            {book.publicationDate && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Published:
-                                </span>{" "}
-                                {book.publicationDate}
-                              </p>
-                            )}
-                            {book.pageCount && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Pages:
-                                </span>{" "}
-                                {book.pageCount}
-                              </p>
-                            )}
-                            {book.isbn && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  ISBN/ASIN:
-                                </span>{" "}
-                                {book.isbn}
-                              </p>
-                            )}
-                            {book.category && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Category:
-                                </span>{" "}
-                                {book.category}
-                              </p>
-                            )}
-                            {book.tags && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Tags:
-                                </span>{" "}
-                                {book.tags
-                                  .split(",")
-                                  .map((tag) => tag.trim())
-                                  .sort()
-                                  .join(", ")}
-                              </p>
-                            )}
-                            {book.description && (
-                              <div className="mt-4">
-                                <h3 className="font-medium text-foreground mb-1">
-                                  Description
-                                </h3>
-                                <p className="text-muted-foreground whitespace-pre-line">
-                                  {book.description}
-                                </p>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                  </div>
                 ))}
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      <BookDetailDialog
+        book={currentBook}
+        isOpen={isDialogOpen}
+        onOpenChange={handleOpenChange}
+        hasNext={hasNext}
+        hasPrevious={hasPrevious}
+        goToNext={goToNext}
+        goToPrevious={goToPrevious}
+      />
     </div>
   );
 }
