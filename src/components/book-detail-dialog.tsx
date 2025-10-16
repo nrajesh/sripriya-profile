@@ -81,7 +81,7 @@ export function BookDetailDialog({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 flex-grow overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 flex-grow overflow-hidden min-h-0">
           
           {/* Left side: Cover Image and Links (Stable and Centered) */}
           <div className="p-6 md:p-8 flex flex-col items-center justify-center border-r">
