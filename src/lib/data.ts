@@ -15,6 +15,7 @@ export type SocialLink = {
 };
 
 export type Author = {
+  id: number;
   name: string;
   bio: string;
   profileImage: string;
@@ -28,7 +29,7 @@ export type Book = {
   detailsUrl: string | null;
   amazonUrl?: string | null;
   flipkartUrl?: string | null;
-  author: string; // Author of the book (could be Sripriya or original author if translation)
+  author: string | null; // Author of the book (could be Sripriya or original author if translation)
   description: string;
   isbn?: string | null;
   publicationDate?: string | null;
@@ -44,6 +45,7 @@ export type Book = {
 // --- Data ---
 
 export const author: Author = {
+  id: 1,
   name: "Sripriya Srinivasan",
   bio: "Sripriya Srinivasan is an acclaimed author and translator, known for her insightful narratives and elegant translations.",
   profileImage: "/author-profile.jpeg",
@@ -67,6 +69,7 @@ export const books: Book[] = [
   {
     id: 6,
     title: "ஸ்வாமி வேதாந்த தேஶிகனின் ஸ்ரீஸூக்திகள் ஒரு அறிமுகம்",
+    author: "Sripriya Srinivasan",
     coverUrl: "/covers/sri-sukthikal.jpg",
     detailsUrl: null,
     originalAuthors: null,
@@ -83,6 +86,7 @@ export const books: Book[] = [
     title: "The Pallava Empire",
     coverUrl: "/covers/the-pallava-empire.jpg",
     detailsUrl: "https://sahityabooks.com/shop/rashtrotthana-sahitya/the-pallava-empire/",
+    author: "Sripriya Srinivasan",
     originalAuthors: null,
     publisher: "Rashtrotthana Sahitya",
     publicationDate: "June 19, 2025",
