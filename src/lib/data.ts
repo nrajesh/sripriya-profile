@@ -116,6 +116,8 @@ const rawBooks: Book[] = [
     title: "Memories Never Die",
     coverUrl: "/covers/memories-never-die.jpg",
     detailsUrl: "https://www.prabhatbooks.com/dr-a-p-j-abdul-kalam-memories-never-die-english-Translated Work-of-ninaivugalukku-maranamillai.htm",
+    amazonUrl: "https://amzn.in/d/2aHCtVL",
+    flipkartUrl: "",
     originalAuthors: "Dr. Y.S. Rajan; Dr. A.P.J.M. Nazema Maraikayar",
     publisher: "Prabhat Prakashan",
     publicationDate: "April 08, 2023",
