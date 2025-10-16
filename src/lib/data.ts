@@ -26,6 +26,8 @@ export interface Book {
   title: string;
   coverUrl: string;
   detailsUrl: string | null;
+  amazonUrl?: string | null;
+  flipkartUrl?: string | null;
   originalAuthors: string | null;
   publisher: string | null;
   publicationDate: string | null;
