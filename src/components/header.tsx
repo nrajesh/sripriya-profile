@@ -1,6 +1,8 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -12,35 +14,38 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { navLinks, NavLink } from "@/lib/data";
 import { useTheme } from "next-themes";
-import { usePathname } from "next/navigation";
 
 export function Header() {
-  const { setTheme } = useTheme();
   const pathname = usePathname();
+  const { setTheme } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="text-2xl font-bold tracking-tight">
-          Sripriya
+        {/* Logo/Title */}
+        <Link href="/" className="text-xl font-bold text-primary">
+          Sripriya Srinivasan
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 text-sm">
+        <nav className="hidden md:flex items-center space-x-6">
           {navLinks.map((link: NavLink) => (
             <Link
-              key={link.href}
+              key={link.title}
               href={link.href}
-              className={`transition-colors hover:text-foreground/80 ${
-                pathname === link.href ? "text-foreground" : "text-foreground/60"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                pathname === link.href
+                  ? "text-primary font-semibold"
+                  : "text-muted-foreground"
               }`}
             >
-              {link.label}
+              {link.title}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        {/* Right Side: Theme Toggle & Mobile Menu */}
+        <div className="flex items-center space-x-2">
           {/* Theme Toggle */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -57,26 +62,31 @@ export function Header() {
               <DropdownMenuItem onClick={() => setTheme("dark")}>
                 Dark
               </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("system")}>
+                System
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Mobile Sheet Menu */}
+          {/* Mobile Menu */}
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle menu</span>
+                <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
-              <div className="flex flex-col gap-6 pt-6">
+              <div className="flex flex-col space-y-4 pt-6">
                 {navLinks.map((link: NavLink) => (
                   <Link
-                    key={link.href}
+                    key={link.title}
                     href={link.href}
-                    className="text-lg font-medium hover:text-foreground/80"
+                    className={`text-lg font-medium transition-colors hover:text-primary ${
+                      pathname === link.href ? "text-primary" : "text-foreground"
+                    }`}
                   >
-                    {link.label}
+                    {link.title}
                   </Link>
                 ))}
               </div>

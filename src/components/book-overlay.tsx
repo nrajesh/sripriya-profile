@@ -51,10 +51,13 @@ export function BookOverlay() {
     isbn, 
     tags, 
     originalAuthors,
-    buyLink 
+    detailsUrl,
+    amazonUrl,
+    flipkartUrl
   } = currentBook;
 
   const year = publicationDate ? new Date(publicationDate).getFullYear() : "N/A";
+  const hasPurchaseLinks = detailsUrl || amazonUrl || flipkartUrl;
 
   return (
     <Dialog open={isOverlayOpen} onOpenChange={closeOverlay}>
@@ -131,14 +134,39 @@ export function BookOverlay() {
             {description}
           </div>
 
-          {buyLink && (
-            <a href={buyLink} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="w-full md:w-auto group">
-                <BookOpen className="mr-2 h-4 w-4" />
-                Buy Now
-              </Button>
-            </a>
-          )}
+          {/* Buy Links Section */}
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold mb-3">Buy from</h3>
+            <div className="flex flex-wrap gap-3">
+              {detailsUrl && (
+                <a href={detailsUrl} target="_blank" rel="noopener noreferrer">
+                  <Button variant="default" className="group">
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Publisher
+                  </Button>
+                </a>
+              )}
+              {amazonUrl && (
+                <a href={amazonUrl} target="_blank" rel="noopener noreferrer">
+                  <Button variant="default" className="group">
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Amazon
+                  </Button>
+                </a>
+              )}
+              {flipkartUrl && (
+                <a href={flipkartUrl} target="_blank" rel="noopener noreferrer">
+                  <Button variant="default" className="group">
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Flipkart
+                  </Button>
+                </a>
+              )}
+              {!hasPurchaseLinks && (
+                <p className="text-muted-foreground text-sm">Not available to purchase online</p>
+              )}
+            </div>
+          </div>
           
           {/* Mobile Navigation (Visible on mobile) */}
           <div className="flex justify-between mt-6 md:hidden">
