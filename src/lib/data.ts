@@ -22,6 +22,7 @@ export type Author = {
 };
 
 export type Book = {
+  id: number;
   title: string;
   coverUrl: string;
   detailsUrl: string | null;
