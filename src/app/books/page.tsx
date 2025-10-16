@@ -10,7 +10,6 @@ import { YearRangePicker } from "@/components/year-range-picker";
 import { Button } from "@/components/ui/button";
 import { getMinPublicationYear, getMaxPublicationYear, Book } from "@/lib/data";
 import { useBookFilters } from "@/hooks/use-book-filters";
-import { DialogTrigger } from "@/components/ui/dialog";
 import { useBookNavigation } from "@/hooks/use-book-navigation";
 import { BookDetailDialog } from "@/components/book-detail-dialog";
 
@@ -104,99 +103,97 @@ export default function BooksPage() {
               <div className="space-y-8">
                 {groupedBooks[category].map((book) => (
                   <div key={book.id}>
-                    <DialogTrigger asChild>
-                      <Card
-                        className="flex flex-col md:flex-row overflow-hidden border-2 shadow-none rounded-none cursor-pointer hover:bg-muted/50 transition-colors"
-                        onClick={() => setCurrentBookId(book.id)}
-                      >
-                        <div className="md:w-1/3 flex-shrink-0">
-                          <AspectRatio ratio={2 / 3} className="bg-muted">
-                            <Image
-                              src={book.coverUrl}
-                              alt={`Cover of ${book.title}`}
-                              fill
-                              className="object-cover"
-                              sizes="(max-width: 768px) 100vw, 33vw"
-                            />
-                          </AspectRatio>
-                        </div>
-                        <CardContent className="p-6 flex flex-col justify-center md:w-2/3">
-                          <h2 className="text-2xl font-bold mb-3">{book.title}</h2>
-                          <div className="space-y-1 text-muted-foreground">
-                            {book.originalAuthors && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Original Authors:
-                                </span>{" "}
-                                {book.originalAuthors}
-                              </p>
-                            )}
-                            {book.publisher && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Publisher:
-                                </span>{" "}
-                                {book.publisher}
-                              </p>
-                            )}
-                            {book.publicationDate && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Published:
-                                </span>{" "}
-                                {book.publicationDate}
-                              </p>
-                            )}
-                            {book.pageCount && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Pages:
-                                </span>{" "}
-                                {book.pageCount}
-                              </p>
-                            )}
-                            {book.isbn && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  ISBN/ASIN:
-                                </span>{" "}
-                                {book.isbn}
-                              </p>
-                            )}
-                            {book.category && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Category:
-                                </span>{" "}
-                                {book.category}
-                              </p>
-                            )}
-                            {book.tags && (
-                              <p>
-                                <span className="font-medium text-foreground">
-                                  Tags:
-                                </span>{" "}
-                                {book.tags
-                                  .split(",")
-                                  .map((tag) => tag.trim())
-                                  .sort()
-                                  .join(", ")}
-                              </p>
-                            )}
-                          </div>
-                          {book.description && (
-                            <div className="mt-4">
-                              <h3 className="font-medium text-foreground mb-1">
-                                Description
-                              </h3>
-                              <p className="text-muted-foreground whitespace-pre-line">
-                                {book.description}
-                              </p>
-                            </div>
+                    <Card
+                      className="flex flex-col md:flex-row overflow-hidden border-2 shadow-none rounded-none cursor-pointer hover:bg-muted/50 transition-colors"
+                      onClick={() => setCurrentBookId(book.id)}
+                    >
+                      <div className="md:w-1/3 flex-shrink-0">
+                        <AspectRatio ratio={2 / 3} className="bg-muted">
+                          <Image
+                            src={book.coverUrl}
+                            alt={`Cover of ${book.title}`}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                        </AspectRatio>
+                      </div>
+                      <CardContent className="p-6 flex flex-col justify-center md:w-2/3">
+                        <h2 className="text-2xl font-bold mb-3">{book.title}</h2>
+                        <div className="space-y-1 text-muted-foreground">
+                          {book.originalAuthors && (
+                            <p>
+                              <span className="font-medium text-foreground">
+                                Original Authors:
+                              </span>{" "}
+                              {book.originalAuthors}
+                            </p>
                           )}
-                        </CardContent>
-                      </Card>
-                    </DialogTrigger>
+                          {book.publisher && (
+                            <p>
+                              <span className="font-medium text-foreground">
+                                Publisher:
+                              </span>{" "}
+                              {book.publisher}
+                            </p>
+                          )}
+                          {book.publicationDate && (
+                            <p>
+                              <span className="font-medium text-foreground">
+                                Published:
+                              </span>{" "}
+                              {book.publicationDate}
+                            </p>
+                          )}
+                          {book.pageCount && (
+                            <p>
+                              <span className="font-medium text-foreground">
+                                Pages:
+                              </span>{" "}
+                              {book.pageCount}
+                            </p>
+                          )}
+                          {book.isbn && (
+                            <p>
+                              <span className="font-medium text-foreground">
+                                ISBN/ASIN:
+                              </span>{" "}
+                              {book.isbn}
+                            </p>
+                          )}
+                          {book.category && (
+                            <p>
+                              <span className="font-medium text-foreground">
+                                Category:
+                              </span>{" "}
+                              {book.category}
+                            </p>
+                          )}
+                          {book.tags && (
+                            <p>
+                              <span className="font-medium text-foreground">
+                                Tags:
+                              </span>{" "}
+                              {book.tags
+                                .split(",")
+                                .map((tag) => tag.trim())
+                                .sort()
+                                .join(", ")}
+                            </p>
+                          )}
+                        </div>
+                        {book.description && (
+                          <div className="mt-4">
+                            <h3 className="font-medium text-foreground mb-1">
+                              Description
+                            </h3>
+                            <p className="text-muted-foreground whitespace-pre-line">
+                              {book.description}
+                            </p>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
                   </div>
                 ))}
               </div>
