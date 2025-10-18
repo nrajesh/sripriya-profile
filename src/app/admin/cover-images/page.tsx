@@ -47,8 +47,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import { CoverImage, rawCoverImages as initialCoverImagesData } from "@/lib/cover-images";
 import { coverImageSchema, CoverImageFormData } from "@/lib/schemas";
+import { supabase } from "@/integrations/supabase/client"; // Import Supabase client
 
 const ADMIN_AUTH_KEY = "admin_authenticated";
+const SUPABASE_STORAGE_BUCKET = "cover-images"; // Define your Supabase Storage bucket name
 
 export default function AdminCoverImagesPage() {
   const router = useRouter();
@@ -59,12 +61,12 @@ export default function AdminCoverImagesPage() {
   const [selectedImageIds, setSelectedImageIds] = useState<string[]>([]);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [showJsonOutput, setShowJsonOutput] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   const form = useForm<CoverImageFormData>({
     resolver: zodResolver(coverImageSchema),
     defaultValues: {
-      fileName: "",
-      url: "",
+      imageFile: undefined, // Initialize as undefined for file input
     },
   });
 
@@ -109,25 +111,95 @@ export default function AdminCoverImagesPage() {
     toast.info("Logged out.");
   };
 
-  const handleAddImage = (data: CoverImageFormData) => {
-    const newImage: CoverImage = {
-      id: uuidv4(), // Generate a unique ID for the image
-      fileName: data.fileName,
-      url: data.url,
-    };
-    setLocalCoverImages((prev) => [...prev, newImage]);
-    setIsAddDialogOpen(false);
-    form.reset();
-    toast.success("Cover image added successfully!");
+  const handleAddImage = async (data: CoverImageFormData) => {
+    const file = data.imageFile;
+    if (!file) {
+      toast.error("No file selected.");
+      return;
+    }
+
+    setIsUploading(true);
+    const fileId = uuidv4();
+    const filePath = `${fileId}-${file.name}`; // Unique path for Supabase storage
+
+    try {
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from(SUPABASE_STORAGE_BUCKET)
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false,
+        });
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      const { data: publicUrlData } = supabase.storage
+        .from(SUPABASE_STORAGE_BUCKET)
+        .getPublicUrl(filePath);
+
+      if (!publicUrlData?.publicUrl) {
+        throw new Error("Could not get public URL for the uploaded file.");
+      }
+
+      const newImage: CoverImage = {
+        id: fileId,
+        fileName: file.name,
+        url: publicUrlData.publicUrl,
+      };
+
+      setLocalCoverImages((prev) => [...prev, newImage]);
+      setIsAddDialogOpen(false);
+      form.reset();
+      toast.success("Cover image added successfully!");
+    } catch (error: any) {
+      console.error("Error uploading image:", error);
+      toast.error(`Failed to upload image: ${error.message || "Unknown error"}`);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
-  const handleDeleteSelectedImages = () => {
-    setLocalCoverImages((prev) =>
-      prev.filter((image) => !selectedImageIds.includes(image.id))
-    );
-    setSelectedImageIds([]);
-    setIsDeleteDialogOpen(false);
-    toast.success("Selected cover images deleted!");
+  const handleDeleteSelectedImages = async () => {
+    if (selectedImageIds.length === 0) return;
+
+    setIsUploading(true); // Use uploading state for deletion too
+
+    try {
+      const imagesToDelete = localCoverImages.filter(image => selectedImageIds.includes(image.id));
+      const filePathsToDelete = imagesToDelete.map(image => {
+        // Extract the path from the URL, assuming the URL structure is consistent
+        // e.g., https://<project_id>.supabase.co/storage/v1/object/public/cover-images/uuid-filename.jpg
+        const urlParts = image.url.split('/');
+        const bucketIndex = urlParts.indexOf(SUPABASE_STORAGE_BUCKET);
+        if (bucketIndex > -1 && bucketIndex + 1 < urlParts.length) {
+          return urlParts.slice(bucketIndex + 1).join('/');
+        }
+        return null;
+      }).filter(Boolean) as string[]; // Filter out nulls and assert type
+
+      if (filePathsToDelete.length > 0) {
+        const { error: deleteError } = await supabase.storage
+          .from(SUPABASE_STORAGE_BUCKET)
+          .remove(filePathsToDelete);
+
+        if (deleteError) {
+          throw deleteError;
+        }
+      }
+
+      setLocalCoverImages((prev) =>
+        prev.filter((image) => !selectedImageIds.includes(image.id))
+      );
+      setSelectedImageIds([]);
+      setIsDeleteDialogOpen(false);
+      toast.success("Selected cover images deleted!");
+    } catch (error: any) {
+      console.error("Error deleting images:", error);
+      toast.error(`Failed to delete images: ${error.message || "Unknown error"}`);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const toggleImageSelection = (id: string) => {
@@ -183,12 +255,13 @@ export default function AdminCoverImagesPage() {
       <h1 className="mb-8 text-4xl font-bold">Cover Image Management</h1>
 
       <div className="mb-6 flex justify-between">
-        <Button onClick={openAddDialog}>Add New Image</Button>
+        <Button onClick={openAddDialog} disabled={isUploading}>Add New Image</Button>
         <div className="space-x-2">
           {selectedImageIds.length > 0 && (
             <Button
               variant="destructive"
               onClick={() => setIsDeleteDialogOpen(true)}
+              disabled={isUploading}
             >
               Delete Selected ({selectedImageIds.length})
             </Button>
@@ -224,6 +297,7 @@ export default function AdminCoverImagesPage() {
               <Checkbox
                 checked={selectedImageIds.length === localCoverImages.length && localCoverImages.length > 0}
                 onCheckedChange={toggleSelectAll}
+                disabled={isUploading}
               />
             </TableHead>
             <TableHead className="w-[150px]">Preview</TableHead>
@@ -245,6 +319,7 @@ export default function AdminCoverImagesPage() {
                   <Checkbox
                     checked={selectedImageIds.includes(image.id)}
                     onCheckedChange={() => toggleImageSelection(image.id)}
+                    disabled={isUploading}
                   />
                 </TableCell>
                 <TableCell>
@@ -276,32 +351,29 @@ export default function AdminCoverImagesPage() {
             <form onSubmit={form.handleSubmit(handleAddImage)} className="grid gap-4 py-4">
               <FormField
                 control={form.control}
-                name="fileName"
-                render={({ field }) => (
+                name="imageFile"
+                render={({ field: { value, onChange, ...fieldProps } }) => (
                   <FormItem>
-                    <FormLabel>File Name</FormLabel>
+                    <FormLabel>Image File</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="my-book-cover.jpg" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="url"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>URL</FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder="/covers/my-book-cover.jpg" />
+                      <Input
+                        {...fieldProps}
+                        type="file"
+                        accept="image/jpeg, image/png, image/gif, image/webp"
+                        onChange={(event) => {
+                          onChange(event.target.files && event.target.files[0]);
+                        }}
+                        disabled={isUploading}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <DialogFooter>
-                <Button type="submit">Add Image</Button>
+                <Button type="submit" disabled={isUploading}>
+                  {isUploading ? "Uploading..." : "Add Image"}
+                </Button>
               </DialogFooter>
             </form>
           </Form>
@@ -314,13 +386,13 @@ export default function AdminCoverImagesPage() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the selected cover images.
+              This action cannot be undone. This will permanently delete the selected cover images from both the list and Supabase Storage.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDeleteSelectedImages}>
-              Continue
+            <AlertDialogCancel disabled={isUploading}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeleteSelectedImages} disabled={isUploading}>
+              {isUploading ? "Deleting..." : "Continue"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

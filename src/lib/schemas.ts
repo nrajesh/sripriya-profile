@@ -21,10 +21,16 @@ export type BookFormData = z.infer<typeof bookSchema>;
 
 export const coverImageSchema = z.object({
   id: z.string().optional(), // UUID for cover images
-  fileName: z.string().min(1, "File name is required").regex(/^[\w\-. ]+\.(jpg|jpeg|png|gif|svg)$/i, "Must be a valid image file name (e.g., image.jpg)"),
-  url: z.string().url("Must be a valid URL").min(1, "URL is required"),
+  imageFile: z.instanceof(File, { message: "An image file is required." })
+    .optional() // Make it optional for initial form state
+    .refine((file) => !file || file.size <= 5 * 1024 * 1024, `Max image size is 5MB.`) // 5MB limit
+    .refine(
+      (file) => !file || ["image/jpeg", "image/png", "image/gif", "image/webp"].includes(file.type),
+      "Only .jpg, .jpeg, .png, .gif, and .webp formats are supported."
+    ),
 });
 
+// The type will now correctly infer imageFile?: File | undefined
 export type CoverImageFormData = z.infer<typeof coverImageSchema>;
 
 export const contactFormSchema = z.object({
