@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "sonner";
 
-import { Book, books as initialBooksData, DEFAULT_COVER_IMAGE_URL, parseDateForSorting } from "@/lib/data";
+import { Book, books as initialBooksData, DEFAULT_COVER_IMAGE_URL, parseDateForSorting, author } from "@/lib/data";
 import { bookSchema, BookFormData } from "@/lib/schemas";
 
 const ADMIN_AUTH_KEY = "admin_authenticated";
@@ -114,9 +114,13 @@ export function useAdminBooks() {
   }, []);
 
   const processBookData = useCallback((data: BookFormData, existingBook?: Book): Book => {
-    const category = data.originalAuthors && data.originalAuthors.trim() !== ""
-      ? "Translated Work"
-      : "Original Publication";
+    const effectiveOriginalAuthors = data.originalAuthors && data.originalAuthors.trim() !== ""
+      ? data.originalAuthors
+      : author.name; // Default to Sripriya Srinivasan
+
+    const category = effectiveOriginalAuthors === author.name
+      ? "Original Publication"
+      : "Translated Work";
 
     const coverUrl = data.coverUrl && data.coverUrl.trim() !== ""
       ? data.coverUrl
@@ -129,12 +133,12 @@ export function useAdminBooks() {
       detailsUrl: data.detailsUrl || null,
       amazonUrl: data.amazonUrl || null,
       flipkartUrl: data.flipkartUrl || null,
-      originalAuthors: data.originalAuthors || null,
+      originalAuthors: effectiveOriginalAuthors, // Use the effective authors
       publisher: data.publisher || null,
       publicationDate: data.publicationDate || null,
       pageCount: data.pageCount || null,
       isbn: data.isbn || null,
-      category,
+      category, // Use the derived category
       tags: data.tags,
       description: data.description,
     } as Book;
@@ -193,7 +197,7 @@ export function useAdminBooks() {
       detailsUrl: "",
       amazonUrl: "",
       flipkartUrl: "",
-      originalAuthors: "",
+      originalAuthors: "", // Reset to empty string
       publisher: "",
       publicationDate: "",
       pageCount: "",
@@ -213,7 +217,7 @@ export function useAdminBooks() {
       detailsUrl: book.detailsUrl || "",
       amazonUrl: book.amazonUrl || "",
       flipkartUrl: book.flipkartUrl || "",
-      originalAuthors: book.originalAuthors || "",
+      originalAuthors: book.originalAuthors || "", // Ensure it's an empty string if null
       publisher: book.publisher || "",
       publicationDate: book.publicationDate || "",
       pageCount: book.pageCount || "",
