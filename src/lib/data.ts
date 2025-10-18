@@ -54,7 +54,7 @@ export const parseDateForSorting = (dateString: string | null): Date => {
   return new Date(dateString || 0); // Fallback for other formats or null
 };
 
-const rawBooks: Book[] = [
+export const rawBooks: Book[] = [
   {
     "id": 1,
     "title": "கலாமின் இந்தியக் கனவுகள்",
