@@ -36,6 +36,7 @@ export default function AdminBooksPage() {
     form,
     handleAddBook,
     handleEditBook,
+    handleRestartApp, // Added handleRestartApp
   } = useAdminBooks();
 
   if (!isAuthenticated) {
@@ -52,9 +53,9 @@ export default function AdminBooksPage() {
     <div className="container mx-auto px-4 py-12 md:py-20">
       <h1 className="mb-8 text-4xl font-bold">Book Management</h1>
 
-      <div className="mb-6 flex justify-between">
+      <div className="mb-6 flex justify-between items-center flex-wrap gap-2">
         <Button onClick={openAddDialog}>Add New Book</Button>
-        <div className="space-x-2">
+        <div className="flex items-center flex-wrap gap-2">
           {selectedBookIds.length > 0 && (
             <Button
               variant="destructive"
@@ -65,6 +66,9 @@ export default function AdminBooksPage() {
           )}
           <Button onClick={() => setShowJsonOutput(!showJsonOutput)} variant="outline">
             {showJsonOutput ? "Hide JSON" : "Show JSON for data.ts"}
+          </Button>
+          <Button onClick={handleRestartApp} variant="secondary"> {/* New Restart Button */}
+            Restart App
           </Button>
           <Button onClick={handleLogout} variant="secondary">
             Logout

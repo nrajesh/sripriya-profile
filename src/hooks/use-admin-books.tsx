@@ -218,6 +218,11 @@ export function useAdminBooks() {
     setIsEditDialogOpen(true);
   }, [form]);
 
+  const handleRestartApp = useCallback(() => {
+    toast.info("Please click the 'Restart' button above the chat input to apply changes.");
+    // We don't actually restart the server from here, but prompt the user.
+  }, []);
+
   const jsonOutput = useMemo(() => {
     const sortedBooks = [...localBooks].sort((a, b) => a.id - b.id);
     return JSON.stringify(sortedBooks, null, 2);
@@ -249,5 +254,6 @@ export function useAdminBooks() {
     form,
     handleAddBook,
     handleEditBook,
+    handleRestartApp,
   };
 }
