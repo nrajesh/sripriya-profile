@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "placehold.co",
       },
+      {
+        protocol: "https",
+        hostname: "idvgwvndnqvlcndjfwat.supabase.co", // Added Supabase storage hostname
+      },
     ],
   },
   webpack: (config) => {
