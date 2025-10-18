@@ -47,6 +47,7 @@ import {
 import { Book, books as initialBooksData } from "@/lib/data";
 import { bookSchema, BookFormData } from "@/lib/schemas";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CoverImageUpload } from "@/components/cover-image-upload"; // Import the new component
 
 const ADMIN_AUTH_KEY = "admin_authenticated";
 
@@ -363,9 +364,13 @@ export default function AdminBooksPage() {
                 name="coverUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Cover URL</FormLabel>
+                    <FormLabel>Cover Image</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="/covers/my-book.jpg" />
+                      <CoverImageUpload
+                        value={field.value}
+                        onChange={field.onChange}
+                        disabled={form.formState.isSubmitting}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -557,9 +562,13 @@ export default function AdminBooksPage() {
                 name="coverUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Cover URL</FormLabel>
+                    <FormLabel>Cover Image</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="/covers/my-book.jpg" />
+                      <CoverImageUpload
+                        value={field.value}
+                        onChange={field.onChange}
+                        disabled={form.formState.isSubmitting}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
