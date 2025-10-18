@@ -18,3 +18,19 @@ export const bookSchema = z.object({
 });
 
 export type BookFormData = z.infer<typeof bookSchema>;
+
+export const coverImageSchema = z.object({
+  id: z.string().optional(), // UUID for cover images
+  fileName: z.string().min(1, "File name is required").regex(/^[\w\-. ]+\.(jpg|jpeg|png|gif|svg)$/i, "Must be a valid image file name (e.g., image.jpg)"),
+  url: z.string().url("Must be a valid URL").min(1, "URL is required"),
+});
+
+export type CoverImageFormData = z.infer<typeof coverImageSchema>;
+
+export const contactFormSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Must be a valid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters long"),
+});
+
+export type ContactFormData = z.infer<typeof contactFormSchema>;
