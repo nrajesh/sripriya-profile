@@ -47,7 +47,6 @@ import {
 import { Book, books as initialBooksData } from "@/lib/data";
 import { bookSchema, BookFormData } from "@/lib/schemas";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import Link from "next/link"; // Import Link for navigation
 
 const ADMIN_AUTH_KEY = "admin_authenticated";
 
