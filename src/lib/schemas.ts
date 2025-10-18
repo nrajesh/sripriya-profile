@@ -3,7 +3,7 @@ import { z } from "zod";
 export const bookSchema = z.object({
   id: z.number().optional(), // ID is optional for new books, will be generated
   title: z.string().min(1, "Title is required"),
-  coverUrl: z.string().or(z.literal('')).nullable().optional(), // Removed .url() validation
+  coverUrl: z.string().or(z.literal('')).nullable().optional(), // Removed .url() validation entirely for coverUrl
   detailsUrl: z.string().url("Must be a valid URL").or(z.literal('')).nullable().optional(), // Allow empty string for detailsUrl
   amazonUrl: z.string().url("Must be a valid URL").or(z.literal('')).nullable().optional(), // Allow empty string for amazonUrl
   flipkartUrl: z.string().url("Must be a valid URL").or(z.literal('')).nullable().optional(), // Allow empty string for flipkartUrl
