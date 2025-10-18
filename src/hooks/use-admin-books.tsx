@@ -114,11 +114,15 @@ export function useAdminBooks() {
   }, []);
 
   const processBookData = useCallback((data: BookFormData, existingBook?: Book): Book => {
-    const effectiveOriginalAuthors = data.originalAuthors && data.originalAuthors.trim() !== ""
-      ? data.originalAuthors
-      : author.name; // Default to Sripriya Srinivasan
+    // Ensure both the input and the author.name are trimmed for consistent comparison
+    const trimmedOriginalAuthorsInput = data.originalAuthors?.trim() || "";
+    const trimmedAuthorName = author.name.trim();
 
-    const category = effectiveOriginalAuthors === author.name
+    const effectiveOriginalAuthors = trimmedOriginalAuthorsInput !== ""
+      ? trimmedOriginalAuthorsInput
+      : trimmedAuthorName; // Default to Sripriya Srinivasan
+
+    const category = effectiveOriginalAuthors === trimmedAuthorName
       ? "Original Publication"
       : "Translated Work";
 
@@ -197,7 +201,7 @@ export function useAdminBooks() {
       detailsUrl: "",
       amazonUrl: "",
       flipkartUrl: "",
-      originalAuthors: "", // Reset to empty string
+      originalAuthors: "",
       publisher: "",
       publicationDate: "",
       pageCount: "",
@@ -217,7 +221,7 @@ export function useAdminBooks() {
       detailsUrl: book.detailsUrl || "",
       amazonUrl: book.amazonUrl || "",
       flipkartUrl: book.flipkartUrl || "",
-      originalAuthors: book.originalAuthors || "", // Ensure it's an empty string if null
+      originalAuthors: book.originalAuthors || "",
       publisher: book.publisher || "",
       publicationDate: book.publicationDate || "",
       pageCount: book.pageCount || "",
