@@ -217,6 +217,9 @@ export default function AdminBooksPage() {
 
   const categories = useMemo(() => {
     const uniqueCategories = new Set(initialBooksData.map(book => book.category));
+    uniqueCategories.add("Original Publication");
+    uniqueCategories.add("Translated Work");
+    uniqueCategories.add("Other");
     return Array.from(uniqueCategories).sort();
   }, []);
 
@@ -384,9 +387,6 @@ export default function AdminBooksPage() {
                         {categories.map(cat => (
                           <SelectItem key={cat} value={cat}>{cat}</SelectItem>
                         ))}
-                        <SelectItem value="Original Publication">Original Publication</SelectItem>
-                        <SelectItem value="Translated Work">Translated Work</SelectItem>
-                        <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -581,9 +581,6 @@ export default function AdminBooksPage() {
                         {categories.map(cat => (
                           <SelectItem key={cat} value={cat}>{cat}</SelectItem>
                         ))}
-                        <SelectItem value="Original Publication">Original Publication</SelectItem>
-                        <SelectItem value="Translated Work">Translated Work</SelectItem>
-                        <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
