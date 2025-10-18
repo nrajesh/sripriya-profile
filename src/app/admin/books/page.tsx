@@ -413,7 +413,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Original Authors (if translated)</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -426,7 +426,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Publisher</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -439,7 +439,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Publication Date (e.g., July 01, 2017 or 2017)</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -452,7 +452,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Page Count</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -465,7 +465,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>ISBN/ASIN</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -478,7 +478,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Tags (comma-separated)</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -491,7 +491,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Publisher/Details URL</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -504,7 +504,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Amazon URL</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -517,7 +517,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Flipkart URL</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -610,7 +610,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Original Authors (if translated)</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -623,7 +623,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Publisher</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -636,7 +636,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Publication Date (e.g., July 01, 2017 or 2017)</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -649,7 +649,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Page Count</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -662,7 +662,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>ISBN/ASIN</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -675,7 +675,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Tags (comma-separated)</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -688,7 +688,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Publisher/Details URL</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -701,7 +701,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Amazon URL</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -714,7 +714,7 @@ export default function AdminBooksPage() {
                   <FormItem>
                     <FormLabel>Flipkart URL</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
