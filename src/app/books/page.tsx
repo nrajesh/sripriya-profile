@@ -182,17 +182,17 @@ export default function BooksPage() {
                                 .join(", ")}
                             </p>
                           )}
-                          {book.description && (
-                            <div className="mt-4">
-                              <h3 className="font-medium text-foreground mb-1">
-                                Description
-                              </h3>
-                              <p className="text-muted-foreground whitespace-pre-line">
-                                {book.description}
-                              </p>
-                            </div>
-                          )}
                         </div>
+                        {book.description && (
+                          <div className="mt-4">
+                            <h3 className="font-medium text-foreground mb-1">
+                              Description
+                            </h3>
+                            <p className="text-muted-foreground whitespace-pre-line">
+                              {book.description}
+                            </p>
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   </div>
