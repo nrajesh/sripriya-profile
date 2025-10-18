@@ -49,6 +49,30 @@ export function useAdminBooks() {
     }
   }, []);
 
+  const saveBooksToDataFile = useCallback(async (updatedBooks: Book[]) => {
+    try {
+      const response = await fetch("/api/update-books-data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          password: passwordInput, // Sending password for basic API route authentication
+          booksData: updatedBooks.sort((a, b) => a.id - b.id), // Ensure consistent order
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to save data to file');
+      }
+      toast.success("Books data saved to file. Please restart the app to see changes.");
+    } catch (error: any) {
+      console.error("Error saving books data to file:", error);
+      toast.error(`Failed to save data to file: ${error.message}`);
+    }
+  }, [passwordInput]); // Depend on passwordInput for API call
+
   const handleLogin = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -109,35 +133,37 @@ export function useAdminBooks() {
     } as Book;
   }, []);
 
-  const handleAddBook = useCallback((data: BookFormData) => {
+  const handleAddBook = useCallback(async (data: BookFormData) => {
     const newBook = processBookData(data);
     newBook.id = Math.max(...localBooks.map(b => b.id), 0) + 1;
-    setLocalBooks((prev) => [...prev, newBook]);
+    const updatedBooks = [...localBooks, newBook];
+    setLocalBooks(updatedBooks);
     setIsAddDialogOpen(false);
     form.reset();
     toast.success("Book added successfully!");
-  }, [form, localBooks, processBookData]);
+    await saveBooksToDataFile(updatedBooks);
+  }, [form, localBooks, processBookData, saveBooksToDataFile]);
 
-  const handleEditBook = useCallback((data: BookFormData) => {
+  const handleEditBook = useCallback(async (data: BookFormData) => {
     if (!selectedBook) return;
     const updatedBook = processBookData(data, selectedBook);
-    setLocalBooks((prev) =>
-      prev.map((book) => (book.id === updatedBook.id ? updatedBook : book))
-    );
+    const updatedBooks = localBooks.map((book) => (book.id === updatedBook.id ? updatedBook : book));
+    setLocalBooks(updatedBooks);
     setIsEditDialogOpen(false);
     setSelectedBook(null);
     form.reset();
     toast.success("Book updated successfully!");
-  }, [form, selectedBook, processBookData]);
+    await saveBooksToDataFile(updatedBooks);
+  }, [form, localBooks, selectedBook, processBookData, saveBooksToDataFile]);
 
-  const handleDeleteSelectedBooks = useCallback(() => {
-    setLocalBooks((prev) =>
-      prev.filter((book) => !selectedBookIds.includes(book.id))
-    );
+  const handleDeleteSelectedBooks = useCallback(async () => {
+    const updatedBooks = localBooks.filter((book) => !selectedBookIds.includes(book.id));
+    setLocalBooks(updatedBooks);
     setSelectedBookIds([]);
     setIsDeleteDialogOpen(false);
     toast.success("Selected books deleted!");
-  }, [selectedBookIds]);
+    await saveBooksToDataFile(updatedBooks);
+  }, [localBooks, selectedBookIds, saveBooksToDataFile]);
 
   const toggleBookSelection = useCallback((id: number) => {
     setSelectedBookIds((prev) =>
