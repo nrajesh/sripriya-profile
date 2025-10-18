@@ -3,10 +3,10 @@ import { z } from "zod";
 export const bookSchema = z.object({
   id: z.number().optional(), // ID is optional for new books, will be generated
   title: z.string().min(1, "Title is required"),
-  coverUrl: z.string().url("Must be a valid URL").nullable().optional(), // Now optional
-  detailsUrl: z.string().url("Must be a valid URL").nullable().optional(),
-  amazonUrl: z.string().url("Must be a valid URL").nullable().optional(),
-  flipkartUrl: z.string().url("Must be a valid URL").nullable().optional(),
+  coverUrl: z.string().url("Must be a valid URL").or(z.literal('')).nullable().optional(), // Allow empty string for coverUrl
+  detailsUrl: z.string().url("Must be a valid URL").or(z.literal('')).nullable().optional(), // Allow empty string for detailsUrl
+  amazonUrl: z.string().url("Must be a valid URL").or(z.literal('')).nullable().optional(), // Allow empty string for amazonUrl
+  flipkartUrl: z.string().url("Must be a valid URL").or(z.literal('')).nullable().optional(), // Allow empty string for flipkartUrl
   originalAuthors: z.string().nullable().optional(),
   publisher: z.string().nullable().optional(),
   publicationDate: z.string().nullable().optional(),
