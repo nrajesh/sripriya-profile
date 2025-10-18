@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "sonner";
 
-import { Book, books as initialBooksData, DEFAULT_COVER_IMAGE_URL } from "@/lib/data";
+import { Book, books as initialBooksData, DEFAULT_COVER_IMAGE_URL, parseDateForSorting } from "@/lib/data";
 import { bookSchema, BookFormData } from "@/lib/schemas";
 
 const ADMIN_AUTH_KEY = "admin_authenticated";
@@ -51,14 +51,21 @@ export function useAdminBooks() {
 
   const saveBooksToDataFile = useCallback(async (updatedBooks: Book[]) => {
     try {
+      // Sort books by publication date, most recent first, before saving
+      const sortedBooks = [...updatedBooks].sort((a, b) => {
+        const dateA = parseDateForSorting(a.publicationDate);
+        const dateB = parseDateForSorting(b.publicationDate);
+        return dateB.getTime() - dateA.getTime();
+      });
+
       const response = await fetch("/api/update-books-data", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          password: passwordInput, // Sending password for basic API route authentication
-          booksData: updatedBooks.sort((a, b) => a.id - b.id), // Ensure consistent order
+          password: passwordInput,
+          booksData: sortedBooks,
         }),
       });
 
@@ -71,7 +78,7 @@ export function useAdminBooks() {
       console.error("Error saving books data to file:", error);
       toast.error(`Failed to save data to file: ${error.message}`);
     }
-  }, [passwordInput]); // Depend on passwordInput for API call
+  }, [passwordInput]);
 
   const handleLogin = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
@@ -219,7 +226,12 @@ export function useAdminBooks() {
   }, [form]);
 
   const jsonOutput = useMemo(() => {
-    const sortedBooks = [...localBooks].sort((a, b) => a.id - b.id);
+    // Sort books by publication date, most recent first, for JSON output
+    const sortedBooks = [...localBooks].sort((a, b) => {
+      const dateA = parseDateForSorting(a.publicationDate);
+      const dateB = parseDateForSorting(b.publicationDate);
+      return dateB.getTime() - dateA.getTime();
+    });
     return JSON.stringify(sortedBooks, null, 2);
   }, [localBooks]);
 
