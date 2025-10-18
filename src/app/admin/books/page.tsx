@@ -1,264 +1,50 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { v4 as uuidv4 } from "uuid";
-import { toast } from "sonner";
-
+import React from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Book, books as initialBooksData, DEFAULT_COVER_IMAGE_URL } from "@/lib/data"; // Import DEFAULT_COVER_IMAGE_URL
-import { bookSchema, BookFormData } from "@/lib/schemas";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CoverImageUpload } from "@/components/cover-image-upload";
-
-const ADMIN_AUTH_KEY = "admin_authenticated";
+import { useAdminBooks } from "@/hooks/use-admin-books";
+import { AdminLogin } from "@/components/admin/admin-login";
+import { AdminBookTable } from "@/components/admin/admin-book-table";
+import { BookFormDialog } from "@/components/admin/book-form-dialog";
+import { DeleteConfirmationDialog } from "@/components/admin/delete-confirmation-dialog";
 
 export default function AdminBooksPage() {
-  const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [passwordInput, setPasswordInput] = useState("");
-  const [localBooks, setLocalBooks] = useState<Book[]>([]);
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-  const [selectedBookIds, setSelectedBookIds] = useState<number[]>([]);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [showJsonOutput, setShowJsonOutput] = useState(false);
-
-  const form = useForm<BookFormData>({
-    resolver: zodResolver(bookSchema),
-    defaultValues: {
-      title: "",
-      coverUrl: DEFAULT_COVER_IMAGE_URL, // Set default cover URL
-      detailsUrl: "",
-      amazonUrl: "",
-      flipkartUrl: "",
-      originalAuthors: "",
-      publisher: "",
-      publicationDate: "",
-      pageCount: "",
-      isbn: "",
-      category: "", // Will be derived
-      tags: "",
-      description: "",
-    },
-  });
-
-  useEffect(() => {
-    const authStatus = localStorage.getItem(ADMIN_AUTH_KEY);
-    if (authStatus === "true") {
-      setIsAuthenticated(true);
-      setLocalBooks(initialBooksData);
-    }
-  }, []);
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("/api/admin-auth", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password: passwordInput }),
-      });
-
-      if (response.ok) {
-        localStorage.setItem(ADMIN_AUTH_KEY, "true");
-        setIsAuthenticated(true);
-        setLocalBooks(initialBooksData);
-        toast.success("Logged in successfully!");
-      } else {
-        toast.error("Incorrect password.");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      toast.error("An error occurred during login.");
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem(ADMIN_AUTH_KEY);
-    setIsAuthenticated(false);
-    setPasswordInput("");
-    setLocalBooks([]);
-    toast.info("Logged out.");
-  };
-
-  const processBookData = (data: BookFormData, existingBook?: Book): Book => {
-    const category = data.originalAuthors && data.originalAuthors.trim() !== ""
-      ? "Translated Work"
-      : "Original Publication";
-
-    const coverUrl = data.coverUrl && data.coverUrl.trim() !== ""
-      ? data.coverUrl
-      : DEFAULT_COVER_IMAGE_URL;
-
-    return {
-      ...existingBook, // Preserve existing ID if editing
-      ...data,
-      coverUrl,
-      detailsUrl: data.detailsUrl || null,
-      amazonUrl: data.amazonUrl || null,
-      flipkartUrl: data.flipkartUrl || null,
-      originalAuthors: data.originalAuthors || null,
-      publisher: data.publisher || null,
-      publicationDate: data.publicationDate || null,
-      pageCount: data.pageCount || null,
-      isbn: data.isbn || null,
-      category, // Derived category
-      tags: data.tags, // Tags are now mandatory
-      description: data.description, // Description is now mandatory
-    } as Book; // Cast to Book to ensure all properties are present
-  };
-
-  const handleAddBook = (data: BookFormData) => {
-    const newBook = processBookData(data);
-    newBook.id = Math.max(...localBooks.map(b => b.id), 0) + 1; // Simple ID generation
-    setLocalBooks((prev) => [...prev, newBook]);
-    setIsAddDialogOpen(false);
-    form.reset();
-    toast.success("Book added successfully!");
-  };
-
-  const handleEditBook = (data: BookFormData) => {
-    if (!selectedBook) return;
-    const updatedBook = processBookData(data, selectedBook);
-    setLocalBooks((prev) =>
-      prev.map((book) => (book.id === updatedBook.id ? updatedBook : book))
-    );
-    setIsEditDialogOpen(false);
-    setSelectedBook(null);
-    form.reset();
-    toast.success("Book updated successfully!");
-  };
-
-  const handleDeleteSelectedBooks = () => {
-    setLocalBooks((prev) =>
-      prev.filter((book) => !selectedBookIds.includes(book.id))
-    );
-    setSelectedBookIds([]);
-    setIsDeleteDialogOpen(false);
-    toast.success("Selected books deleted!");
-  };
-
-  const toggleBookSelection = (id: number) => {
-    setSelectedBookIds((prev) =>
-      prev.includes(id) ? prev.filter((bookId) => bookId !== id) : [...prev, id]
-    );
-  };
-
-  const toggleSelectAll = () => {
-    if (selectedBookIds.length === localBooks.length) {
-      setSelectedBookIds([]);
-    } else {
-      setSelectedBookIds(localBooks.map((book) => book.id));
-    }
-  };
-
-  const openAddDialog = () => {
-    form.reset({
-      title: "",
-      coverUrl: DEFAULT_COVER_IMAGE_URL, // Reset to default cover
-      detailsUrl: "",
-      amazonUrl: "",
-      flipkartUrl: "",
-      originalAuthors: "",
-      publisher: "",
-      publicationDate: "",
-      pageCount: "",
-      isbn: "",
-      category: "", // Category will be derived
-      tags: "",
-      description: "",
-    });
-    setIsAddDialogOpen(true);
-  };
-
-  const openEditDialog = (book: Book) => {
-    setSelectedBook(book);
-    form.reset({
-      title: book.title,
-      coverUrl: book.coverUrl,
-      detailsUrl: book.detailsUrl || "",
-      amazonUrl: book.amazonUrl || "",
-      flipkartUrl: book.flipkartUrl || "",
-      originalAuthors: book.originalAuthors || "",
-      publisher: book.publisher || "",
-      publicationDate: book.publicationDate || "",
-      pageCount: book.pageCount || "",
-      isbn: book.isbn || "",
-      category: book.category, // Keep existing category for display, but it will be re-derived on save
-      tags: book.tags,
-      description: book.description,
-    });
-    setIsEditDialogOpen(true);
-  };
-
-  // Removed categories useMemo as it's no longer needed for a select input.
-
-  const jsonOutput = useMemo(() => {
-    const sortedBooks = [...localBooks].sort((a, b) => a.id - b.id);
-    return JSON.stringify(sortedBooks, null, 2);
-  }, [localBooks]);
+  const {
+    isAuthenticated,
+    passwordInput,
+    setPasswordInput,
+    handleLogin,
+    handleLogout,
+    localBooks,
+    isAddDialogOpen,
+    setIsAddDialogOpen,
+    isEditDialogOpen,
+    setIsEditDialogOpen,
+    selectedBook,
+    openAddDialog,
+    openEditDialog,
+    selectedBookIds,
+    toggleBookSelection,
+    toggleSelectAll,
+    isDeleteDialogOpen,
+    setIsDeleteDialogOpen,
+    handleDeleteSelectedBooks,
+    showJsonOutput,
+    setShowJsonOutput,
+    jsonOutput,
+    form,
+    handleAddBook,
+    handleEditBook,
+  } = useAdminBooks();
 
   if (!isAuthenticated) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="w-full max-w-md rounded-lg border p-8 shadow-lg">
-          <h1 className="mb-6 text-center text-2xl font-bold">Admin Login</h1>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <Input
-              type="password"
-              placeholder="Enter password"
-              value={passwordInput}
-              onChange={(e) => setPasswordInput(e.target.value)}
-              required
-            />
-            <Button type="submit" className="w-full">
-              Login
-            </Button>
-          </form>
-        </div>
-      </div>
+      <AdminLogin
+        passwordInput={passwordInput}
+        setPasswordInput={setPasswordInput}
+        handleLogin={handleLogin}
+      />
     );
   }
 
@@ -301,424 +87,37 @@ export default function AdminBooksPage() {
         </div>
       )}
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[50px]">
-              <Checkbox
-                checked={selectedBookIds.length === localBooks.length && localBooks.length > 0}
-                onCheckedChange={toggleSelectAll}
-              />
-            </TableHead>
-            <TableHead className="w-[100px]">ID</TableHead>
-            <TableHead>Title</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Publisher</TableHead>
-            <TableHead className="w-[100px] text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {localBooks.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
-                No books available.
-              </TableCell>
-            </TableRow>
-          ) : (
-            localBooks.map((book) => (
-              <TableRow key={book.id}>
-                <TableCell>
-                  <Checkbox
-                    checked={selectedBookIds.includes(book.id)}
-                    onCheckedChange={() => toggleBookSelection(book.id)}
-                  />
-                </TableCell>
-                <TableCell>{book.id}</TableCell>
-                <TableCell className="font-medium">{book.title}</TableCell>
-                <TableCell>{book.category}</TableCell>
-                <TableCell>{book.publisher || "N/A"}</TableCell>
-                <TableCell className="text-right">
-                  <Button variant="outline" size="sm" onClick={() => openEditDialog(book)}>
-                    Edit
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
+      <AdminBookTable
+        books={localBooks}
+        selectedBookIds={selectedBookIds}
+        toggleBookSelection={toggleBookSelection}
+        toggleSelectAll={toggleSelectAll}
+        onEditBook={openEditDialog}
+      />
 
-      {/* Add Book Dialog */}
-      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Add New Book</DialogTitle>
-          </DialogHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleAddBook)} className="grid gap-4 py-4">
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Title</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="coverUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Cover Image</FormLabel>
-                    <FormControl>
-                      <CoverImageUpload
-                        value={field.value ?? undefined}
-                        onChange={field.onChange}
-                        disabled={form.formState.isSubmitting}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* Category field removed as it's now derived */}
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Description</FormLabel>
-                    <FormControl>
-                      <Textarea {...field} rows={5} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="originalAuthors"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Original Authors (if translated)</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="publisher"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Publisher</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="publicationDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Publication Date (e.g., July 01, 2017 or 2017)</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="pageCount"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Page Count</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="isbn"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ISBN/ASIN</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="tags"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tags (comma-separated)</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="detailsUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Publisher/Details URL</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="amazonUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Amazon URL</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="flipkartUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Flipkart URL</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <DialogFooter>
-                <Button type="submit">Add Book</Button>
-              </DialogFooter>
-            </form>
-          </Form>
-        </DialogContent>
-      </Dialog>
+      <BookFormDialog
+        isOpen={isAddDialogOpen}
+        onOpenChange={setIsAddDialogOpen}
+        form={form}
+        onSubmit={handleAddBook}
+        isEditing={false}
+      />
 
-      {/* Edit Book Dialog */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Edit Book: {selectedBook?.title}</DialogTitle>
-          </DialogHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleEditBook)} className="grid gap-4 py-4">
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Title</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="coverUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Cover Image</FormLabel>
-                    <FormControl>
-                      <CoverImageUpload
-                        value={field.value ?? undefined}
-                        onChange={field.onChange}
-                        disabled={form.formState.isSubmitting}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* Category field removed as it's now derived */}
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Description</FormLabel>
-                    <FormControl>
-                      <Textarea {...field} rows={5} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="originalAuthors"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Original Authors (if translated)</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="publisher"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Publisher</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="publicationDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Publication Date (e.g., July 01, 2017 or 2017)</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="pageCount"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Page Count</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="isbn"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ISBN/ASIN</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="tags"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tags (comma-separated)</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="detailsUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Publisher/Details URL</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="amazonUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Amazon URL</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="flipkartUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Flipkart URL</FormLabel>
-                    <FormControl>
-                      <Input {...field} value={field.value || ""} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <DialogFooter>
-                <Button type="submit">Save Changes</Button>
-              </DialogFooter>
-            </form>
-          </Form>
-        </DialogContent>
-      </Dialog>
+      <BookFormDialog
+        isOpen={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        form={form}
+        onSubmit={handleEditBook}
+        isEditing={true}
+        selectedBookTitle={selectedBook?.title}
+      />
 
-      {/* Delete Confirmation Dialog */}
-      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the selected books.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDeleteSelectedBooks}>
-              Continue
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DeleteConfirmationDialog
+        isOpen={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+        onConfirm={handleDeleteSelectedBooks}
+        itemCount={selectedBookIds.length}
+      />
     </div>
   );
 }
