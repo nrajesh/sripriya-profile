@@ -170,9 +170,9 @@ export const rawBooks: Book[] = [
     "publicationDate": "June 19, 2025",
     "pageCount": "xix + 166",
     "isbn": "9789393991423 (ISBN)",
-    "category": "Translated Work",
+    "category": "Original Publication",
     "tags": "history, archeology, India, tamil, pallava, kingdom",
-    "description": "Along with the Colas, Ceras, and Pandyas, the Pallavas were among the most important dynasties that ruled over the Tamil heartland. Who were the Pallavas? Where did they come from? What was their administration like? In what ways did they contribute to the heritage of Bharata?\n\nThe Pallava Empire : A Gentle Introduction offers a broad overview of the political, social, cultural, and economic landscape that prevailed during Pallava rule spanning 600 years, from 3rd to 9th century C.E. This book is written in an eminently readable style keeping in mind a general audience.",
+    "description": "Along with the Cholas, Ceras, and Pandyas, the Pallavas were among the most important dynasties that ruled over the Tamil heartland. Who were the Pallavas? Where did they come from? What was their administration like? In what ways did they contribute to the heritage of Bharata?\n\nThe Pallava Empire : A Gentle Introduction offers a broad overview of the political, social, cultural, and economic landscape that prevailed during Pallava rule spanning 600 years, from 3rd to 9th century C.E. This book is written in an eminently readable style keeping in mind a general audience.",
     "amazonUrl": null,
     "flipkartUrl": null
   }
