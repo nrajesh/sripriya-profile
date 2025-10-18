@@ -6,6 +6,7 @@ import { UploadCloud, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { DEFAULT_COVER_IMAGE_URL } from "@/lib/data"; // Import the default URL
 
 interface CoverImageUploadProps {
   value?: string; // Current URL of the cover image
@@ -45,7 +46,8 @@ export function CoverImageUpload({ value, onChange, disabled }: CoverImageUpload
     } catch (error: any) {
       console.error("Upload error:", error);
       toast.error(`Upload failed: ${error.message}`);
-      onChange(null); // Clear the value on error
+      // Do not clear the value on error, let it remain as the previous valid URL or null
+      // If the user wants to remove it, they can click the X button.
     } finally {
       setIsLoading(false);
     }
@@ -96,6 +98,8 @@ export function CoverImageUpload({ value, onChange, disabled }: CoverImageUpload
     toast.info("Image removed.");
   }, [onChange]);
 
+  const imageUrlToDisplay = previewUrl || DEFAULT_COVER_IMAGE_URL;
+
   return (
     <div
       className={cn(
@@ -108,29 +112,31 @@ export function CoverImageUpload({ value, onChange, disabled }: CoverImageUpload
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
     >
+      {/* Always display an image, either uploaded or default */}
+      <Image
+        src={imageUrlToDisplay}
+        alt="Cover Preview"
+        fill
+        className="object-contain p-2"
+      />
+
+      {/* Remove button only if there's an actual uploaded image (not the default placeholder) */}
       {previewUrl && (
-        <>
-          <Image
-            src={previewUrl}
-            alt="Cover Preview"
-            fill
-            className="object-contain p-2"
-          />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-2 right-2 text-destructive hover:text-destructive-foreground z-10"
-            onClick={handleRemoveImage}
-            disabled={disabled || isLoading}
-          >
-            <XCircle className="h-6 w-6" />
-            <span className="sr-only">Remove image</span>
-          </Button>
-        </>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-2 right-2 text-destructive hover:text-destructive-foreground z-10"
+          onClick={handleRemoveImage}
+          disabled={disabled || isLoading}
+        >
+          <XCircle className="h-6 w-6" />
+          <span className="sr-only">Remove image</span>
+        </Button>
       )}
 
-      {!previewUrl && (
-        <div className="flex flex-col items-center text-muted-foreground">
+      {/* Upload UI only if no image is uploaded or if it's the default placeholder */}
+      {!previewUrl && ( // Only show upload UI if no custom image is set
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground bg-background/80">
           {isLoading ? (
             <p>Uploading...</p>
           ) : (

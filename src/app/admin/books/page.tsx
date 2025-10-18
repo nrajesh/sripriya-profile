@@ -44,10 +44,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Book, books as initialBooksData } from "@/lib/data";
+import { Book, books as initialBooksData, DEFAULT_COVER_IMAGE_URL } from "@/lib/data"; // Import DEFAULT_COVER_IMAGE_URL
 import { bookSchema, BookFormData } from "@/lib/schemas";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CoverImageUpload } from "@/components/cover-image-upload"; // Import the new component
+import { CoverImageUpload } from "@/components/cover-image-upload";
 
 const ADMIN_AUTH_KEY = "admin_authenticated";
 
@@ -67,7 +67,7 @@ export default function AdminBooksPage() {
     resolver: zodResolver(bookSchema),
     defaultValues: {
       title: "",
-      coverUrl: "",
+      coverUrl: DEFAULT_COVER_IMAGE_URL, // Set default cover URL
       detailsUrl: "",
       amazonUrl: "",
       flipkartUrl: "",
@@ -76,18 +76,17 @@ export default function AdminBooksPage() {
       publicationDate: "",
       pageCount: "",
       isbn: "",
-      category: "",
+      category: "", // Will be derived
       tags: "",
       description: "",
     },
   });
 
   useEffect(() => {
-    // Check authentication status from localStorage
     const authStatus = localStorage.getItem(ADMIN_AUTH_KEY);
     if (authStatus === "true") {
       setIsAuthenticated(true);
-      setLocalBooks(initialBooksData); // Load initial data if authenticated
+      setLocalBooks(initialBooksData);
     }
   }, []);
 
@@ -124,10 +123,19 @@ export default function AdminBooksPage() {
     toast.info("Logged out.");
   };
 
-  const handleAddBook = (data: BookFormData) => {
-    const newBook: Book = {
+  const processBookData = (data: BookFormData, existingBook?: Book): Book => {
+    const category = data.originalAuthors && data.originalAuthors.trim() !== ""
+      ? "Translated Work"
+      : "Original Publication";
+
+    const coverUrl = data.coverUrl && data.coverUrl.trim() !== ""
+      ? data.coverUrl
+      : DEFAULT_COVER_IMAGE_URL;
+
+    return {
+      ...existingBook, // Preserve existing ID if editing
       ...data,
-      id: Math.max(...localBooks.map(b => b.id), 0) + 1, // Simple ID generation
+      coverUrl,
       detailsUrl: data.detailsUrl || null,
       amazonUrl: data.amazonUrl || null,
       flipkartUrl: data.flipkartUrl || null,
@@ -136,8 +144,15 @@ export default function AdminBooksPage() {
       publicationDate: data.publicationDate || null,
       pageCount: data.pageCount || null,
       isbn: data.isbn || null,
-      tags: data.tags || null,
-    };
+      category, // Derived category
+      tags: data.tags, // Tags are now mandatory
+      description: data.description, // Description is now mandatory
+    } as Book; // Cast to Book to ensure all properties are present
+  };
+
+  const handleAddBook = (data: BookFormData) => {
+    const newBook = processBookData(data);
+    newBook.id = Math.max(...localBooks.map(b => b.id), 0) + 1; // Simple ID generation
     setLocalBooks((prev) => [...prev, newBook]);
     setIsAddDialogOpen(false);
     form.reset();
@@ -146,19 +161,7 @@ export default function AdminBooksPage() {
 
   const handleEditBook = (data: BookFormData) => {
     if (!selectedBook) return;
-    const updatedBook: Book = {
-      ...selectedBook,
-      ...data,
-      detailsUrl: data.detailsUrl || null,
-      amazonUrl: data.amazonUrl || null,
-      flipkartUrl: data.flipkartUrl || null,
-      originalAuthors: data.originalAuthors || null,
-      publisher: data.publisher || null,
-      publicationDate: data.publicationDate || null,
-      pageCount: data.pageCount || null,
-      isbn: data.isbn || null,
-      tags: data.tags || null,
-    };
+    const updatedBook = processBookData(data, selectedBook);
     setLocalBooks((prev) =>
       prev.map((book) => (book.id === updatedBook.id ? updatedBook : book))
     );
@@ -192,7 +195,21 @@ export default function AdminBooksPage() {
   };
 
   const openAddDialog = () => {
-    form.reset();
+    form.reset({
+      title: "",
+      coverUrl: DEFAULT_COVER_IMAGE_URL, // Reset to default cover
+      detailsUrl: "",
+      amazonUrl: "",
+      flipkartUrl: "",
+      originalAuthors: "",
+      publisher: "",
+      publicationDate: "",
+      pageCount: "",
+      isbn: "",
+      category: "", // Category will be derived
+      tags: "",
+      description: "",
+    });
     setIsAddDialogOpen(true);
   };
 
@@ -209,23 +226,16 @@ export default function AdminBooksPage() {
       publicationDate: book.publicationDate || "",
       pageCount: book.pageCount || "",
       isbn: book.isbn || "",
-      category: book.category,
-      tags: book.tags || "",
+      category: book.category, // Keep existing category for display, but it will be re-derived on save
+      tags: book.tags,
       description: book.description,
     });
     setIsEditDialogOpen(true);
   };
 
-  const categories = useMemo(() => {
-    const uniqueCategories = new Set(initialBooksData.map(book => book.category));
-    uniqueCategories.add("Original Publication");
-    uniqueCategories.add("Translated Work");
-    uniqueCategories.add("Other");
-    return Array.from(uniqueCategories).sort();
-  }, []);
+  // Removed categories useMemo as it's no longer needed for a select input.
 
   const jsonOutput = useMemo(() => {
-    // Sort books by ID for consistent output
     const sortedBooks = [...localBooks].sort((a, b) => a.id - b.id);
     return JSON.stringify(sortedBooks, null, 2);
   }, [localBooks]);
@@ -367,7 +377,7 @@ export default function AdminBooksPage() {
                     <FormLabel>Cover Image</FormLabel>
                     <FormControl>
                       <CoverImageUpload
-                        value={field.value}
+                        value={field.value ?? undefined}
                         onChange={field.onChange}
                         disabled={form.formState.isSubmitting}
                       />
@@ -376,28 +386,7 @@ export default function AdminBooksPage() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="category"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Category</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a category" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {categories.map(cat => (
-                          <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {/* Category field removed as it's now derived */}
               <FormField
                 control={form.control}
                 name="description"
@@ -565,7 +554,7 @@ export default function AdminBooksPage() {
                     <FormLabel>Cover Image</FormLabel>
                     <FormControl>
                       <CoverImageUpload
-                        value={field.value}
+                        value={field.value ?? undefined}
                         onChange={field.onChange}
                         disabled={form.formState.isSubmitting}
                       />
@@ -574,28 +563,7 @@ export default function AdminBooksPage() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="category"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Category</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a category" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {categories.map(cat => (
-                          <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {/* Category field removed as it's now derived */}
               <FormField
                 control={form.control}
                 name="description"

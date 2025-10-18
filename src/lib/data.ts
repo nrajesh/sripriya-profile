@@ -24,7 +24,7 @@ export const socialLinks = [
 export interface Book {
   id: number;
   title: string;
-  coverUrl: string;
+  coverUrl: string; // Guaranteed to be a string (uploaded or default)
   detailsUrl: string | null;
   amazonUrl?: string | null;
   flipkartUrl?: string | null;
@@ -33,10 +33,12 @@ export interface Book {
   publicationDate: string | null;
   pageCount: string | null;
   isbn: string | null;
-  category: string;
-  tags: string | null;
-  description: string;
+  category: string; // Guaranteed to be a string (derived)
+  tags: string; // Now mandatory
+  description: string; // Now mandatory
 }
+
+export const DEFAULT_COVER_IMAGE_URL = "/covers/coming-soon.jpg"; // New constant
 
 // Helper function to parse dates for sorting
 export const parseDateForSorting = (dateString: string | null): Date => {
@@ -156,7 +158,7 @@ const rawBooks: Book[] = [
     isbn: "9789355628121 (ISBN); B0D1CNDBZC (ASIN)",
     category: "Translated Work",
     tags: "geneology, family, science, research, space, India",
-    description: "This book is an intimate memoir written by A.P.J. Abdul Kalam’s niece, who is closely connected to him and the family. The book offers a rare glimpse into the family life and ancestral roots of India’s beloved “Missile Man.’ The book was originally written in Tamil and later translated in English and Hindi.\n\nIt takes you to Dr. Kalam’s humble beginnings in Rameshwaram, Tamil Nadu, where the young Kalam’s curiosity and thirst of knowledge were nurtured within the embrace of a close-knit Muslim family. From the sacrifices of his parents to the wisdom imparted by his grandparents, the book celebrates the indelible impact of family on his journey to becoming the President of India.\n\nIt emphasises on the cultural and religious roots that he inherited from different generations. It mainly reflects how historical events, wars, societal changes, economic conditions, etc., had an effect on his personality. The book is a tribute to the power of heritage, perseverance and the pursuit of knowledge values that resonated deeply within the Kalam lineage.",
+    description: "This book is an intimate memoir written by A.P.J. Abdul Kalam’s niece, who is closely connected to him and the family. The book offers a rare glimpse into the family life and ancestral roots of India’s beloved “Missile Man.’ The book was originally written in Tamil and later translated in English and Hindi.\n\nIt takes you to Dr. Kalam’s humble beginnings in Rameshwaram, Tamil Nadu, where the young Kalam’s curiosity and thirst of knowledge were nurtured within the embrace of a close-knit Muslim family. From the sacrifices of his parents to the wisdom imparted by his grandparents, the book celebrates the indelible impact of family on his journey to becoming the President of India.\n\nIt emphasises on the cultural and religious roots that he inherited from different generations. It mainly reflects how historical events, wars, societal changes, economic conditions, etc., had an effect on his personality. It is a tribute to the power of heritage, perseverance and the pursuit of knowledge values that resonated deeply within the Kalam lineage.",
   },
   {
     id: 8,
