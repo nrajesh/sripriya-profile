@@ -33,10 +33,12 @@ export function useBookFilters(): UseBookFiltersResult {
     if (searchTerm) {
       const lowerCaseSearchTerm = searchTerm.toLowerCase();
       currentBooks = currentBooks.filter(book => {
+        const matchesTitle = book.title.toLowerCase().includes(lowerCaseSearchTerm);
+        const matchesDescription = book.description.toLowerCase().includes(lowerCaseSearchTerm);
         const matchesTags = book.tags?.toLowerCase().includes(lowerCaseSearchTerm);
         const matchesPublisher = book.publisher?.toLowerCase().includes(lowerCaseSearchTerm);
         const matchesAuthors = book.originalAuthors?.toLowerCase().includes(lowerCaseSearchTerm);
-        return matchesTags || matchesPublisher || matchesAuthors;
+        return matchesTitle || matchesDescription || matchesTags || matchesPublisher || matchesAuthors;
       });
     }
 
