@@ -8,7 +8,7 @@ export interface Article {
 export const articlesData: Article[] = [
   {
     name: "Upanayanam – A Gentle Introduction (15 part series)",
-    link: "https://www.prekshaa.in/upanayanam-gentle-introduction-part-1-tamil",
+    link: "https://www.prekshaa.in/upanayanam-part1-mugavurai",
     previewImageUrl: "/covers/upanayanam.jpg",
   },
   {
