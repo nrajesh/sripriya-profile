@@ -13,7 +13,7 @@ export const articlesData: Article[] = [
   },
   {
     name: "The Great Women of Tamiḻakam (Part 1)",
-    link: "https://www.prekshaa.in/the-great-women-of-tamilakam-part-1-tamil",
+    link: "https://www.prekshaa.in/the-value-of-sanskrit-learning-and-culture-part1",
   },
   {
     name: "The Great Women of Tamiḻakam (Part 2)",
