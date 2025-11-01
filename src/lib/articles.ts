@@ -12,6 +12,11 @@ export const articlesData: Article[] = [
     previewImageUrl: "/covers/shiva.jpg",
   },
   {
+    name: "Scientific Inquisitiveness and Holistic Vision in the Poems of Subramania Bharati (Part 1)",
+    link: "https://www.prekshaa.in/article/scientific-inquisitiveness-and-holistic-vision-poems-subramania-bharati-part-1",
+    previewImageUrl: "/covers/upanayanam.jpg",
+  },
+  {
     name: "உபநயனம் – ஒரு எளிய அறிமுகம் (முகவுரை)",
     link: "https://www.prekshaa.in/upanayanam-part1-mugavurai",
     previewImageUrl: "/covers/upanayanam.jpg",
@@ -20,10 +25,6 @@ export const articlesData: Article[] = [
     name: "சமஸ்கிருதம் கற்றலும் நம் கலாச்சாரத்தின் மதிப்பும் (பகுதி 1)",
     link: "https://www.prekshaa.in/the-value-of-sanskrit-learning-and-culture-part1",
     previewImageUrl: "/covers/hiriyanna-collage.jpg",
-  },
-  {
-    name: "Scientific Inquisitiveness and Holistic Vision in the Poems of Subramania Bharati (Part 1)",
-    link: "https://www.prekshaa.in/article/scientific-inquisitiveness-and-holistic-vision-poems-subramania-bharati-part-1",
   },
   {
     name: "The Story of the Gaṅgā",
