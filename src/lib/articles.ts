@@ -23,7 +23,7 @@ export const articlesData: Article[] = [
   },
   {
     name: "A Bird's Eye View of the Rāmāyaṇa and the Mahābhārata",
-    link: "https://www.prekshaa.in/a-birds-eye-view-of-the-ramayana-and-the-mahabharata-tamil",
+    link: "https://www.prekshaa.in/article/scientific-inquisitiveness-and-holistic-vision-poems-subramania-bharati-part-1",
   },
   {
     name: "The Story of the Gaṅgā",
