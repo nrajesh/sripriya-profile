@@ -7,7 +7,7 @@ export interface Article {
 // You can easily add new articles to this list.
 export const articlesData: Article[] = [
   {
-    name: "Upanayanam – A Gentle Introduction (15 part series)",
+    name: "உபநயனம் – ஒரு எளிய அறிமுகம் (முகவுரை)",
     link: "https://www.prekshaa.in/upanayanam-part1-mugavurai",
     previewImageUrl: "/covers/upanayanam.jpg",
   },
