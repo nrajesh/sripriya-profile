@@ -9,6 +9,7 @@ export const articlesData: Article[] = [
   {
     name: "சிவ-ராம-கிருஷ்ணன்: மூன்று தத்துவங்கள்",
     link: "https://www.prekshaa.in/%E0%AE%9A%E0%AE%BF%E0%AE%B5-%E0%AE%B0%E0%AE%BE%E0%AE%AE-%E0%AE%95%E0%AE%BF%E0%AE%B0%E0%AF%81%E0%AE%B7%E0%AF%8D%E0%AE%A3%E0%AE%A9%E0%AF%8D-%E0%AE%AE%E0%AF%82%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AF%81-%E0%AE%A4%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AF%81%E0%AE%B5%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AF%8D",
+    previewImageUrl: "/covers/shiva.jpg",
   },
   {
     name: "உபநயனம் – ஒரு எளிய அறிமுகம் (முகவுரை)",
