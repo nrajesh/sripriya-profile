@@ -22,7 +22,7 @@ export const articlesData: Article[] = [
     previewImageUrl: "/covers/hiriyanna-collage.jpg",
   },
   {
-    name: "A Bird's Eye View of the Rāmāyaṇa and the Mahābhārata",
+    name: "Scientific Inquisitiveness and Holistic Vision in the Poems of Subramania Bharati (Part 1)",
     link: "https://www.prekshaa.in/article/scientific-inquisitiveness-and-holistic-vision-poems-subramania-bharati-part-1",
   },
   {
