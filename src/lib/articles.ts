@@ -12,7 +12,7 @@ export const articlesData: Article[] = [
     previewImageUrl: "/covers/upanayanam.jpg",
   },
   {
-    name: "The Great Women of Tamiḻakam (Part 1)",
+    name: "சமஸ்கிருதம் கற்றலும் நம் கலாச்சாரத்தின் மதிப்பும் (பகுதி 1)",
     link: "https://www.prekshaa.in/the-value-of-sanskrit-learning-and-culture-part1",
     previewImageUrl: "/covers/hiriyanna-collage.jpg",
   },
