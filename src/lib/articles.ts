@@ -37,7 +37,7 @@ export const articlesData: Article[] = [
     previewImageUrl: "/covers/pallava-temples-gingee.jpg",
   },
   {
-    name: "Pallava temples around Gingee",
+    name: "Vallam Kudavarai Kovil",
     link: "https://timeless-footprints.blogspot.com/2025/11/vallam-kudavarai-kovil.html",
     previewImageUrl: "/covers/pallava-temples-gingee.jpg",
   },
