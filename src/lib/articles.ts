@@ -38,7 +38,7 @@ export const articlesData: Article[] = [
   },
   {
     name: "Pallava temples around Gingee",
-    link: "https://timeless-footprints.blogspot.com/2025/11/pallava-temples-around-gingee.html",
+    link: "https://timeless-footprints.blogspot.com/2025/11/vallam-kudavarai-kovil.html",
     previewImageUrl: "/covers/pallava-temples-gingee.jpg",
   },
 ];
