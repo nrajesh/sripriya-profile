@@ -42,7 +42,7 @@ export const articlesData: Article[] = [
     previewImageUrl: "/covers/vallam-kovil.jpg",
   },
   {
-    name: "Vallam Kudavarai Kovil",
+    name: "Uthiramerur Sri Vaikuntha Perumal temple",
     link: "https://timeless-footprints.blogspot.com/2025/11/uthiramerur-sri-vaikuntha-perumal-temple.html",
     previewImageUrl: "/covers/vallam-kovil.jpg",
   },
