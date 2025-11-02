@@ -53,7 +53,7 @@ export const articlesData: Article[] = [
   },
   {
     name: "Ulagalantha Perumal temple in Kanchipuram",
-    link: "https://timeless-footprints.blogspot.com/2025/11/ulagalantha-perumal-temple-in.html",
+    link: "https://timeless-footprints.blogspot.com/2025/11/thirukkazhukkundram-vedagireeswarar.html",
     previewImageUrl: "/covers/ulagalandha-perumal-kanchipuram.jpg",
   },
 ];
