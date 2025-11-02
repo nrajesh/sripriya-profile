@@ -81,4 +81,9 @@ export const articlesData: Article[] = [
     link: "https://timeless-footprints.blogspot.com/2025/11/ajanta-caves.html",
     previewImageUrl: "/covers/ajanta-caves.jpg",
   },
+  {
+    name: "Ellora caves",
+    link: "https://timeless-footprints.blogspot.com/2025/11/ajanta-caves.html",
+    previewImageUrl: "/covers/ajanta-caves.jpg",
+  },
 ];
