@@ -68,7 +68,7 @@ export const articlesData: Article[] = [
   },
   {
     name: "Adikesava Perumal temple in Ammaiappanallur & Kuranganilmuttam Kal Mandapam",
-    link: "https://timeless-footprints.blogspot.com/2025/11/adikesava-perumal-temple-in.html",
+    link: "https://timeless-footprints.blogspot.com/2025/11/kailasanatha-mathangeswara-and-vaikunta.html",
     previewImageUrl: "/covers/akp-kovil.jpg",
   },
 ];
