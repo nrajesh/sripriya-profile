@@ -31,4 +31,9 @@ export const articlesData: Article[] = [
     link: "https://timeless-footprints.blogspot.com/2025/11/sundara-varadaraja-perumal-temple-in.html",
     previewImageUrl: "/covers/svp-uthiramerur.jpg",
   },
+  {
+    name: "Sundara Varadaraja Perumal temple in Uthiramerur",
+    link: "https://timeless-footprints.blogspot.com/2025/11/sundara-varadaraja-perumal-temple-in.html",
+    previewImageUrl: "/covers/svp-uthiramerur.jpg",
+  },
 ];
