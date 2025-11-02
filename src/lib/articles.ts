@@ -89,6 +89,6 @@ export const articlesData: Article[] = [
   {
     name: "Cambodia",
     link: "https://timeless-footprints.blogspot.com/2025/11/cambodia.html",
-    previewImageUrl: "/covers/ellora-caves.jpg",
+    previewImageUrl: "/covers/cambodia.jpg",
   },
 ];
