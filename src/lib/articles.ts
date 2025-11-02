@@ -36,4 +36,9 @@ export const articlesData: Article[] = [
     link: "https://timeless-footprints.blogspot.com/2025/11/pallava-temples-around-gingee.html",
     previewImageUrl: "/covers/pallava-temples-gingee.jpg",
   },
+  {
+    name: "Pallava temples around Gingee",
+    link: "https://timeless-footprints.blogspot.com/2025/11/pallava-temples-around-gingee.html",
+    previewImageUrl: "/covers/pallava-temples-gingee.jpg",
+  },
 ];
