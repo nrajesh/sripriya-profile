@@ -62,7 +62,7 @@ export const articlesData: Article[] = [
     previewImageUrl: "/covers/kanchipuram-vp-temple.jpg",
   },
   {
-    name: "Kanchipuram Varadaraja Perumal temple",
+    name: "Adikesava Perumal temple in Ammaiappanallur & Kuranganilmuttam Kal Mandapam",
     link: "https://timeless-footprints.blogspot.com/2025/11/adikesava-perumal-temple-in.html",
     previewImageUrl: "/covers/kanchipuram-vp-temple.jpg",
   },
