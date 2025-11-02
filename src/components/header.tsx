@@ -3,23 +3,29 @@
 import Link from "next/link";
 import { Menu, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { navLinks } from "@/lib/data";
+import { navLinks, author } from "@/lib/data";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 export function Header() {
-  const { setTheme, theme } = useTheme();
+  const { setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [isSheetOpen, setIsSheetOpen] = useState(false); // State to control mobile sheet
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -31,25 +37,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container relative flex h-14 items-center justify-between">
-        {/* Left placeholder for balance on desktop */}
-        <div className="hidden md:block w-10"></div>
-
-        {/* Desktop navigation in the center */}
-        <nav className="hidden md:flex items-center gap-6 text-sm">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="font-medium text-foreground transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Right-aligned items: Mobile trigger and Theme switcher */}
+        {/* Left side: Mobile menu trigger OR site title on desktop */}
         <div className="flex items-center">
-          {/* Mobile navigation trigger (only visible on mobile) */}
+          {/* Mobile navigation trigger */}
           <div className="md:hidden">
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild>
@@ -58,20 +48,17 @@ export function Header() {
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="rounded-none">
-                <SheetHeader className="sr-only">
-                  <SheetTitle>Mobile Navigation Menu</SheetTitle>
-                  <SheetDescription>
-                    Navigation links for the Sripriya Srinivasan website.
-                  </SheetDescription>
+              <SheetContent side="left" className="w-full max-w-xs sm:max-w-sm">
+                <SheetHeader className="text-left mb-4">
+                  <SheetTitle>{author.name}</SheetTitle>
                 </SheetHeader>
-                <div className="flex flex-col gap-6 pt-6">
+                <div className="flex flex-col gap-4">
                   {navLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="text-sm font-medium text-foreground"
-                      onClick={() => setIsSheetOpen(false)} // Close sheet on link click
+                      className="text-lg font-medium text-foreground"
+                      onClick={() => setIsSheetOpen(false)}
                     >
                       {link.label}
                     </Link>
@@ -81,10 +68,30 @@ export function Header() {
             </Sheet>
           </div>
 
-          {/* Theme switcher (visible on all screen sizes) */}
+          {/* Desktop site title */}
+          <Link href="/" className="hidden md:block font-bold text-lg">
+            {author.name}
+          </Link>
+        </div>
+
+        {/* Desktop navigation in the center */}
+        <nav className="hidden md:flex items-center gap-6 text-sm absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="font-medium text-foreground/70 transition-colors hover:text-foreground"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Right-aligned items: Theme switcher */}
+        <div className="flex items-center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="ml-2">
+              <Button variant="ghost" size="icon">
                 <Palette className="h-5 w-5" />
                 <span className="sr-only">Toggle theme</span>
               </Button>
