@@ -73,7 +73,7 @@ export const articlesData: Article[] = [
   },
   {
     name: "Kailasanatha, Mathangeswara and Vaikunta Perumal temples in Kanchipuram",
-    link: "https://timeless-footprints.blogspot.com/2025/11/kailasanatha-mathangeswara-and-vaikunta.html",
+    link: "https://timeless-footprints.blogspot.com/2025/11/ajanta-caves.html",
     previewImageUrl: "/covers/kanchipuram-perumal-temples.jpg",
   },
 ];
