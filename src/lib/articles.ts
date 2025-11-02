@@ -52,7 +52,7 @@ export const articlesData: Article[] = [
     previewImageUrl: "/covers/ulagalandha-perumal-kanchipuram.jpg",
   },
   {
-    name: "Ulagalantha Perumal temple in Kanchipuram",
+    name: "Thirukkazhukkundram Vedagireeswarar-Sokkanayagi temple",
     link: "https://timeless-footprints.blogspot.com/2025/11/thirukkazhukkundram-vedagireeswarar.html",
     previewImageUrl: "/covers/ulagalandha-perumal-kanchipuram.jpg",
   },
