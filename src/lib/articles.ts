@@ -67,7 +67,7 @@ export const articlesData: Article[] = [
     previewImageUrl: "/covers/akp-kovil.jpg",
   },
   {
-    name: "Adikesava Perumal temple in Ammaiappanallur & Kuranganilmuttam Kal Mandapam",
+    name: "Kailasanatha, Mathangeswara and Vaikunta Perumal temples in Kanchipuram",
     link: "https://timeless-footprints.blogspot.com/2025/11/kailasanatha-mathangeswara-and-vaikunta.html",
     previewImageUrl: "/covers/akp-kovil.jpg",
   },
