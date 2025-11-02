@@ -63,7 +63,7 @@ export const articlesData: Article[] = [
   },
   {
     name: "Kanchipuram Varadaraja Perumal temple",
-    link: "https://timeless-footprints.blogspot.com/2025/11/kanchipuram-varadaraja-perumal-temple.html",
+    link: "https://timeless-footprints.blogspot.com/2025/11/adikesava-perumal-temple-in.html",
     previewImageUrl: "/covers/kanchipuram-vp-temple.jpg",
   },
 ];
