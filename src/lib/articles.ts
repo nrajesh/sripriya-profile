@@ -46,4 +46,9 @@ export const articlesData: Article[] = [
     link: "https://timeless-footprints.blogspot.com/2025/11/uthiramerur-sri-vaikuntha-perumal-temple.html",
     previewImageUrl: "/covers/uthiramerur-perumal-kovil.jpg",
   },
+  {
+    name: "Uthiramerur Sri Vaikuntha Perumal temple",
+    link: "https://timeless-footprints.blogspot.com/2025/11/uthiramerur-sri-vaikuntha-perumal-temple.html",
+    previewImageUrl: "/covers/uthiramerur-perumal-kovil.jpg",
+  },
 ];
