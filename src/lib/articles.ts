@@ -33,7 +33,7 @@ export const articlesData: Article[] = [
   },
   {
     name: "Pallava temples around Gingee",
-    link: "https://timeless-footprints.blogspot.com/2025/11/sundara-varadaraja-perumal-temple-in.html",
+    link: "https://timeless-footprints.blogspot.com/2025/11/pallava-temples-around-gingee.html",
     previewImageUrl: "/covers/svp-uthiramerur.jpg",
   },
 ];
