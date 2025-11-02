@@ -29,6 +29,6 @@ export const articlesData: Article[] = [
   {
     name: "Sundara Varadaraja Perumal temple in Uthiramerur",
     link: "https://www.prekshaa.in/the-value-of-sanskrit-learning-and-culture-part1",
-    previewImageUrl: "/covers/hiriyanna-collage.jpg",
+    previewImageUrl: "/covers/svp-uthiramerur.jpg",
   },
 ];
