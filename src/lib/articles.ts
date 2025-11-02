@@ -74,6 +74,11 @@ export const articlesData: Article[] = [
   {
     name: "Ajanta caves",
     link: "https://timeless-footprints.blogspot.com/2025/11/ajanta-caves.html",
-    previewImageUrl: "/covers/kanchipuram-perumal-temples.jpg",
+    previewImageUrl: "/covers/ajanta-caves.jpg",
+  },
+  {
+    name: "Ajanta caves",
+    link: "https://timeless-footprints.blogspot.com/2025/11/ajanta-caves.html",
+    previewImageUrl: "/covers/ajanta-caves.jpg",
   },
 ];
