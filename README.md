@@ -5,7 +5,8 @@ This is the official personal website for author and translator Sripriya Sriniva
 ## ✨ Features
 
 -   **Book Showcase**: Displays a curated list of Sripriya Srinivasan's books, including original publications and translations, on both the home page and a dedicated books page.
--   **Advanced Search & Filtering**: The "Books" page allows users to search for books by tags, publisher, or original authors, and filter by a range of publication years.
+-   **Articles & Publications**: A dedicated page lists articles and other publications, with links to the original sources.
+-   **Advanced Search & Filtering**: The "Books" page allows users to search by keywords (tags, publisher, authors) and filter by a range of publication years. The "Articles" page features a simple and effective search by title.
 -   **Interactive Book Overlay**: Clicking a book opens a detailed view in an overlay, preventing page reloads and providing a seamless browsing experience.
 -   **Seamless Navigation**: Users can navigate between books directly from the overlay using arrow keys, on-screen buttons, or touch gestures (swipe left/right) on mobile devices.
 -   **Dynamic Theming**: Includes a theme switcher for light and dark modes to ensure a comfortable viewing experience for all users.
@@ -46,11 +47,16 @@ To run this project locally, follow these steps:
 
 ## 📂 Project Structure
 
--   `src/app/`: Contains the core application pages and layouts, following the Next.js App Router structure.
+-   `src/app/`: Contains the core application pages and layouts (Home, About, Books, Articles), following the Next.js App Router structure.
 -   `src/components/`: Reusable React components used throughout the application (e.g., Header, Footer, UI elements).
--   `src/lib/`: Utility functions and data definitions, such as the `books.ts` data file.
+-   `src/lib/`: Utility functions and data definitions, such as `data.ts` (for books and author info) and `articles.ts`.
 -   `public/`: Static assets, including images (like book covers) and fonts.
 
 ## 📚 Managing Content
 
-Book information is managed in the `src/lib/data.ts` file. To add, update, or remove a book, you can edit the `rawBooks` array in this file. Make sure to add any new cover images to the `public/covers/` directory.
+Content for the website is managed in two key files:
+
+-   **Books**: To add, update, or remove a book, edit the `rawBooks` array in `src/lib/data.ts`.
+-   **Articles**: To manage articles, edit the `articlesData` array in `src/lib/articles.ts`.
+
+Make sure to add any new cover or preview images to the `public/covers/` directory.
