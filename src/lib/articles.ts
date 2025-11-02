@@ -56,4 +56,9 @@ export const articlesData: Article[] = [
     link: "https://timeless-footprints.blogspot.com/2025/11/thirukkazhukkundram-vedagireeswarar.html",
     previewImageUrl: "/covers/thirukkazhukkundram-temple.jpg",
   },
+  {
+    name: "Thirukkazhukkundram Vedagireeswarar-Sokkanayagi temple",
+    link: "https://timeless-footprints.blogspot.com/2025/11/thirukkazhukkundram-vedagireeswarar.html",
+    previewImageUrl: "/covers/thirukkazhukkundram-temple.jpg",
+  },
 ];
