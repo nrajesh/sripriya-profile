@@ -41,4 +41,9 @@ export const articlesData: Article[] = [
     link: "https://timeless-footprints.blogspot.com/2025/11/vallam-kudavarai-kovil.html",
     previewImageUrl: "/covers/vallam-kovil.jpg",
   },
+  {
+    name: "Vallam Kudavarai Kovil",
+    link: "https://timeless-footprints.blogspot.com/2025/11/vallam-kudavarai-kovil.html",
+    previewImageUrl: "/covers/vallam-kovil.jpg",
+  },
 ];
