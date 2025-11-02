@@ -57,7 +57,7 @@ export const articlesData: Article[] = [
     previewImageUrl: "/covers/thirukkazhukkundram-temple.jpg",
   },
   {
-    name: "Thirukkazhukkundram Vedagireeswarar-Sokkanayagi temple",
+    name: "Kanchipuram Varadaraja Perumal temple",
     link: "https://timeless-footprints.blogspot.com/2025/11/kanchipuram-varadaraja-perumal-temple.html",
     previewImageUrl: "/covers/thirukkazhukkundram-temple.jpg",
   },
