@@ -2,12 +2,16 @@ export interface Article {
   name: string;
   link: string;
   previewImageUrl?: string;
+<<<<<<< HEAD
   isNew?: boolean;
+=======
+>>>>>>> origin/main
 }
 
 // You can easily add new articles to this list.
 export const articlesData: Article[] = [
   {
+<<<<<<< HEAD
     name: "Ellora caves",
     link: "https://timeless-footprints.blogspot.com/2025/11/ellora-caves.html",
     previewImageUrl: "/covers/ellora-caves.jpg",
@@ -78,6 +82,11 @@ export const articlesData: Article[] = [
     name: "உபநயனம் – ஒரு எளிய அறிமுகம் (முகவுரை)",
     link: "https://www.prekshaa.in/upanayanam-part1-mugavurai",
     previewImageUrl: "/covers/upanayanam.jpg",
+=======
+    name: "சிவ-ராம-கிருஷ்ணன்: மூன்று தத்துவங்கள்",
+    link: "https://www.prekshaa.in/%E0%AE%9A%E0%AE%BF%E0%AE%B5-%E0%AE%B0%E0%AE%BE%E0%AE%AE-%E0%AE%95%E0%AE%BF%E0%AE%B0%E0%AF%81%E0%AE%B7%E0%AF%8D%E0%AE%A3%E0%AE%A9%E0%AF%8D-%E0%AE%AE%E0%AF%82%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AF%81-%E0%AE%A4%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AF%81%E0%AE%B5%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AF%8D",
+    previewImageUrl: "/covers/shiva.jpg",
+>>>>>>> origin/main
   },
   {
     name: "Scientific Inquisitiveness and Holistic Vision in the Poems of Subramania Bharati (Part 1)",
@@ -85,8 +94,80 @@ export const articlesData: Article[] = [
     previewImageUrl: "/covers/starry-night.jpg",
   },
   {
+<<<<<<< HEAD
     name: "சிவ-ராம-கிருஷ்ணன்: மூன்று தத்துவங்கள்",
     link: "https://www.prekshaa.in/%E0%AE%9A%E0%AE%BF%E0%AE%B5-%E0%AE%B0%E0%AE%BE%E0%AE%AE-%E0%AE%95%E0%AE%BF%E0%AE%B0%E0%AF%81%E0%AE%B7%E0%AF%8D%E0%AE%A3%E0%AE%A9%E0%AF%8D-%E0%AE%AE%E0%AF%82%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AF%81-%E0%AE%A4%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AF%81%E0%AE%B5%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AF%8D",
     previewImageUrl: "/covers/shiva.jpg",
   }
+=======
+    name: "உபநயனம் – ஒரு எளிய அறிமுகம் (முகவுரை)",
+    link: "https://www.prekshaa.in/upanayanam-part1-mugavurai",
+    previewImageUrl: "/covers/upanayanam.jpg",
+  },
+  {
+    name: "சமஸ்கிருதம் கற்றலும் நம் கலாச்சாரத்தின் மதிப்பும் (பகுதி 1)",
+    link: "https://www.prekshaa.in/the-value-of-sanskrit-learning-and-culture-part1",
+    previewImageUrl: "/covers/hiriyanna-collage.jpg",
+  },
+  {
+    name: "Sundara Varadaraja Perumal temple in Uthiramerur",
+    link: "https://timeless-footprints.blogspot.com/2025/11/sundara-varadaraja-perumal-temple-in.html",
+    previewImageUrl: "/covers/svp-uthiramerur.jpg",
+  },
+  {
+    name: "Pallava temples around Gingee",
+    link: "https://timeless-footprints.blogspot.com/2025/11/pallava-temples-around-gingee.html",
+    previewImageUrl: "/covers/pallava-temples-gingee.jpg",
+  },
+  {
+    name: "Vallam Kudavarai Kovil",
+    link: "https://timeless-footprints.blogspot.com/2025/11/vallam-kudavarai-kovil.html",
+    previewImageUrl: "/covers/vallam-kovil.jpg",
+  },
+  {
+    name: "Uthiramerur Sri Vaikuntha Perumal temple",
+    link: "https://timeless-footprints.blogspot.com/2025/11/uthiramerur-sri-vaikuntha-perumal-temple.html",
+    previewImageUrl: "/covers/uthiramerur-perumal-kovil.jpg",
+  },
+  {
+    name: "Ulagalantha Perumal temple in Kanchipuram",
+    link: "https://timeless-footprints.blogspot.com/2025/11/ulagalantha-perumal-temple-in.html",
+    previewImageUrl: "/covers/ulagalandha-perumal-kanchipuram.jpg",
+  },
+  {
+    name: "Thirukkazhukkundram Vedagireeswarar-Sokkanayagi temple",
+    link: "https://timeless-footprints.blogspot.com/2025/11/thirukkazhukkundram-vedagireeswarar.html",
+    previewImageUrl: "/covers/thirukkazhukkundram-temple.jpg",
+  },
+  {
+    name: "Kanchipuram Varadaraja Perumal temple",
+    link: "https://timeless-footprints.blogspot.com/2025/11/kanchipuram-varadaraja-perumal-temple.html",
+    previewImageUrl: "/covers/kanchipuram-vp-temple.jpg",
+  },
+  {
+    name: "Adikesava Perumal temple in Ammaiappanallur & Kuranganilmuttam Kal Mandapam",
+    link: "https://timeless-footprints.blogspot.com/2025/11/adikesava-perumal-temple-in.html",
+    previewImageUrl: "/covers/akp-kovil.jpg",
+  },
+  {
+    name: "Kailasanatha, Mathangeswara and Vaikunta Perumal temples in Kanchipuram",
+    link: "https://timeless-footprints.blogspot.com/2025/11/kailasanatha-mathangeswara-and-vaikunta.html",
+    previewImageUrl: "/covers/kanchipuram-perumal-temples.jpg",
+  },
+  {
+    name: "Ajanta caves",
+    link: "https://timeless-footprints.blogspot.com/2025/11/ajanta-caves.html",
+    previewImageUrl: "/covers/ajanta-caves.jpg",
+  },
+  {
+    name: "Ellora caves",
+    link: "https://timeless-footprints.blogspot.com/2025/11/ellora-caves.html",
+    previewImageUrl: "/covers/ellora-caves.jpg",
+  },
+  {
+    name: "Cambodia",
+    link: "https://timeless-footprints.blogspot.com/2025/11/cambodia.html",
+    previewImageUrl: "/covers/cambodia.jpg",
+  },
+>>>>>>> origin/main
 ];

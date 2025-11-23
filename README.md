@@ -54,6 +54,7 @@ To run this project locally, follow these steps:
 
 ## 📚 Managing Content
 
+<<<<<<< HEAD
 All the dynamic content for the website (books and articles) is managed through simple data files in the `src/lib/` directory. This makes it easy to update the site without needing to change any of the component code.
 
 ### Books
@@ -102,3 +103,11 @@ You can easily mark a book or article as "new" by adding the `isNew: true` prope
 The sticker system is designed to be robust:
 -   It primarily uses an image located at `/public/new-sticker.png`.
 -   If this image ever fails to load, a fallback text-based sticker (styled with CSS) will be displayed automatically, ensuring the "new" status is always visible.
+=======
+Content for the website is managed in two key files:
+
+-   **Books**: To add, update, or remove a book, edit the `rawBooks` array in `src/lib/data.ts`.
+-   **Articles**: To manage articles, edit the `articlesData` array in `src/lib/articles.ts`.
+
+Make sure to add any new cover or preview images to the `public/covers/` directory.
+>>>>>>> origin/main

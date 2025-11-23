@@ -12,8 +12,11 @@ import { ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { Book } from "@/lib/data";
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
+<<<<<<< HEAD
 import { BookDetailsContent } from "./book-details-content";
 import { NewSticker } from "./new-sticker";
+=======
+>>>>>>> origin/main
 
 interface BookDetailDialogProps {
   book: Book | null;
@@ -88,7 +91,10 @@ export function BookDetailDialog({
           {/* Left side: Cover Image and Links (Stable and Centered) */}
           <div className="p-6 md:p-8 flex flex-col items-center justify-center border-r">
             <div className="aspect-[2/3] relative shadow-xl w-full max-w-xs">
+<<<<<<< HEAD
               {book.isNew && <NewSticker />}
+=======
+>>>>>>> origin/main
               <Image
                 src={book.coverUrl}
                 alt={`Cover of ${book.title}`}
@@ -118,7 +124,82 @@ export function BookDetailDialog({
             <DialogHeader className="mb-4 flex-shrink-0">
               <DialogTitle className="text-2xl">{book.title}</DialogTitle>
             </DialogHeader>
+<<<<<<< HEAD
             <BookDetailsContent book={book} />
+=======
+            <div className="space-y-3 text-muted-foreground text-sm">
+              {book.originalAuthors && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Original Authors:
+                  </span>{" "}
+                  {book.originalAuthors}
+                </p>
+              )}
+              {book.publisher && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Publisher:
+                  </span>{" "}
+                  {book.publisher}
+                </p>
+              )}
+              {book.publicationDate && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Published:
+                  </span>{" "}
+                  {book.publicationDate}
+                </p>
+              )}
+              {book.pageCount && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Pages:
+                  </span>{" "}
+                  {book.pageCount}
+                </p>
+              )}
+              {book.isbn && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    ISBN/ASIN:
+                  </span>{" "}
+                  {book.isbn}
+                </p>
+              )}
+              {book.category && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Category:
+                  </span>{" "}
+                  {book.category}
+                </p>
+              )}
+              {book.tags && (
+                <p>
+                  <span className="font-medium text-foreground">
+                    Tags:
+                  </span>{" "}
+                  {book.tags
+                    .split(",")
+                    .map((tag) => tag.trim())
+                    .sort()
+                    .join(", ")}
+                </p>
+              )}
+              {book.description && (
+                <div className="mt-4">
+                  <h3 className="font-medium text-foreground mb-1">
+                    Description
+                  </h3>
+                  <p className="text-muted-foreground whitespace-pre-line">
+                    {book.description}
+                  </p>
+                </div>
+              )}
+            </div>
+>>>>>>> origin/main
           </div>
         </div>
 
