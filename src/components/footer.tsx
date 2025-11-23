@@ -1,0 +1,40 @@
+import Link from "next/link";
+import { socialLinks, author } from "@/lib/data";
+
+export function Footer() {
+  return (
+    <footer className="border-t border-border/40">
+      <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+        {/* Privacy Policy Link - Left aligned with margin on desktop */}
+        <Link
+          href="/privacy"
+          className="text-center text-sm leading-loose text-muted-foreground hover:underline md:ml-4"
+        >
+          Privacy Policy
+        </Link>
+
+        {/* Copyright Text - Centered */}
+        <p className="text-center text-sm leading-loose text-muted-foreground">
+          &copy; {new Date().getFullYear()} {author.name}. All Rights
+          Reserved.
+        </p>
+
+        {/* Social Links - Right aligned */}
+        <div className="flex items-center gap-4">
+          {socialLinks.map((social) => (
+            <Link
+              key={social.href}
+              href={social.href}
+              target="_blank"
+              rel="noreferrer"
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <social.icon className="h-5 w-5" />
+              <span className="sr-only">{social.label}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </footer>
+  );
+}
