@@ -3,12 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Article } from "@/lib/articles";
 import { Link as LinkIcon } from "lucide-react";
+import { NewSticker } from "./new-sticker";
 
 interface ArticleCardProps {
   article: Article;
+  isNew?: boolean;
 }
 
-export function ArticleCard({ article }: ArticleCardProps) {
+export function ArticleCard({ article, isNew = false }: ArticleCardProps) {
   return (
     <a
       href={article.link}
@@ -18,7 +20,8 @@ export function ArticleCard({ article }: ArticleCardProps) {
     >
       <Card className="border-2 flex flex-col shadow-none rounded-none h-full transition-colors group-hover:bg-muted/50">
         <CardHeader className="p-0 border-b-2">
-          <AspectRatio ratio={16 / 9} className="bg-muted">
+          <AspectRatio ratio={16 / 9} className="bg-muted relative">
+            {isNew && <NewSticker />}
             {article.previewImageUrl ? (
               <Image
                 src={article.previewImageUrl}

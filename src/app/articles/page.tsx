@@ -1,9 +1,10 @@
 "use client";
 
 import { GeometricBackground } from "@/components/geometric-background";
-import { ArticleSearch } from "@/components/article-search";
+import { SearchInput } from "@/components/search-input";
 import { useArticleFilters } from "@/hooks/use-article-filters";
 import { ArticleCard } from "@/components/article-card";
+import { articlesData } from "@/lib/articles";
 
 export default function ArticlesPage() {
   const { searchTerm, setSearchTerm, filteredArticles } = useArticleFilters();
@@ -21,14 +22,26 @@ export default function ArticlesPage() {
           </p>
         </header>
 
+        <p className="text-center text-muted-foreground mb-4 font-semibold">
+          Click on an image to see more details.
+        </p>
+
         <div className="mb-12 max-w-2xl mx-auto">
-          <ArticleSearch onSearch={setSearchTerm} initialSearchTerm={searchTerm} />
+          <SearchInput 
+            onSearch={setSearchTerm} 
+            initialSearchTerm={searchTerm}
+            placeholder="Search by article name or link..."
+          />
         </div>
 
         {filteredArticles.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {filteredArticles.map((article) => (
-              <ArticleCard key={article.link} article={article} />
+              <ArticleCard 
+                key={article.link} 
+                article={article} 
+                isNew={article.isNew}
+              />
             ))}
           </div>
         ) : (

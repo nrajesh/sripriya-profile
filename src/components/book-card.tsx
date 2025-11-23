@@ -3,14 +3,16 @@
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Book } from "@/lib/data";
+import { NewSticker } from "@/components/new-sticker";
 
 interface BookCardProps {
   book: Book;
   priority?: boolean;
   onSelectBook: (id: number) => void;
+  isNew?: boolean;
 }
 
-export function BookCard({ book, priority = false, onSelectBook }: BookCardProps) {
+export function BookCard({ book, priority = false, onSelectBook, isNew = false }: BookCardProps) {
   const imageSizes = "(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw";
 
   return (
@@ -21,6 +23,7 @@ export function BookCard({ book, priority = false, onSelectBook }: BookCardProps
       >
         <CardHeader className="p-0 border-b-2">
           <div className="aspect-[2/3] relative block">
+            {isNew && <NewSticker />}
             <Image
               src={book.coverUrl}
               alt={`Cover of ${book.title}`}

@@ -4,12 +4,13 @@ import React, { useState, useEffect } from "react";
 import { Command, CommandInput } from "@/components/ui/command";
 import { Search } from "lucide-react";
 
-interface BookSearchProps {
+interface SearchInputProps {
   onSearch: (searchTerm: string) => void;
   initialSearchTerm: string;
+  placeholder: string;
 }
 
-export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
+export function SearchInput({ onSearch, initialSearchTerm, placeholder }: SearchInputProps) {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(initialSearchTerm);
 
@@ -40,7 +41,7 @@ export function BookSearch({ onSearch, initialSearchTerm }: BookSearchProps) {
         <CommandInput
           value={searchTerm}
           onValueChange={setSearchTerm}
-          placeholder="Search by tags, publisher, or authors..."
+          placeholder={placeholder}
           className="h-10 border-none focus:ring-0"
         />
       </Command>

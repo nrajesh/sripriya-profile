@@ -71,7 +71,7 @@ export default function Home() {
             }}
             className="w-full"
           >
-            <CarouselContent>
+            <CarouselContent className="py-4">
               {books.map((book, index) => (
                 <CarouselItem
                   key={book.title}
@@ -81,6 +81,7 @@ export default function Home() {
                     book={book}
                     priority={index === 0}
                     onSelectBook={setCurrentBookId}
+                    isNew={book.isNew}
                   />
                 </CarouselItem>
               ))}
