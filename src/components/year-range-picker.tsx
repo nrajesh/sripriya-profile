@@ -30,10 +30,10 @@ export function YearRangePicker({
 }: YearRangePickerProps) {
   const currentYear = new Date().getFullYear();
   // Generate years based on minYear and maxYear props, or default to 1900 to current year
-  const startYear = minYear !== undefined ? minYear : 1900;
+  const startYear = minYear !== undefined ? minYear : 2017;
   const endYear = maxYear !== undefined ? maxYear : currentYear;
 
-  const years = React.useMemo(() => 
+  const years = React.useMemo(() =>
     Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i).reverse(),
     [startYear, endYear]
   );
@@ -53,10 +53,10 @@ export function YearRangePicker({
 
   React.useEffect(() => {
     // Jan 1st of fromYear
-    const fromDate = fromYear ? new Date(parseInt(fromYear), 0, 1) : undefined; 
-    
+    const fromDate = fromYear ? new Date(parseInt(fromYear), 0, 1) : undefined;
+
     // Dec 31st of toYear, set to the very end of the day (23:59:59.999)
-    const toDate = toYear ? new Date(parseInt(toYear), 11, 31, 23, 59, 59, 999) : undefined; 
+    const toDate = toYear ? new Date(parseInt(toYear), 11, 31, 23, 59, 59, 999) : undefined;
 
     onYearChange({ from: fromDate, to: toDate });
   }, [fromYear, toYear, onYearChange]); // Removed initialRange from dependencies as it's handled by the effect above
